@@ -15,7 +15,12 @@ INSERT INTO user (username, email, hashedPassword)
 VALUES 
 (
 "LightQv", 
-"vivian@vivian", 
+"vivian@gmail.com", 
+"$argon2id$v=19$m=65536,t=5,p=1$+8QKgBU+Z7zr2EVICuFDOg$74Nu7DWmpa/+VW7543Xm28gd+ATVrhtCV2lAakJ4i+A"
+),
+(
+"Azraeth", 
+"azraeth@gmail.com", 
 "$argon2id$v=19$m=65536,t=5,p=1$+8QKgBU+Z7zr2EVICuFDOg$74Nu7DWmpa/+VW7543Xm28gd+ATVrhtCV2lAakJ4i+A"
 );
 
@@ -34,14 +39,20 @@ ENGINE=InnoDB DEFAULT CHARSET = utf8;
 INSERT INTO post (title, gif_url, created_at, user_id) 
 VALUES 
 (
-"Mon mood", 
-"https://media.giphy.com/media/NS7gPxeumewkWDOIxi/giphy.gif", 
-"2023-07-10 10:22:42", 
+"Too much at work...", 
+"https://media.giphy.com/media/hyyV7pnbE0FqLNBAzs/giphy.gif", 
+"2023-07-16 15:12:22", 
 1
 ),
 (
-"Victoire!", 
-"Mais ! C'blog ! Et e plus  c'est vraimen regarde ça.", 
+"My to-do list.", 
+"https://media.giphy.com/media/QMHoU66sBXqqLqYvGO/giphy.gif", 
+"2023-07-15 10:22:42", 
+2
+),
+(
+"Where are my keys ?", 
+"https://media.giphy.com/media/NS7gPxeumewkWDOIxi/giphy.gif", 
 "2023-07-13 21:00:00", 
 1
 );

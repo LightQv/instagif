@@ -8,7 +8,7 @@ import ActivePostSvg from "./svg/ActivePostSvg";
 
 export default function NavBar() {
   return (
-    <nav className="bottom-0 fixed z-10 bg-gradient-to-b from-dust-0 via-dust-0 via-30% to-transparent flex justify-evenly items-center w-full h-12">
+    <nav className="bottom-0 fixed z-10 bg-gradient-to-b from-dust-0 via-dust-0 via-30% to-dust-0 flex justify-evenly items-center w-full h-12">
       <ul className="w-full h-full flex justify-evenly items-center">
         <li>
           <NavLink to="/">
