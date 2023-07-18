@@ -55,7 +55,7 @@ const add = (req, res) => {
 
   // TODO validations (length, format...)
 
-  models.item
+  models.post
     .insert(post)
     .then(([result]) => {
       res.location(`/posts/${result.insertId}`).sendStatus(201);
