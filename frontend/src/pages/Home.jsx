@@ -1,10 +1,9 @@
 import React from "react";
-import { Link } from "react-router-dom";
 
 export default function Home() {
   return (
-    <div>
-      <Link to="/profile">go</Link>
-    </div>
+    <main className="bg-dust-0 min-h-screen w-screen flex flex-col justify-between font-inter">
+      Main
+    </main>
   );
 }
