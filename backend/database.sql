@@ -35,7 +35,7 @@ INSERT INTO post (title, gif_url, created_at, user_id)
 VALUES 
 (
 "Mon mood", 
-"Ici, je vass & 'hebergement gratuit.", 
+"https://media.giphy.com/media/NS7gPxeumewkWDOIxi/giphy.gif", 
 "2023-07-10 10:22:42", 
 1
 ),

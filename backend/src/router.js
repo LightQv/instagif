@@ -2,12 +2,35 @@ const express = require("express");
 
 const router = express.Router();
 
-const itemControllers = require("./controllers/itemControllers");
+const { validateUser } = require("./services/validators");
+const { getUserByEmailMiddleware } = require("./controllers/authControllers");
+const {
+  hashPassword,
+  verifyPassword,
+  verifyToken,
+  logout,
+} = require("./services/auth");
 
-router.get("/items", itemControllers.browse);
-router.get("/items/:id", itemControllers.read);
-router.put("/items/:id", itemControllers.edit);
-router.post("/items", itemControllers.add);
-router.delete("/items/:id", itemControllers.destroy);
+const userControllers = require("./controllers/userControllers");
+const postControllers = require("./controllers/postControllers");
+
+// Public Routes (without Auth)
+router.post("/login", getUserByEmailMiddleware, verifyPassword);
+
+router.get("/users", userControllers.browse);
+router.get("/users/:id", userControllers.read);
+router.post("/users", validateUser, hashPassword, userControllers.add);
+
+// Private Routes (Auth requiered)
+router.use(verifyToken);
+router.get("/logout", logout);
+router.put("/users/:id", validateUser, userControllers.edit);
+router.delete("/users/:id", userControllers.destroy);
+
+router.get("/posts", postControllers.browse);
+router.get("/posts/:id", postControllers.read);
+router.put("/posts/:id", postControllers.edit);
+router.post("/posts", postControllers.add);
+router.delete("/posts/:id", postControllers.destroy);
 
 module.exports = router;
