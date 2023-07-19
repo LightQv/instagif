@@ -49,7 +49,7 @@ export default function Profile() {
             <PostInsight data={post} index={index} key={post.post_id} />
           ))
         ) : (
-          <p>You haven't posted anything yet.</p>
+          <p>Haven't posted anything yet.</p>
         )}
       </ul>
     </main>

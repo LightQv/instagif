@@ -5,10 +5,10 @@ import { useUserContext } from "../context/UserContext";
 import BackSvg from "../components/svg/BackSvg";
 import NotificationSvg from "../components/svg/NotificationSvg";
 import { notifyError } from "../services/toasts";
-import GifInsight from "../components/create-post/GifInsight";
+import GifInsight from "../components/post/GifInsight";
 import ActiveFireSvg from "../components/svg/ActiveFireSvg";
 import FireSvg from "../components/svg/FireSvg";
-import CreatePostModal from "../components/create-post/CreatePostModal";
+import CreatePostModal from "../components/post/CreatePostModal";
 
 const API_KEY = import.meta.env.VITE_GIPHY_API_KEY;
 
