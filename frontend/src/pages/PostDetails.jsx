@@ -5,10 +5,18 @@ import BackSvg from "../components/svg/BackSvg";
 import NotificationSvg from "../components/svg/NotificationSvg";
 import PostBox from "../components/PostBox";
 import { notifyError } from "../services/toasts";
+import { useUserContext } from "../context/UserContext";
+import EditPostModal from "../components/post/EditPostModal";
 
 export default function PostDetails() {
   const { id } = useParams();
+  const { user } = useUserContext();
   const [post, setPost] = useState(null);
+  const [isShow, setIsShow] = useState({
+    editModal: false,
+    deleteModal: false,
+  });
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -25,9 +33,37 @@ export default function PostDetails() {
         </button>
         <NotificationSvg />
       </header>
+      {post?.user_id === user.id && (
+        <div className="my-4 flex gap-2 px-4">
+          <button
+            type="button"
+            className="h-fit w-full rounded-md bg-cobble-0 py-1 text-sm font-semibold text-dust-0"
+            onClick={() => setIsShow({ editModal: true })}
+          >
+            Edit
+          </button>
+          <button
+            type="button"
+            className="h-fit w-full rounded-md bg-cobble-0 py-1 text-sm font-semibold text-dust-0"
+          >
+            Delete
+          </button>
+        </div>
+      )}
       <ul className="flex flex-col gap-4 lg:w-2/6 lg:self-center">
         {post && <PostBox data={post} key={post.post_id} />}
       </ul>
+      <div
+        className={
+          isShow.editModal || isShow.deleteModal
+            ? "fixed left-0 top-0 z-20 flex min-h-screen min-w-full items-center justify-center bg-black/90"
+            : "hidden"
+        }
+      >
+        {isShow.editModal && (
+          <EditPostModal post={post} setIsShow={setIsShow} />
+        )}
+      </div>
     </main>
   );
 }
