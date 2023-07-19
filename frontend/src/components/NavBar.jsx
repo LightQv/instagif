@@ -10,7 +10,7 @@ import NotificationSvg from "./svg/NotificationSvg";
 
 export default function NavBar() {
   return (
-    <nav className="fixed bottom-0 z-10 flex h-12 w-full items-center justify-evenly bg-gradient-to-b from-dust-0 via-dust-0 via-30% to-dust-0 lg:top-0 lg:h-16 lg:justify-between lg:bg-dust-0 lg:px-12">
+    <nav className="fixed bottom-0 z-10 flex h-12 w-full items-center justify-evenly bg-gradient-to-b from-dust-0 via-dust-0 via-30% to-dustparent-0 lg:top-0 lg:h-16 lg:justify-between lg:bg-dust-0 lg:px-12">
       <div className="hidden lg:flex lg:h-full lg:w-full lg:items-center lg:gap-6">
         <img src={logo} alt="logo" className="lg:h-full" />
         <NotificationSvg />
@@ -22,7 +22,7 @@ export default function NavBar() {
           </NavLink>
         </li>
         <li>
-          <NavLink to="/post">
+          <NavLink to="/create">
             {({ isActive }) => (isActive ? <ActivePostSvg /> : <PostSvg />)}
           </NavLink>
         </li>

@@ -43,7 +43,7 @@ export default function Profile() {
           Edit profile
         </button>
       </div>
-      <ul className="grid w-full grid-cols-2 lg:w-2/3">
+      <ul className="grid w-full grid-cols-2 gap-[0.1rem] lg:w-2/3">
         {postList && postList.length !== 0 ? (
           postList.map((post, index) => (
             <PostInsight data={post} index={index} key={post.post_id} />
