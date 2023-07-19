@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import APIService from "../services/APIService";
+import Header from "../components/Header";
 import PostBox from "../components/PostBox";
 import { notifyError } from "../services/toasts";
 
@@ -13,8 +14,9 @@ export default function Home() {
   }, []);
 
   return (
-    <main className="bg-dust-0 min-h-screen w-screen flex flex-col justify-between font-inter mb-12">
-      <ul className="w-full">
+    <main className="flex min-h-screen flex-col justify-between bg-dust-0 pb-12 font-inter lg:pb-0 lg:pt-16">
+      <Header />
+      <ul className="flex flex-col gap-4 lg:w-2/6 lg:self-center">
         {posts &&
           posts.map((post) => <PostBox data={post} key={post.post_id} />)}
       </ul>

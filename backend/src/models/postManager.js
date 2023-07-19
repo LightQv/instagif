@@ -27,6 +27,17 @@ class ItemManager extends AbstractManager {
       ORDER BY created_at DESC`
     );
   }
+
+  findByUser(id) {
+    return this.database.query(
+      `select post.id as post_id, title, gif_url, created_at 
+      from ${this.table} 
+      join user on user.id = user_id
+      where user.id = ?
+      ORDER BY created_at DESC`,
+      [id]
+    );
+  }
 }
 
 module.exports = ItemManager;
