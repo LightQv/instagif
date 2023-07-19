@@ -2,6 +2,7 @@ import PropTypes from "prop-types";
 import TimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en.json";
 import ReactTimeAgo from "react-time-ago";
+import { Link } from "react-router-dom";
 import LikeSvg from "./svg/LikeSvg";
 import CommentSvg from "./svg/CommentSvg";
 
@@ -10,7 +11,9 @@ export default function PostBox({ data }) {
 
   return (
     <li className="w-full">
-      <img src={data.gif_url} alt="mood_gif" className="w-full" />
+      <Link to={`/post-details/${data.post_id}`}>
+        <img src={data.gif_url} alt="mood_gif" className="w-full" />
+      </Link>
       <div className="flex w-full items-center justify-start gap-2 p-4">
         <div className="flex h-8 w-8 items-center justify-center self-start rounded-full bg-cobble-0 text-dust-0">
           {data.username.slice(0, 1)}

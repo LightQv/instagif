@@ -4,6 +4,7 @@ import "react-toastify/dist/ReactToastify.css";
 import NavBar from "./components/NavBar";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
+import PostDetails from "./pages/PostDetails";
 import RequireAuth from "./components/routes/RequireAuth";
 import Profile from "./pages/Profile";
 
@@ -15,6 +16,7 @@ function App() {
         {/* Public Routes */}
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/post-details/:id" element={<PostDetails />} />
         {/* Private Routes, Redirect to Login if no user Auth */}
         <Route element={<RequireAuth />}>
           <Route path="/post" element={<Profile />} />

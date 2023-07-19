@@ -38,6 +38,16 @@ class ItemManager extends AbstractManager {
       [id]
     );
   }
+
+  findWithUser(id) {
+    return this.database.query(
+      `select post.id as post_id, title, gif_url, created_at, user.id as user_id, user.username as username  
+      from ${this.table} 
+      join user on user.id = user_id
+      where post.id = ?`,
+      [id]
+    );
+  }
 }
 
 module.exports = ItemManager;

@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 export default function PostInsight({ data, index }) {
   return (
     <li className="h-full w-full">
-      <Link to={`/post/${data.post_id}`}>
+      <Link to={`/post-details/${data.post_id}`}>
         <img
           src={data.gif_url}
           alt={`Post ${index + 1}`}
