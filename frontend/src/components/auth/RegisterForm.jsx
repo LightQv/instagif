@@ -38,13 +38,13 @@ export default function RegisterForm({ setForm }) {
     },
   });
   return (
-    <div className="flex flex-col justify-center p-6 lg:p-8">
+    <div className="flex flex-col justify-center p-6 lg:w-2/6 lg:rounded-md lg:bg-sand-0 lg:p-8">
       <form
         action="login"
         onSubmit={formik.handleSubmit}
-        className="gap-4 space-y-4"
+        className="gap-4 space-y-4 lg:gap-6 lg:space-y-6"
       >
-        <h3 className="font-spartan font-semibold text-2xl">Register</h3>
+        <h3 className="font-spartan text-2xl font-semibold">Register</h3>
         <div className="flex flex-col">
           <label
             htmlFor="username"
@@ -68,7 +68,7 @@ export default function RegisterForm({ setForm }) {
             value={formik.values.username}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
-            className="px-4 py-2 rounded-md placeholder:italic placeholder:opacity-50"
+            className="rounded-md px-4 py-2 placeholder:italic placeholder:opacity-50"
           />
         </div>
         <div className="flex flex-col">
@@ -94,7 +94,7 @@ export default function RegisterForm({ setForm }) {
             value={formik.values.email}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
-            className="px-4 py-2 rounded-md placeholder:italic placeholder:opacity-50"
+            className="rounded-md px-4 py-2 placeholder:italic placeholder:opacity-50"
           />
         </div>
         <div className="flex flex-col">
@@ -120,19 +120,19 @@ export default function RegisterForm({ setForm }) {
             value={formik.values.password}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
-            className="px-4 py-2 rounded-md placeholder:italic placeholder:opacity-50"
+            className="rounded-md px-4 py-2 placeholder:italic placeholder:opacity-50"
           />
         </div>
         <button
           type="submit"
-          className="font-semibold text-white text-base disabled:text-gray-800 w-full h-fit px-4 py-2 rounded-md bg-dust-0 bg-red-800 disabled:bg-gray-300"
+          className="h-fit w-full rounded-md bg-dust-0 bg-red-800 px-4 py-2 text-base font-semibold text-white disabled:bg-gray-300 disabled:text-gray-800"
           onSubmit={formik.handleSubmit}
           disabled={!registerSchema.isValidSync(formik.values)}
         >
           Register
         </button>
       </form>
-      <h4 className="mt-6 text-sm italic self-center font-spartan">
+      <h4 className="mt-6 self-center font-spartan text-sm italic">
         You already have an account,{" "}
         <button
           type="button"

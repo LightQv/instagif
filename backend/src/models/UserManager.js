@@ -22,9 +22,7 @@ class userManager extends AbstractManager {
   }
 
   findAll() {
-    return this.database.query(
-      `select id, username, email from  ${this.table}`
-    );
+    return this.database.query(`select id, username, email from ${this.table}`);
   }
 
   update(user) {

@@ -12,6 +12,22 @@ const browse = (req, res) => {
     });
 };
 
+const browseByUser = (req, res) => {
+  models.post
+    .findByUser(req.params.id)
+    .then(([rows]) => {
+      if (rows[0] == null) {
+        res.sendStatus(404);
+      } else {
+        res.send(rows);
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
+
 const read = (req, res) => {
   models.post
     .find(req.params.id)
@@ -84,6 +100,7 @@ const destroy = (req, res) => {
 
 module.exports = {
   browse,
+  browseByUser,
   read,
   edit,
   add,

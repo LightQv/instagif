@@ -9,17 +9,17 @@ export default function PostBox({ data }) {
   TimeAgo.addLocale(en);
 
   return (
-    <li className="w-full h-fit pb-4 border-b-2 border-gray-200">
+    <li className="w-full">
       <img src={data.gif_url} alt="mood_gif" className="w-full" />
-      <div className="w-full flex justify-start items-center gap-2 p-4">
-        <div className="self-start h-8 w-8 bg-cobble-0 rounded-full text-dust-0 flex items-center justify-center">
+      <div className="flex w-full items-center justify-start gap-2 p-4">
+        <div className="flex h-8 w-8 items-center justify-center self-start rounded-full bg-cobble-0 text-dust-0">
           {data.username.slice(0, 1)}
         </div>
         <div className="mt-1 w-[calc(100%-2.5rem)]">
-          <div className="flex justify-between items-center">
+          <div className="flex items-center justify-between">
             <h3 className="font-semibold">
               {data.username}'s{" "}
-              <span className="italic font-normal text-xs">
+              <span className="text-xs font-normal italic">
                 mood{" "}
                 <ReactTimeAgo
                   date={new Date(data.created_at).toLocaleDateString("en-US")}
@@ -28,7 +28,7 @@ export default function PostBox({ data }) {
                 .
               </span>
             </h3>
-            <div className="ml-auto flex gap-2 items-center">
+            <div className="flex items-center gap-2">
               <button type="button">
                 <LikeSvg />
               </button>
@@ -37,7 +37,7 @@ export default function PostBox({ data }) {
               </button>
             </div>
           </div>
-          <p className="-mt-1 font-bold text-lg">"{data.title}"</p>
+          <p className="-mt-1 text-lg font-bold">"{data.title}"</p>
         </div>
       </div>
     </li>
