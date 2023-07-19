@@ -30,7 +30,7 @@ const browseByUser = (req, res) => {
 
 const read = (req, res) => {
   models.post
-    .find(req.params.id)
+    .findWithUser(req.params.id)
     .then(([rows]) => {
       if (rows[0] == null) {
         res.sendStatus(404);
