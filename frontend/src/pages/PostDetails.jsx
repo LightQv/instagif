@@ -7,6 +7,7 @@ import PostBox from "../components/PostBox";
 import { notifyError } from "../services/toasts";
 import { useUserContext } from "../context/UserContext";
 import EditPostModal from "../components/post/EditPostModal";
+import DeletePostModal from "../components/post/DeletePostModal";
 
 export default function PostDetails() {
   const { id } = useParams();
@@ -16,12 +17,16 @@ export default function PostDetails() {
     editModal: false,
     deleteModal: false,
   });
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
   useEffect(() => {
     APIService.get(`/posts/${id}`)
-      .then((res) => setPost(res.data))
+      .then((res) => {
+        setPost(res.data);
+        setLoading(true);
+      })
       .catch((err) => notifyError(`${err}: fetching posts`));
   }, []);
 
@@ -34,7 +39,7 @@ export default function PostDetails() {
         <NotificationSvg />
       </header>
       {post?.user_id === user.id && (
-        <div className="my-4 flex gap-2 px-4">
+        <div className="my-4 flex gap-2 px-4 lg:w-2/6 lg:self-center">
           <button
             type="button"
             className="h-fit w-full rounded-md bg-cobble-0 py-1 text-sm font-semibold text-dust-0"
@@ -45,13 +50,21 @@ export default function PostDetails() {
           <button
             type="button"
             className="h-fit w-full rounded-md bg-cobble-0 py-1 text-sm font-semibold text-dust-0"
+            onClick={() => setIsShow({ deleteModal: true })}
           >
             Delete
           </button>
         </div>
       )}
       <ul className="flex flex-col gap-4 lg:w-2/6 lg:self-center">
-        {post && <PostBox data={post} key={post.post_id} />}
+        {post && (
+          <PostBox
+            data={post}
+            key={post.post_id}
+            loading={loading}
+            setLoading={setLoading}
+          />
+        )}
       </ul>
       <div
         className={
@@ -62,6 +75,9 @@ export default function PostDetails() {
       >
         {isShow.editModal && (
           <EditPostModal post={post} setIsShow={setIsShow} />
+        )}
+        {isShow.deleteModal && (
+          <DeletePostModal post={post} setIsShow={setIsShow} />
         )}
       </div>
     </main>
