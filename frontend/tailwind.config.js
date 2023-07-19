@@ -9,6 +9,7 @@ module.exports = {
       },
       colors: {
         dust: ["var(--dust)"],
+        dustparent: ["var(--dust-transparent)"],
         sand: ["var(--sand)"],
         cobble: ["var(--cobble)"],
       },

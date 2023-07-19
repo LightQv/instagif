@@ -95,7 +95,7 @@ export default function LoginForm({ setForm }) {
         </div>
         <button
           type="submit"
-          className="h-fit w-full rounded-md bg-dust-0 bg-red-800 px-4 py-2 text-base font-semibold text-white disabled:bg-gray-300 disabled:text-gray-800"
+          className="h-fit w-full rounded-md bg-dust-0 bg-red-800 px-4 py-2 text-base font-semibold text-dust-0 disabled:bg-gray-300 disabled:text-gray-800"
           onSubmit={formik.handleSubmit}
           disabled={!loginSchema.isValidSync(formik.values)}
         >

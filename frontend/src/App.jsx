@@ -6,6 +6,7 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import PostDetails from "./pages/PostDetails";
 import RequireAuth from "./components/routes/RequireAuth";
+import CreatePost from "./pages/CreatePost";
 import Profile from "./pages/Profile";
 
 function App() {
@@ -19,7 +20,7 @@ function App() {
         <Route path="/post-details/:id" element={<PostDetails />} />
         {/* Private Routes, Redirect to Login if no user Auth */}
         <Route element={<RequireAuth />}>
-          <Route path="/post" element={<Profile />} />
+          <Route path="/create" element={<CreatePost />} />
           <Route path="/profile" element={<Profile />} />
         </Route>
       </Routes>
