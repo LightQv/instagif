@@ -45,7 +45,7 @@ export default function DeleteAccountModal({ setIsShow }) {
         <button
           type="button"
           className="h-fit w-24 self-center rounded-md border-2 border-cobble-0 bg-cobble-0 py-2 text-sm font-semibold text-dust-0 shadow-lg transition-all hover:border-slate-300 hover:bg-slate-300 lg:mt-8"
-          onClick={() => setIsShow(false)}
+          onClick={() => setIsShow({ deleteModal: false })}
         >
           No
         </button>

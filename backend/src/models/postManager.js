@@ -39,6 +39,17 @@ class PostManager extends AbstractManager {
     );
   }
 
+  findAllLikedByUser(id) {
+    return this.database.query(
+      `SELECT post.id as post_id, post.title, post.gif_url, post.created_at, post.user_id
+    FROM ${this.table} 
+    JOIN post_like on post_like.post_id = post.id 
+    WHERE post_like.user_id = 1
+    ORDER BY created_at DESC`,
+      [id]
+    );
+  }
+
   findWithUser(id) {
     return this.database.query(
       `select post.id as post_id, title, gif_url, created_at, user.id as user_id, user.username as username  
