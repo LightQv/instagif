@@ -1,26 +1,35 @@
+## Introduction
+
+To end the Web Developer Bootcamp at Wild Code School in Lyon, I had to develop a Full-Stack Responsive App using React-Express-MySQL, in 2 days.
+This project also aim to check every prerequisite needed to get the Diploma.
+
 ## Concept
 
-This template is meant to serve as a foundation for every P2/P3 following the React-Express-MySQL stack, as learned in Wild Code School.
-It's pre-configured with a set of tools which'll help students produce industry-quality and easier-to-maintain code, while staying as simple as possible to use.
+Instagif is a Social Media Application based on GIPHY's API.
+You can create an account and share your mood with other peoples using Gifs. Also, it's possible to share your feelings towards other user's posts.
+The Share Page shows you trending Gifs but you can search for any Gif your want to find one which perfectly match your mood.
+The Profile Page shows you every moods you've already shared, how many posts you've liked and which ones.
+Finally, it's possible to edit your username, email, change the App Theme (Light, Dark or System) and delete your account with every data's associated.
 
-## Setup & Use
+## Setup
 
-### Windows users
-
-Be sure to run these commands in a git terminal to avoid [issues with newline formats](https://en.wikipedia.org/wiki/Newline#Issues_with_different_newline_formats):
-
-```
-git config --global core.eol lf
-git config --global core.autocrlf false
-```
-
-### Project Initialization
-
-- In VSCode, install plugins **Prettier - Code formatter** and **ESLint** and configure them
-- Clone this repo, enter it
+- Clone this repo
 - If you are using `yarn` or `pnpm`, adapt the `config/cli` in `package.json`
 - Run command `npm install`
+- Run command `npm run migrate`
 - _NB: To launch the backend server, you'll need an environment file with database credentials. You'll find a template one in `backend/.env.sample`_
+
+## Configuration
+
+Create `.env` files in /frontend and /backend following `.env.sample` examples.
+
+## Use
+
+- Run Frontend and Backend server with one command : `npm run dev`
+- Express server will be accessible at the address set in the /frontend's .env
+- React client will be accessible at the address set in the /backend's .env
+
+- Create an account and then Log in to try Instagif.
 
 ### Available Commands
 
@@ -31,8 +40,6 @@ git config --global core.autocrlf false
 - `lint` : Runs validation tools, and refuses unclean code (will be executed on every _commit_)
 - `fix` : Fixes linter errors (run it if `lint` growls on your code !)
 
-## FAQ
-
 ### Tools
 
 - _Concurrently_ : Allows for several commands to run concurrently in the same CLI
@@ -42,12 +49,3 @@ git config --global core.autocrlf false
 - _Prettier_ : "Quality of code" tool as well, focuses on the styleguide
 - _ Airbnb Standard_ : One of the most known "standards", even though it's not officially linked to ES/JS
 - _Nodemon_ : Allows to restart the server everytime a .js file is udated
-
-### Deployment
-
-For deployment, you have to go to `secrets` → app `actions` on the github repo to insert via `New repository secret` :
-
-- CAPROVER_BACK_APPNAME : name app on caprover
-- CAPROVER_FRONT_APPNAME : name app on caprover
-- CAPROVER_PASSWORD : password caprover
-- CAPROVER_SERVER : link of domain
