@@ -1,6 +1,6 @@
 const AbstractManager = require("./AbstractManager");
 
-class ItemManager extends AbstractManager {
+class PostManager extends AbstractManager {
   constructor() {
     super({ table: "post" });
   }
@@ -28,14 +28,25 @@ class ItemManager extends AbstractManager {
     );
   }
 
-  findByUser(username) {
+  findAllByUser(id) {
     return this.database.query(
       `select post.id as post_id, title, gif_url, created_at, user.id as user_id, user.username  
       from ${this.table} 
       join user on user.id = user_id
-      where user.username = ?
+      where user.id = ?
       ORDER BY created_at DESC`,
-      [username]
+      [id]
+    );
+  }
+
+  findAllLikedByUser(id) {
+    return this.database.query(
+      `SELECT post.id as post_id, post.title, post.gif_url, post.created_at, post.user_id
+    FROM ${this.table} 
+    JOIN post_like on post_like.post_id = post.id 
+    WHERE post_like.user_id = 1
+    ORDER BY created_at DESC`,
+      [id]
     );
   }
 
@@ -50,4 +61,4 @@ class ItemManager extends AbstractManager {
   }
 }
 
-module.exports = ItemManager;
+module.exports = PostManager;

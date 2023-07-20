@@ -1,12 +1,12 @@
 import PropTypes from "prop-types";
 import { useFormik } from "formik";
 import { useState } from "react";
-import ExitSvg from "../svg/ExitSvg";
+import ExitSvg from "../svg/navigation/ExitSvg";
 import LightSvg from "../svg/LightSvg";
 import notifySuccess, { notifyError } from "../../services/toasts";
 import { addPostSchema } from "../../services/validators";
 import APIService from "../../services/APIService";
-import { useUserContext } from "../../context/UserContext";
+import { useUserContext } from "../../contexts/UserContext";
 
 export default function EditPostModal({ post, setIsShow }) {
   const { user } = useUserContext();

@@ -20,3 +20,11 @@ export const addPostSchema = Yup.object({
   gif_url: Yup.string().required(),
   user_id: Yup.number().required().positive().integer(),
 });
+
+export const editProfileSchema = Yup.object({
+  username: Yup.string().min(5, "Username : Minimum 5 characters").required(),
+});
+
+export const editMailSchema = Yup.object({
+  email: Yup.string().email("A valid Email is required."),
+});

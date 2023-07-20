@@ -1,12 +1,15 @@
+import { useThemeContext } from "../../../contexts/ThemeContext";
+
 export default function PostSvg() {
+  const { theme } = useThemeContext();
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 24 24"
       strokeWidth={1.5}
-      stroke="currentColor"
-      className="h-6 w-6"
+      stroke={theme === "dark" ? "#f1efe7" : "currentColor"}
+      className="h-6 w-6 transition-all hover:scale-110 hover:text-granite-0 dark:hover:text-sand-0"
     >
       <path
         strokeLinecap="round"

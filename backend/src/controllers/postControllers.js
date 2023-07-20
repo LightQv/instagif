@@ -15,13 +15,22 @@ const browse = (req, res) => {
 // Fetch All Posts for a User
 const browseByUser = (req, res) => {
   models.post
-    .findByUser(req.params.username)
+    .findAllByUser(req.params.id)
     .then(([rows]) => {
-      if (rows[0] == null) {
-        res.sendStatus(404);
-      } else {
-        res.send(rows);
-      }
+      res.send(rows);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
+
+// Fetch All Liked Posts for a User
+const browseLikedByUser = (req, res) => {
+  models.post
+    .findAllLikedByUser(req.params.id)
+    .then(([rows]) => {
+      res.send(rows);
     })
     .catch((err) => {
       console.error(err);
@@ -100,6 +109,7 @@ const destroy = (req, res) => {
 module.exports = {
   browse,
   browseByUser,
+  browseLikedByUser,
   readWithUser,
   edit,
   add,

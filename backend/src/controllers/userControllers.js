@@ -12,11 +12,9 @@ const browse = (req, res) => {
     });
 };
 
-const read = (req, res) => {
-  const id = parseInt(req.params.id, 10);
-
+const readByUsername = (req, res) => {
   models.user
-    .find(id)
+    .find(req.params.username)
     .then(([rows]) => {
       if (rows[0]) {
         res.send(rows[0]);
@@ -30,13 +28,33 @@ const read = (req, res) => {
     });
 };
 
-const edit = (req, res) => {
+const editProfile = async (req, res) => {
   const user = req.body;
 
   user.id = parseInt(req.params.id, 10);
 
   models.user
-    .update(user)
+    .updateUsername(user)
+    .then(([result]) => {
+      if (result.affectedRows === 0) {
+        res.status(404).send("User not found");
+      } else {
+        res.sendStatus(204);
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
+
+const editUser = async (req, res) => {
+  const user = req.body;
+
+  user.id = parseInt(req.params.id, 10);
+
+  models.user
+    .updateEmail(user)
     .then(([result]) => {
       if (result.affectedRows === 0) {
         res.status(404).send("User not found");
@@ -66,7 +84,7 @@ const add = (req, res) => {
 
 const destroy = (req, res) => {
   const id = parseInt(req.params.id, 10);
-
+  console.warn(id);
   models.user
     .delete(id)
     .then(([result]) => {
@@ -83,8 +101,9 @@ const destroy = (req, res) => {
 };
 module.exports = {
   browse,
-  read,
-  edit,
+  readByUsername,
+  editProfile,
+  editUser,
   add,
   destroy,
 };

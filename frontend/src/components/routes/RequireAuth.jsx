@@ -1,5 +1,5 @@
 import { Outlet, useLocation, Navigate } from "react-router-dom";
-import { useUserContext } from "../../context/UserContext";
+import { useUserContext } from "../../contexts/UserContext";
 
 export default function RequireAuth() {
   const { user } = useUserContext();

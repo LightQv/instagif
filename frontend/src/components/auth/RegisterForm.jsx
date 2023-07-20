@@ -1,12 +1,14 @@
 import PropTypes from "prop-types";
 import { useFormik } from "formik";
-import { useUserContext } from "../../context/UserContext";
+import { useUserContext } from "../../contexts/UserContext";
+import { useThemeContext } from "../../contexts/ThemeContext";
 import APIService from "../../services/APIService";
 import { registerSchema } from "../../services/validators";
 import notifySuccess, { notifyError } from "../../services/toasts";
 
 export default function RegisterForm({ setForm }) {
   const { login } = useUserContext();
+  const { theme } = useThemeContext();
 
   const formik = useFormik({
     initialValues: {
@@ -40,11 +42,13 @@ export default function RegisterForm({ setForm }) {
   return (
     <div className="flex flex-col justify-center p-6 lg:w-2/6 lg:rounded-md lg:bg-sand-0 lg:p-8">
       <form
-        action="login"
+        action="register"
         onSubmit={formik.handleSubmit}
         className="gap-4 space-y-4 lg:gap-6 lg:space-y-6"
       >
-        <h3 className="font-spartan text-2xl font-semibold">Register</h3>
+        <h3 className="font-spartan text-2xl font-semibold dark:text-dust-0">
+          Register
+        </h3>
         <div className="flex flex-col">
           <label
             htmlFor="username"
@@ -52,7 +56,7 @@ export default function RegisterForm({ setForm }) {
             style={
               formik.touched.username && formik.errors.username
                 ? { color: "rgb(239, 3, 3)" }
-                : { color: "black" }
+                : { color: theme === "dark" ? "#f1efe7" : "black" }
             }
           >
             {formik.touched.username && formik.errors.username
@@ -68,7 +72,7 @@ export default function RegisterForm({ setForm }) {
             value={formik.values.username}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
-            className="rounded-md px-4 py-2 placeholder:italic placeholder:opacity-50"
+            className="rounded-md px-4 py-2 placeholder:italic placeholder:opacity-50 dark:bg-granite-0 dark:text-sand-0"
           />
         </div>
         <div className="flex flex-col">
@@ -78,7 +82,7 @@ export default function RegisterForm({ setForm }) {
             style={
               formik.touched.email && formik.errors.email
                 ? { color: "rgb(239, 3, 3)" }
-                : { color: "black" }
+                : { color: theme === "dark" ? "#f1efe7" : "black" }
             }
           >
             {formik.touched.email && formik.errors.email
@@ -94,7 +98,7 @@ export default function RegisterForm({ setForm }) {
             value={formik.values.email}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
-            className="rounded-md px-4 py-2 placeholder:italic placeholder:opacity-50"
+            className="rounded-md px-4 py-2 placeholder:italic placeholder:opacity-50 dark:bg-granite-0 dark:text-sand-0"
           />
         </div>
         <div className="flex flex-col">
@@ -104,7 +108,7 @@ export default function RegisterForm({ setForm }) {
             style={
               formik.touched.password && formik.errors.password
                 ? { color: "rgb(239, 3, 3)" }
-                : { color: "black" }
+                : { color: theme === "dark" ? "#f1efe7" : "black" }
             }
           >
             {formik.touched.password && formik.errors.password
@@ -120,7 +124,7 @@ export default function RegisterForm({ setForm }) {
             value={formik.values.password}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
-            className="rounded-md px-4 py-2 placeholder:italic placeholder:opacity-50"
+            className="rounded-md px-4 py-2 placeholder:italic placeholder:opacity-50 dark:bg-granite-0 dark:text-sand-0"
           />
         </div>
         <button
@@ -132,7 +136,7 @@ export default function RegisterForm({ setForm }) {
           Register
         </button>
       </form>
-      <h4 className="mt-6 self-center font-spartan text-sm italic">
+      <h4 className="mt-6 self-center font-spartan text-sm italic dark:text-dust-0">
         You already have an account,{" "}
         <button
           type="button"
