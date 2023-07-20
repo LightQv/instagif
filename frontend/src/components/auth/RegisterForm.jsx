@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import { useFormik } from "formik";
-import { useUserContext } from "../../context/UserContext";
+import { useUserContext } from "../../contexts/UserContext";
 import APIService from "../../services/APIService";
 import { registerSchema } from "../../services/validators";
 import notifySuccess, { notifyError } from "../../services/toasts";

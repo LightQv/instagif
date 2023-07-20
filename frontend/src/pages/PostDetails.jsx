@@ -5,7 +5,7 @@ import BackSvg from "../components/svg/BackSvg";
 import NotificationSvg from "../components/svg/NotificationSvg";
 import PostBox from "../components/PostBox";
 import { notifyError } from "../services/toasts";
-import { useUserContext } from "../context/UserContext";
+import { useUserContext } from "../contexts/UserContext";
 import EditPostModal from "../components/post/EditPostModal";
 import DeletePostModal from "../components/post/DeletePostModal";
 

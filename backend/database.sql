@@ -57,29 +57,47 @@ VALUES
 1
 );
 
-DROP TABLE IF EXISTS comment;
-CREATE TABLE comment (
+DROP TABLE IF EXISTS post_like;
+CREATE TABLE post_like (
   id int PRIMARY KEY NOT NULL AUTO_INCREMENT,
-  content TEXT NOT NULL,
-  created_at DATETIME NOT NULL DEFAULT NOW(),
-  user_id INT NOT NULL,
-  FOREIGN KEY (user_id) REFERENCES user(id),
   post_id INT NOT NULL,
-  FOREIGN KEY (post_id) REFERENCES post(id)
+  FOREIGN KEY (post_id) REFERENCES post(id),
+  user_id INT NOT NULL,
+  FOREIGN KEY (user_id) REFERENCES user(id)
 )
 ENGINE=InnoDB DEFAULT CHARSET = utf8;
 
-INSERT INTO comment (content, created_at, user_id, post_id) 
+INSERT INTO post_like (post_id, user_id) 
+VALUES 
+(
+1,
+1
+),
+(
+2,
+1
+);
+
+DROP TABLE IF EXISTS post_feeling;
+CREATE TABLE post_feeling (
+  id int PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  type TEXT NOT NULL,
+  post_id INT NOT NULL,
+  FOREIGN KEY (post_id) REFERENCES post(id),
+  user_id INT NOT NULL,
+  FOREIGN KEY (user_id) REFERENCES user(id)
+)
+ENGINE=InnoDB DEFAULT CHARSET = utf8;
+
+INSERT INTO post_feeling (type, post_id, user_id) 
 VALUES 
 (
 "Cool!", 
-"2023-07-10 12:20:42", 
 1,
 1
 ),
 (
 "Top!", 
-"2023-07-13 21:30:00", 
 1,
 2
 );

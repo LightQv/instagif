@@ -1,7 +1,7 @@
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useEffect, useState, useRef } from "react";
 import axios from "axios";
-import { useUserContext } from "../context/UserContext";
+import { useUserContext } from "../contexts/UserContext";
 import BackSvg from "../components/svg/BackSvg";
 import NotificationSvg from "../components/svg/NotificationSvg";
 import { notifyError } from "../services/toasts";
