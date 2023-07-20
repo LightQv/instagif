@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useUserContext } from "../contexts/UserContext";
-import SettingsSvg from "../components/svg/SettingsSvg";
+import SettingsSvg from "../components/svg/navigation/SettingsSvg";
 import PostInsight from "../components/profile/PostInsight";
 import APIService from "../services/APIService";
 import { notifyError } from "../services/toasts";
@@ -51,13 +51,13 @@ export default function Profile() {
   }, [profile]);
 
   return (
-    <main className="flex min-h-screen flex-col justify-start bg-dust-0 pb-12 font-inter lg:mb-0 lg:flex-row-reverse lg:pb-0 lg:pt-16">
+    <main className="flex min-h-screen flex-col justify-start bg-dust-0 pb-12 font-inter dark:bg-cobble-0 lg:mb-0 lg:flex-row-reverse lg:pb-0 lg:pt-16">
       <div className="flex w-full flex-col gap-4 p-4 lg:w-1/3">
         <div className="flex w-full items-center justify-start gap-2">
-          <div className="flex h-12 w-12 items-center justify-center self-start rounded-full bg-cobble-0 text-xl text-dust-0">
+          <div className="flex h-12 w-12 items-center justify-center self-start rounded-full bg-cobble-0 text-xl text-dust-0 dark:bg-sand-0 dark:text-cobble-0">
             {getUsername().slice(0, 1).toUpperCase()}
           </div>
-          <div className="flex w-[calc(100%-2.5rem)] items-center justify-between">
+          <div className="flex w-[calc(100%-2.5rem)] items-center justify-between dark:text-dust-0">
             <div>
               <h3 className="text-lg font-semibold">
                 {profile && profile.username}
@@ -84,7 +84,7 @@ export default function Profile() {
           <Link to="/my-profile/edit">
             <button
               type="button"
-              className="h-fit w-full rounded-md bg-cobble-0 py-1 text-sm font-semibold text-dust-0 transition-all hover:scale-[1.03] hover:bg-granite-0"
+              className="h-10 w-full rounded-md bg-cobble-0 py-1 text-sm font-semibold text-dust-0 transition-all hover:scale-[1.03] hover:bg-granite-0 dark:bg-granite-0 dark:text-sand-0"
             >
               Edit profile
             </button>

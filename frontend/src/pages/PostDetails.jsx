@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import APIService from "../services/APIService";
-import BackSvg from "../components/svg/BackSvg";
-import NotificationSvg from "../components/svg/NotificationSvg";
+import BackSvg from "../components/svg/navigation/BackSvg";
+import NotificationSvg from "../components/svg/interactions/NotificationSvg";
 import PostBox from "../components/PostBox";
 import { notifyError } from "../services/toasts";
 import { useUserContext } from "../contexts/UserContext";
@@ -31,8 +31,8 @@ export default function PostDetails() {
   }, []);
 
   return (
-    <main className="flex min-h-screen flex-col justify-start bg-dust-0 pb-12 font-inter lg:justify-center lg:pb-0 lg:pt-16">
-      <header className="flex h-12 w-full items-center justify-between bg-dust-0 px-6 lg:hidden">
+    <main className="flex min-h-screen flex-col justify-start bg-dust-0 pb-12 font-inter dark:bg-cobble-0 lg:justify-center lg:pb-0 lg:pt-16">
+      <header className="flex h-12 w-full items-center justify-between bg-dust-0 px-6 dark:bg-cobble-0 lg:hidden">
         <button type="button" onClick={() => navigate(-1)}>
           <BackSvg />
         </button>
@@ -42,14 +42,14 @@ export default function PostDetails() {
         <div className="my-4 flex gap-2 px-4 lg:w-2/6 lg:self-center">
           <button
             type="button"
-            className="h-fit w-full rounded-md bg-cobble-0 py-1 text-sm font-semibold text-dust-0 transition-all hover:scale-[1.03] hover:bg-granite-0"
+            className="h-10 w-full rounded-md bg-cobble-0 py-1 text-sm font-semibold text-dust-0 transition-all hover:scale-[1.03] hover:bg-granite-0 dark:bg-granite-0 dark:text-sand-0"
             onClick={() => setIsShow({ editModal: true })}
           >
             Edit
           </button>
           <button
             type="button"
-            className="h-fit w-full rounded-md bg-cobble-0 py-1 text-sm font-semibold text-dust-0 transition-all hover:scale-[1.03] hover:bg-granite-0"
+            className="h-10 w-full rounded-md bg-cobble-0 py-1 text-sm font-semibold text-dust-0 transition-all hover:scale-[1.03] hover:bg-granite-0 dark:bg-granite-0 dark:text-sand-0"
             onClick={() => setIsShow({ deleteModal: true })}
           >
             Delete

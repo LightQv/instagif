@@ -1,36 +1,23 @@
 import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useUserContext } from "../contexts/UserContext";
-import BackSvg from "../components/svg/BackSvg";
-import DownSvg from "../components/svg/DownSvg";
-import APIService from "../services/APIService";
-import { notifyError } from "../services/toasts";
+import BackSvg from "../components/svg/navigation/BackSvg";
+import LikedPosts from "../components/profile/LikedPosts";
+import ThemeSwitcher from "../components/profile/ThemeSwitcher";
 import DeleteAccountModal from "../components/profile/DeleteAccountModal";
-import PostInsight from "../components/profile/PostInsight";
 
 export default function ProfileSettings() {
-  const { user, logout } = useUserContext();
+  const { logout } = useUserContext();
   const navigate = useNavigate();
   const [isShow, setIsShow] = useState({
-    likedPost: false,
+    likedPosts: false,
     appTheme: false,
     deleteModal: false,
   });
-  const [likedPost, setLikedPost] = useState(null);
-  const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    APIService.get(`/posts-liked/${user.id}`)
-      .then((res) => {
-        setLikedPost(res.data);
-        setLoading(true);
-      })
-      .catch(() => notifyError("Error fetching Liked posts."));
-  }, [isShow.likedPost]);
 
   return (
-    <main className="flex min-h-screen flex-col justify-start bg-dust-0 pb-12 font-inter lg:mb-0 lg:pb-0 lg:pt-16">
-      <header className="flex h-12 w-full items-center justify-between bg-dust-0 px-6 lg:hidden">
+    <main className="flex min-h-screen flex-col justify-start bg-dust-0 pb-12 font-inter dark:bg-cobble-0 lg:mb-0 lg:pb-0 lg:pt-16">
+      <header className="flex h-12 w-full items-center justify-between bg-dust-0 px-6 dark:bg-cobble-0 lg:hidden">
         <div className="h-fit w-full">
           <button
             type="button"
@@ -39,74 +26,21 @@ export default function ProfileSettings() {
           >
             <BackSvg />
           </button>
-          <h3 className="mr-6 text-center font-spartan text-xl font-semibold">
+          <h3 className="mr-6 text-center font-spartan text-xl font-semibold dark:text-dust-0">
             Settings
           </h3>
         </div>
       </header>
       <div className="flex w-full flex-col gap-4 py-4 lg:w-1/3 lg:self-center">
-        <div>
-          <div className="flex w-full items-center justify-between px-6 py-1 ">
-            <button
-              type="button"
-              onClick={() => setIsShow({ likedModal: !isShow.likedModal })}
-              className="h-fit w-full"
-            >
-              <h3 className="text-left text-sm font-semibold text-cobble-0">
-                All Liked Posts
-              </h3>
-            </button>
-            <button
-              type="button"
-              onClick={() => setIsShow({ likedModal: !isShow.likedModal })}
-              className={
-                isShow.likedModal
-                  ? "h-6 w-6 rotate-180 transition-all"
-                  : "h-6 w-6 transition-all"
-              }
-            >
-              <DownSvg isShow={isShow} />
-            </button>
-          </div>
-          {isShow.likedModal && (
-            <ul
-              className={`mt-2 grid w-full ${
-                likedPost?.length > 0 ? "grid-cols-2" : "grid-cols-1"
-              } gap-[0.1rem]`}
-            >
-              {likedPost && likedPost.length !== 0 ? (
-                likedPost.map((post, index) => (
-                  <PostInsight
-                    data={post}
-                    index={index}
-                    key={post.id}
-                    loading={loading}
-                    setLoading={setLoading}
-                  />
-                ))
-              ) : (
-                <p className="m-auto text-sm">Haven't liked anything yet.</p>
-              )}
-            </ul>
-          )}
-        </div>
-        <div>
-          <button
-            type="button"
-            onClick={() => setIsShow({ appTheme: !isShow.appTheme })}
-            className="flex h-fit w-full items-center justify-between px-6 py-1 text-sm font-semibold text-cobble-0"
-          >
-            <h3>Switch Theme App</h3>
-            <DownSvg isShow={isShow} />
-          </button>
-        </div>
+        <LikedPosts isShow={isShow} setIsShow={setIsShow} />
+        <ThemeSwitcher isShow={isShow} setIsShow={setIsShow} />
         <h3>Change mail</h3>
         <h3>Change password</h3>
         <div className="px-6">
           <button
             type="button"
             onClick={logout}
-            className="h-fit w-full rounded-md bg-cobble-0 py-1 text-sm font-semibold text-dust-0 transition-all hover:scale-[1.03] hover:bg-granite-0"
+            className="h-10 w-full rounded-md bg-cobble-0 py-1 text-sm font-semibold text-dust-0 transition-all hover:scale-[1.03] hover:bg-granite-0 dark:bg-granite-0 dark:text-sand-0"
           >
             Log out
           </button>
@@ -115,7 +49,7 @@ export default function ProfileSettings() {
           <button
             type="button"
             onClick={() => setIsShow({ deleteModal: true })}
-            className="h-fit w-full rounded-md bg-red-800 py-1 text-sm font-semibold text-dust-0 transition-all hover:scale-[1.03] hover:bg-red-600"
+            className="h-10 w-full rounded-md bg-red-800 py-1 text-sm font-semibold text-dust-0 transition-all hover:scale-[1.03] hover:bg-red-600"
           >
             Delete account
           </button>
