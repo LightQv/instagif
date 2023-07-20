@@ -1,19 +1,25 @@
 import { NavLink, Link } from "react-router-dom";
-import HomeSvg from "./svg/HomeSvg";
-import ActiveHomeSvg from "./svg/ActiveHomeSvg";
-import ProfileSvg from "./svg/ProfileSvg";
-import ActiveProfileSvg from "./svg/ActiveProfileSvg";
-import PostSvg from "./svg/PostSvg";
-import ActivePostSvg from "./svg/ActivePostSvg";
+import HomeSvg from "./svg/navbar/HomeSvg";
+import ActiveHomeSvg from "./svg/navbar/ActiveHomeSvg";
+import ProfileSvg from "./svg/navbar/ProfileSvg";
+import ActiveProfileSvg from "./svg/navbar/ActiveProfileSvg";
+import PostSvg from "./svg/navbar/PostSvg";
+import ActivePostSvg from "./svg/navbar/ActivePostSvg";
 import logo from "../assets/images/logo.jpg";
-import NotificationSvg from "./svg/NotificationSvg";
+import NotificationSvg from "./svg/interactions/NotificationSvg";
+import { useThemeContext } from "../contexts/ThemeContext";
 
 export default function NavBar() {
+  const { theme } = useThemeContext();
   return (
-    <nav className="fixed bottom-0 z-10 flex h-12 w-full items-center justify-evenly bg-gradient-to-b from-dust-0 via-dust-0 via-30% to-dustparent-0 lg:top-0 lg:h-16 lg:justify-between lg:bg-dust-0 lg:px-12">
+    <nav className="fixed bottom-0 z-10 flex h-12 w-full items-center justify-evenly bg-gradient-to-b from-dust-0 via-dust-0 via-30% to-dustparent-0 dark:from-cobble-0 dark:via-cobble-0 dark:to-cobbleparent-0 lg:top-0 lg:h-16 lg:justify-between lg:bg-dust-0 lg:px-12 dark:lg:bg-cobble-0">
       <div className="hidden lg:flex lg:h-full lg:w-full lg:items-center lg:gap-6">
         <Link to="/" className="h-full">
-          <img src={logo} alt="logo" className="lg:h-full" />
+          <img
+            src={theme === "dark" ? logo : logo}
+            alt="logo"
+            className="lg:h-full"
+          />
         </Link>
         <NotificationSvg />
       </div>

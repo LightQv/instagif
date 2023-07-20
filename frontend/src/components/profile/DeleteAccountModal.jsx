@@ -24,12 +24,12 @@ export default function DeleteAccountModal({ setIsShow }) {
     }
   };
   return (
-    <div className="flex h-fit w-5/6 flex-col justify-center gap-4 rounded-md bg-dust-0 p-8 lg:w-fit">
+    <div className="flex h-fit w-5/6 flex-col justify-center gap-4 rounded-md bg-dust-0 p-8 dark:bg-cobble-0 lg:w-fit">
       <div className="text-center">
-        <h3 className="text-lg font-semibold text-cobble-0 lg:text-xl">
+        <h3 className="text-lg font-semibold text-cobble-0 dark:text-dust-0 lg:text-xl">
           Are you sure ?
         </h3>
-        <h5 className="text-xs font-normal italic lg:text-sm">
+        <h5 className="text-xs font-normal italic dark:text-dust-0 lg:text-sm">
           (there is no possibility to get back your account once you've deleted
           it.)
         </h5>
@@ -44,7 +44,7 @@ export default function DeleteAccountModal({ setIsShow }) {
         </button>
         <button
           type="button"
-          className="h-fit w-24 self-center rounded-md border-2 border-cobble-0 bg-cobble-0 py-2 text-sm font-semibold text-dust-0 shadow-lg transition-all hover:border-slate-300 hover:bg-slate-300 lg:mt-8"
+          className="h-fit w-24 self-center rounded-md border-2 border-cobble-0 bg-cobble-0 py-2 text-sm font-semibold text-dust-0 shadow-lg transition-all hover:border-slate-300 hover:bg-slate-300 dark:border-granite-0 dark:bg-granite-0 dark:text-sand-0 lg:mt-8"
           onClick={() => setIsShow({ deleteModal: false })}
         >
           No

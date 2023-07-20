@@ -4,6 +4,7 @@ import CustomRouter from "./components/routes/CustomRouter";
 import customHistory from "./services/history";
 import { UserContextProvider } from "./contexts/UserContext";
 import { LikeContextProvider } from "./contexts/LikeContext";
+import { ThemeContextProvider } from "./contexts/ThemeContext";
 
 import App from "./App";
 import "./index.css";
@@ -15,7 +16,9 @@ root.render(
     <CustomRouter history={customHistory}>
       <UserContextProvider>
         <LikeContextProvider>
-          <App />
+          <ThemeContextProvider>
+            <App />
+          </ThemeContextProvider>
         </LikeContextProvider>
       </UserContextProvider>
     </CustomRouter>

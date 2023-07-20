@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import { useFormik } from "formik";
 import { useState } from "react";
-import ExitSvg from "../svg/ExitSvg";
+import ExitSvg from "../svg/navigation/ExitSvg";
 import LightSvg from "../svg/LightSvg";
 import notifySuccess, { notifyError } from "../../services/toasts";
 import { addPostSchema } from "../../services/validators";

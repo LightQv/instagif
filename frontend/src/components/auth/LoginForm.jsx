@@ -6,9 +6,11 @@ import { useUserContext } from "../../contexts/UserContext";
 import APIService from "../../services/APIService";
 import { loginSchema } from "../../services/validators";
 import { notifyError } from "../../services/toasts";
+import { useThemeContext } from "../../contexts/ThemeContext";
 
 export default function LoginForm({ setForm }) {
   const { login } = useUserContext();
+  const { theme } = useThemeContext();
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -45,13 +47,15 @@ export default function LoginForm({ setForm }) {
   }, []);
 
   return (
-    <div className="flex flex-col justify-center p-6 lg:w-2/6 lg:rounded-md lg:bg-sand-0 lg:p-8">
+    <div className="flex flex-col justify-center p-6 lg:w-2/6 lg:rounded-md lg:bg-sand-0 lg:p-8 dark:lg:bg-granite-0">
       <form
         action="login"
         onSubmit={formik.handleSubmit}
         className="gap-4 space-y-4 lg:gap-6 lg:space-y-6"
       >
-        <h3 className="font-spartan text-2xl font-semibold">Login</h3>
+        <h3 className="font-spartan text-2xl font-semibold dark:text-dust-0">
+          Login
+        </h3>
         <div className="flex flex-col">
           <label
             htmlFor="email"
@@ -59,7 +63,7 @@ export default function LoginForm({ setForm }) {
             style={
               formik.touched.email && formik.errors.email
                 ? { color: "rgb(239, 3, 3)" }
-                : { color: "black" }
+                : { color: theme === "dark" ? "#f1efe7" : "black" }
             }
           >
             {formik.touched.email && formik.errors.email
@@ -75,7 +79,7 @@ export default function LoginForm({ setForm }) {
             value={formik.values.email}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
-            className="rounded-md px-4 py-2 placeholder:italic placeholder:opacity-50"
+            className="rounded-md px-4 py-2 placeholder:italic placeholder:opacity-50 dark:bg-granite-0 dark:text-sand-0"
           />
         </div>
         <div className="flex flex-col">
@@ -85,7 +89,7 @@ export default function LoginForm({ setForm }) {
             style={
               formik.touched.password && formik.errors.password
                 ? { color: "rgb(239, 3, 3)" }
-                : { color: "black" }
+                : { color: theme === "dark" ? "#f1efe7" : "black" }
             }
           >
             {formik.touched.password && formik.errors.password
@@ -101,7 +105,7 @@ export default function LoginForm({ setForm }) {
             value={formik.values.password}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
-            className="rounded-md px-4 py-2 placeholder:italic placeholder:opacity-50"
+            className="rounded-md px-4 py-2 placeholder:italic placeholder:opacity-50 dark:bg-granite-0 dark:text-sand-0"
           />
         </div>
         <button
@@ -113,7 +117,7 @@ export default function LoginForm({ setForm }) {
           Login
         </button>
       </form>
-      <h4 className="mt-6 self-center font-spartan text-sm italic">
+      <h4 className="mt-6 self-center font-spartan text-sm italic dark:text-dust-0">
         You don't have an account,{" "}
         <button
           type="button"

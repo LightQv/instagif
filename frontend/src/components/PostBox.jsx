@@ -3,9 +3,9 @@ import TimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en.json";
 import ReactTimeAgo from "react-time-ago";
 import { Link } from "react-router-dom";
-import LikeSvg from "./svg/LikeSvg";
-import ActiveLikeSvg from "./svg/ActiveLikeSvg";
-import CommentSvg from "./svg/CommentSvg";
+import LikeSvg from "./svg/interactions/LikeSvg";
+import ActiveLikeSvg from "./svg/interactions/ActiveLikeSvg";
+import CommentSvg from "./svg/interactions/CommentSvg";
 import { useUserContext } from "../contexts/UserContext";
 import { useLikeContext } from "../contexts/LikeContext";
 import APIService from "../services/APIService";
@@ -66,13 +66,13 @@ export default function PostBox({ data }) {
       </Link>
       <div className="flex w-full items-center justify-start gap-2 p-4">
         <Link to={getProfilLink()}>
-          <div className="flex h-8 w-8 items-center justify-center self-start rounded-full bg-cobble-0 text-dust-0 transition-all hover:scale-105 hover:bg-granite-0">
+          <div className="flex h-8 w-8 items-center justify-center self-start rounded-full bg-cobble-0 text-dust-0 transition-all hover:scale-105 hover:bg-granite-0 dark:bg-sand-0 dark:text-cobble-0 dark:hover:bg-granite-0">
             {data.username.slice(0, 1)}
           </div>
         </Link>
         <div className="mt-1 w-[calc(100%-2.5rem)]">
           <div className="flex items-center justify-between">
-            <h3 className="font-semibold transition-all hover:text-granite-0 lg:font-bold">
+            <h3 className="font-semibold transition-all hover:text-granite-0 dark:text-dust-0 dark:hover:text-granite-0 lg:font-bold">
               <Link to={getProfilLink()}>{data.username}'s </Link>
               <span className="text-xs font-normal italic">
                 mood{" "}
@@ -96,7 +96,9 @@ export default function PostBox({ data }) {
               </button>
             </div>
           </div>
-          <p className="-mt-1 text-lg font-bold">"{data.title}"</p>
+          <p className="-mt-1 text-lg font-bold dark:text-dust-0">
+            "{data.title}"
+          </p>
         </div>
       </div>
     </li>

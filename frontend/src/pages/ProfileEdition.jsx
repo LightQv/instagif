@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import { useUserContext } from "../contexts/UserContext";
-import BackSvg from "../components/svg/BackSvg";
+import BackSvg from "../components/svg/navigation/BackSvg";
 import APIService from "../services/APIService";
 import { editProfileSchema } from "../services/validators";
 import { notifyError } from "../services/toasts";

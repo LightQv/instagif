@@ -2,7 +2,7 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import { useUserContext } from "../contexts/UserContext";
-import BackSvg from "../components/svg/BackSvg";
+import BackSvg from "../components/svg/navigation/BackSvg";
 import { notifyError } from "../services/toasts";
 import GifInsight from "../components/post/GifInsight";
 import ActiveFireSvg from "../components/svg/ActiveFireSvg";
@@ -63,8 +63,8 @@ export default function CreatePost() {
   };
 
   return (
-    <main className="relative flex min-h-screen flex-col justify-start bg-dust-0 pb-12 font-inter lg:mb-0 lg:flex-row-reverse lg:pb-0 lg:pt-16">
-      <header className="flex h-12 w-full items-center justify-between bg-dust-0 px-6 lg:hidden">
+    <main className="relative flex min-h-screen flex-col justify-start bg-dust-0 pb-12 font-inter dark:bg-cobble-0 lg:mb-0 lg:flex-row-reverse lg:pb-0 lg:pt-16">
+      <header className="flex h-12 w-full items-center justify-between bg-dust-0 px-6 dark:bg-cobble-0 lg:hidden">
         <div className="h-fit w-full">
           <button
             type="button"
@@ -73,7 +73,7 @@ export default function CreatePost() {
           >
             <BackSvg />
           </button>
-          <h3 className="mr-6 text-center font-spartan text-xl">
+          <h3 className="mr-6 text-center font-spartan text-xl dark:text-dust-0">
             Hey, <span className="font-semibold">{user.username}</span>
           </h3>
         </div>
@@ -88,12 +88,12 @@ export default function CreatePost() {
             value={query}
             placeholder="What's your mood today ?"
             onChange={(e) => handleSearch(e)}
-            className="w-full rounded-md px-4 py-2 placeholder:text-sm placeholder:italic placeholder:text-black/50"
+            className="w-full rounded-md px-4 py-2 placeholder:text-sm placeholder:italic placeholder:text-black/50 dark:bg-granite-0 dark:text-sand-0 dark:placeholder:text-cobble-0"
           />
           <button
             type="button"
             onClick={() => changeDisplay()}
-            className="rounded-md bg-white px-4 py-2 transition-all hover:scale-110 hover:text-granite-0"
+            className="rounded-md bg-white px-4 py-2 transition-all hover:scale-110 hover:text-granite-0 dark:bg-granite-0 dark:text-sand-0"
           >
             {result?.length === 0 ? <ActiveFireSvg /> : <FireSvg />}
           </button>

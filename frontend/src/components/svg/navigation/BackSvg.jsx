@@ -1,11 +1,14 @@
+import { useThemeContext } from "../../../contexts/ThemeContext";
+
 export default function BackSvg() {
+  const { theme } = useThemeContext();
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 24 24"
       strokeWidth={1.5}
-      stroke="currentColor"
+      stroke={theme === "dark" ? "#f1efe7" : "currentColor"}
       className="h-6 w-6"
     >
       <path
