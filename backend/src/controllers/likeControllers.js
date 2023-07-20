@@ -13,6 +13,19 @@ const browseByUser = (req, res) => {
     });
 };
 
+// Fetch Like amount for a User
+const countByUser = (req, res) => {
+  models.like
+    .countLikeByUser(req.params.id)
+    .then(([result]) => {
+      res.send(result);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500);
+    });
+};
+
 const add = (req, res) => {
   const newLike = req.body;
 
@@ -47,6 +60,7 @@ const destroy = (req, res) => {
 
 module.exports = {
   browseByUser,
+  countByUser,
   add,
   destroy,
 };

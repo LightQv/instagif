@@ -5,6 +5,7 @@ import SettingsSvg from "../components/svg/navigation/SettingsSvg";
 import PostInsight from "../components/profile/PostInsight";
 import APIService from "../services/APIService";
 import { notifyError } from "../services/toasts";
+import LikeCount from "../components/profile/LikeCount";
 
 export default function Profile() {
   const { user } = useUserContext();
@@ -90,6 +91,14 @@ export default function Profile() {
             </button>
           </Link>
         )}
+      </div>
+      <div className="flex h-fit w-full justify-evenly pb-4">
+        <LikeCount profile={profile} />
+        {/* FeelingCount Here */}
+        <div className="flex flex-col items-center justify-center dark:text-dust-0">
+          <h3 className="text-xl font-semibold">0</h3>
+          <p className="-mt-1 text-sm">Feelings</p>
+        </div>
       </div>
       <ul
         className={`grid w-full ${
