@@ -6,8 +6,6 @@ CREATE TABLE user (
     username varchar(100) UNIQUE NOT NULL,
     email varchar(255) UNIQUE NOT NULL,
     hashedPassword varchar(255) NOT NULL
-    -- avatar varchar(255) DEFAULT NULL
-    -- ON DELETE CASCADE
 )
 ENGINE = InnoDB DEFAULT CHARSET = utf8;
 

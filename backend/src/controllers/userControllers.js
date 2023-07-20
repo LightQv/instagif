@@ -84,7 +84,6 @@ const add = (req, res) => {
 
 const destroy = (req, res) => {
   const id = parseInt(req.params.id, 10);
-  console.warn(id);
   models.user
     .delete(id)
     .then(([result]) => {
