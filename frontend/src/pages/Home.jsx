@@ -1,36 +1,29 @@
-import Counter from "../components/Counter";
-import logo from "../assets/logo.svg";
+import { useEffect, useState } from "react";
+import APIService from "../services/APIService";
+import logo from "../assets/images/logo.jpg";
+import NotificationSvg from "../components/svg/NotificationSvg";
+import PostBox from "../components/PostBox";
+import { notifyError } from "../services/toasts";
 
 export default function Home() {
+  const [posts, setPosts] = useState(null);
+
+  useEffect(() => {
+    APIService.get("/posts")
+      .then((res) => setPosts(res.data))
+      .catch((err) => notifyError(`${err}: fetching posts`));
+  }, []);
+
   return (
-    <header className="App-header">
-      <img src={logo} className="App-logo" alt="logo" />
-      <p>Hello Vite + React !</p>
-
-      <Counter />
-
-      <p>
-        Edit <code>App.jsx</code> and save to test HMR updates.
-      </p>
-      <p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-        {" | "}
-        <a
-          className="App-link"
-          href="https://vitejs.dev/guide/features.html"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Vite Docs
-        </a>
-      </p>
-    </header>
+    <main className="flex min-h-screen flex-col justify-between bg-dust-0 pb-12 font-inter lg:pb-0 lg:pt-16">
+      <header className="flex h-12 w-full items-center justify-between bg-dust-0 px-6 lg:hidden">
+        <img src={logo} alt="logo" className="h-[90%]" />
+        <NotificationSvg />
+      </header>
+      <ul className="flex flex-col gap-4 lg:w-2/6 lg:self-center">
+        {posts &&
+          posts.map((post) => <PostBox data={post} key={post.post_id} />)}
+      </ul>
+    </main>
   );
 }
