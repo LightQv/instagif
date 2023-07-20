@@ -40,7 +40,7 @@ export default function RegisterForm({ setForm }) {
   return (
     <div className="flex flex-col justify-center p-6 lg:w-2/6 lg:rounded-md lg:bg-sand-0 lg:p-8">
       <form
-        action="login"
+        action="register"
         onSubmit={formik.handleSubmit}
         className="gap-4 space-y-4 lg:gap-6 lg:space-y-6"
       >

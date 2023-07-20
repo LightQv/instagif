@@ -28,14 +28,14 @@ class PostManager extends AbstractManager {
     );
   }
 
-  findAllByUser(username) {
+  findAllByUser(id) {
     return this.database.query(
       `select post.id as post_id, title, gif_url, created_at, user.id as user_id, user.username  
       from ${this.table} 
       join user on user.id = user_id
-      where user.username = ?
+      where user.id = ?
       ORDER BY created_at DESC`,
-      [username]
+      [id]
     );
   }
 

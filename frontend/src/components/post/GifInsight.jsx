@@ -11,6 +11,7 @@ export default function GifInsight({
 }) {
   const [mobileView, setMobileView] = useState(false);
 
+  // --- Gif-size logic --- //
   // Determine if Window is Desktop or Mobile
   const handleResize = () => {
     setMobileView(window.innerWidth <= 768);
@@ -52,7 +53,7 @@ export default function GifInsight({
         />
       </div>
       <div
-        className="flex h-[50dvw] w-full items-center justify-center lg:h-60"
+        className="flex h-[50dvw] w-full items-center justify-center lg:h-60 lg:transition-all lg:hover:scale-[1.02]"
         style={{ display: loading ? "none" : "block" }}
       >
         <button

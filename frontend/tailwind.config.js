@@ -12,6 +12,7 @@ module.exports = {
         dustparent: ["var(--dust-transparent)"],
         sand: ["var(--sand)"],
         cobble: ["var(--cobble)"],
+        granite: ["var(--cobble-light)"],
       },
     },
   },
