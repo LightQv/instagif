@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { BrowserRouter } from "react-router-dom";
+import CustomRouter from "./components/routes/CustomRouter";
+import customHistory from "./services/history";
 import { UserContextProvider } from "./context/UserContext";
 
 import App from "./App";
@@ -10,10 +11,10 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
+    <CustomRouter history={customHistory}>
       <UserContextProvider>
         <App />
       </UserContextProvider>
-    </BrowserRouter>
+    </CustomRouter>
   </React.StrictMode>
 );

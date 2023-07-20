@@ -18,10 +18,11 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/post-details/:id" element={<PostDetails />} />
+        <Route path="/profile/:username" element={<Profile />} />
         {/* Private Routes, Redirect to Login if no user Auth */}
         <Route element={<RequireAuth />}>
           <Route path="/create" element={<CreatePost />} />
-          <Route path="/profile" element={<Profile />} />
+          <Route path="/my-profile" element={<Profile />} />
         </Route>
       </Routes>
       <ToastContainer limit={1} />

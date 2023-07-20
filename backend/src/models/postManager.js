@@ -28,14 +28,14 @@ class ItemManager extends AbstractManager {
     );
   }
 
-  findByUser(id) {
+  findByUser(username) {
     return this.database.query(
-      `select post.id as post_id, title, gif_url, created_at 
+      `select post.id as post_id, title, gif_url, created_at, user.id as user_id, user.username  
       from ${this.table} 
       join user on user.id = user_id
-      where user.id = ?
+      where user.username = ?
       ORDER BY created_at DESC`,
-      [id]
+      [username]
     );
   }
 

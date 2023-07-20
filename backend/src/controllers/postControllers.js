@@ -12,9 +12,10 @@ const browse = (req, res) => {
     });
 };
 
+// Fetch All Posts for a User
 const browseByUser = (req, res) => {
   models.post
-    .findByUser(req.params.id)
+    .findByUser(req.params.username)
     .then(([rows]) => {
       if (rows[0] == null) {
         res.sendStatus(404);
@@ -28,7 +29,8 @@ const browseByUser = (req, res) => {
     });
 };
 
-const read = (req, res) => {
+// Fetch a specific Posts with User Data
+const readWithUser = (req, res) => {
   models.post
     .findWithUser(req.params.id)
     .then(([rows]) => {
@@ -46,9 +48,6 @@ const read = (req, res) => {
 
 const edit = (req, res) => {
   const post = req.body;
-
-  // TODO validations (length, format...)
-
   post.id = parseInt(req.params.id, 10);
 
   models.post
@@ -101,7 +100,7 @@ const destroy = (req, res) => {
 module.exports = {
   browse,
   browseByUser,
-  read,
+  readWithUser,
   edit,
   add,
   destroy,

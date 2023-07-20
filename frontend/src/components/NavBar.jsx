@@ -27,7 +27,7 @@ export default function NavBar() {
           </NavLink>
         </li>
         <li>
-          <NavLink to="/profile">
+          <NavLink to="/my-profile">
             {({ isActive }) =>
               isActive ? <ActiveProfileSvg /> : <ProfileSvg />
             }
