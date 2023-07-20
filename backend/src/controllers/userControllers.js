@@ -28,13 +28,13 @@ const readByUsername = (req, res) => {
     });
 };
 
-const edit = (req, res) => {
+const editProfile = async (req, res) => {
   const user = req.body;
 
   user.id = parseInt(req.params.id, 10);
 
   models.user
-    .update(user)
+    .updateUsername(user)
     .then(([result]) => {
       if (result.affectedRows === 0) {
         res.status(404).send("User not found");
@@ -48,13 +48,13 @@ const edit = (req, res) => {
     });
 };
 
-const editProfile = (req, res) => {
+const editUser = async (req, res) => {
   const user = req.body;
 
   user.id = parseInt(req.params.id, 10);
 
   models.user
-    .updateUsername(user)
+    .updateEmail(user)
     .then(([result]) => {
       if (result.affectedRows === 0) {
         res.status(404).send("User not found");
@@ -102,8 +102,8 @@ const destroy = (req, res) => {
 module.exports = {
   browse,
   readByUsername,
-  edit,
   editProfile,
+  editUser,
   add,
   destroy,
 };

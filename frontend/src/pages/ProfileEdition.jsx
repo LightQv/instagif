@@ -19,7 +19,7 @@ export default function ProfileEdition() {
 
     onSubmit: async (values) => {
       try {
-        const res = await APIService.put(`/users/${user.id}`, values);
+        const res = await APIService.put(`/users-profile/${user.id}`, values);
         if (res) {
           logout();
         } else throw new Error();
@@ -54,7 +54,7 @@ export default function ProfileEdition() {
           </div>
         </div>
         <form
-          action="login"
+          action="editUsername"
           onSubmit={formik.handleSubmit}
           className="gap-4 space-y-4 p-4 lg:gap-6 lg:space-y-6"
         >
@@ -81,7 +81,7 @@ export default function ProfileEdition() {
               value={formik.values.username}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              className="rounded-md px-4 py-2 placeholder:italic placeholder:opacity-50"
+              className="w-full rounded-md px-4 py-2 font-semibold placeholder:text-sm placeholder:font-normal placeholder:italic placeholder:text-black/50 dark:bg-granite-0 dark:text-sand-0"
             />
             <p className="mt-1 text-center text-xs italic">
               Please note that if you change your Username, you'll be
@@ -95,7 +95,7 @@ export default function ProfileEdition() {
               !editProfileSchema.isValidSync(formik.values) ||
               formik.values.username.localeCompare(user.username) === 0
             }
-            className="h-fit w-full rounded-md bg-dust-0 bg-red-800 px-4 py-2 text-base font-semibold text-white disabled:bg-gray-300 disabled:text-gray-800"
+            className="h-fit w-full rounded-md bg-dust-0 bg-red-800 px-4 py-2 text-sm font-semibold text-white disabled:bg-gray-300 disabled:text-gray-800"
           >
             Modify
           </button>
