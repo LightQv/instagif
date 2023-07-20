@@ -4,7 +4,6 @@ import { useUserContext } from "../contexts/UserContext";
 import BackSvg from "../components/svg/BackSvg";
 import DownSvg from "../components/svg/DownSvg";
 import APIService from "../services/APIService";
-// import { editProfileSchema } from "../services/validators";
 import { notifyError } from "../services/toasts";
 import DeleteAccountModal from "../components/profile/DeleteAccountModal";
 import PostInsight from "../components/profile/PostInsight";
