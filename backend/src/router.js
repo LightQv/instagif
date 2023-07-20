@@ -21,8 +21,8 @@ router.get("/users", userControllers.browse);
 router.get("/users/:id", userControllers.read);
 router.post("/users", validateUser, hashPassword, userControllers.add);
 router.get("/posts", postControllers.browse);
-router.get("/posts/:id", postControllers.read);
-router.get("/posts-user/:id", postControllers.browseByUser);
+router.get("/posts/:id", postControllers.readWithUser);
+router.get("/posts-user/:username", postControllers.browseByUser);
 
 // Private Routes (Auth requiered)
 router.use(verifyToken);

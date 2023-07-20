@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 import { useFormik } from "formik";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { useEffect } from "react";
 import { useUserContext } from "../../context/UserContext";
 import APIService from "../../services/APIService";
 import { loginSchema } from "../../services/validators";
@@ -9,6 +10,7 @@ import { notifyError } from "../../services/toasts";
 export default function LoginForm({ setForm }) {
   const { login } = useUserContext();
   const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const formik = useFormik({
     initialValues: {
@@ -32,6 +34,15 @@ export default function LoginForm({ setForm }) {
       }
     },
   });
+
+  useEffect(() => {
+    if (searchParams.has("expired")) {
+      notifyError("Session expirée, veuillez vous reconnecter.");
+      setSearchParams(() => {
+        return undefined;
+      });
+    }
+  }, []);
 
   return (
     <div className="flex flex-col justify-center p-6 lg:w-2/6 lg:rounded-md lg:bg-sand-0 lg:p-8">
