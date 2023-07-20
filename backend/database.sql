@@ -6,8 +6,6 @@ CREATE TABLE user (
     username varchar(100) UNIQUE NOT NULL,
     email varchar(255) UNIQUE NOT NULL,
     hashedPassword varchar(255) NOT NULL
-    -- avatar varchar(255) DEFAULT NULL
-    -- ON DELETE CASCADE
 )
 ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
@@ -21,6 +19,16 @@ VALUES
 (
 "Azraeth", 
 "azraeth@gmail.com", 
+"$argon2id$v=19$m=65536,t=5,p=1$+8QKgBU+Z7zr2EVICuFDOg$74Nu7DWmpa/+VW7543Xm28gd+ATVrhtCV2lAakJ4i+A"
+),
+(
+"TheB0ss", 
+"michael.scott@gmail.com", 
+"$argon2id$v=19$m=65536,t=5,p=1$+8QKgBU+Z7zr2EVICuFDOg$74Nu7DWmpa/+VW7543Xm28gd+ATVrhtCV2lAakJ4i+A"
+),
+(
+"AssistRegMng", 
+"dwight.schultz@gmail.com", 
 "$argon2id$v=19$m=65536,t=5,p=1$+8QKgBU+Z7zr2EVICuFDOg$74Nu7DWmpa/+VW7543Xm28gd+ATVrhtCV2lAakJ4i+A"
 );
 
@@ -55,6 +63,24 @@ VALUES
 "https://media.giphy.com/media/NS7gPxeumewkWDOIxi/giphy.gif", 
 "2023-07-13 21:00:00", 
 1
+),
+(
+"I'm the boss!", 
+"https://media.giphy.com/media/buE4eDkXkpWYZIAyVB/giphy.gif", 
+"2023-07-18 11:23:45", 
+4
+),
+(
+"Hey !", 
+"https://media.giphy.com/media/xTiIzJSKB4l7xTouE8/giphy.gif", 
+"2023-07-20 21:23:45", 
+1
+),
+(
+"Parkour !", 
+"https://media.giphy.com/media/DoCIC5Pxp57qg/giphy.gif", 
+"2023-07-20 21:55:45", 
+3
 );
 
 DROP TABLE IF EXISTS post_like;
