@@ -6,17 +6,18 @@ import ActiveProfileSvg from "./svg/navbar/ActiveProfileSvg";
 import PostSvg from "./svg/navbar/PostSvg";
 import ActivePostSvg from "./svg/navbar/ActivePostSvg";
 import logo from "../assets/images/logo.jpg";
+import logoDark from "../assets/images/logo-dark.jpg";
 import NotificationSvg from "./svg/interactions/NotificationSvg";
 import { useThemeContext } from "../contexts/ThemeContext";
 
 export default function NavBar() {
   const { theme } = useThemeContext();
   return (
-    <nav className="fixed bottom-0 z-10 flex h-12 w-full items-center justify-evenly bg-gradient-to-b from-dust-0 via-dust-0 via-30% to-dustparent-0 dark:from-cobble-0 dark:via-cobble-0 dark:to-cobbleparent-0 lg:top-0 lg:h-16 lg:justify-between lg:bg-dust-0 lg:px-12 dark:lg:bg-cobble-0">
+    <nav className="fixed bottom-0 z-10 flex h-12 w-full items-center justify-evenly bg-gradient-to-b from-dust-0 via-dust-0 via-30% to-dustparent-0 dark:from-cobble-0 dark:via-cobble-0 dark:to-cobbleparent-0 lg:top-0 lg:h-16 lg:justify-between lg:bg-dust-0 lg:px-12 lg:dark:bg-cobble-0 lg:dark:bg-none">
       <div className="hidden lg:flex lg:h-full lg:w-full lg:items-center lg:gap-6">
         <Link to="/" className="h-full">
           <img
-            src={theme === "dark" ? logo : logo}
+            src={theme === "dark" ? logoDark : logo}
             alt="logo"
             className="lg:h-full"
           />
