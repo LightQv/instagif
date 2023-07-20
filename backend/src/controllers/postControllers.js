@@ -17,11 +17,7 @@ const browseByUser = (req, res) => {
   models.post
     .findAllByUser(req.params.id)
     .then(([rows]) => {
-      if (rows[0] == null) {
-        res.sendStatus(404);
-      } else {
-        res.send(rows);
-      }
+      res.send(rows);
     })
     .catch((err) => {
       console.error(err);

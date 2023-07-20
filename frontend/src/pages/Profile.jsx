@@ -7,7 +7,7 @@ import APIService from "../services/APIService";
 import { notifyError } from "../services/toasts";
 
 export default function Profile() {
-  const { user, logout } = useUserContext();
+  const { user } = useUserContext();
   const [postList, setPostList] = useState(null);
   const { username } = useParams();
   const [profile, setProfile] = useState(null);
@@ -42,7 +42,11 @@ export default function Profile() {
           setPostList(res.data);
           setLoading(true);
         })
-        .catch((err) => notifyError(`${err} : Fetching user's posts.`));
+        .catch((err) => {
+          if (err.request.status === 500) {
+            notifyError(`${err} : Fetching user's posts.`);
+          }
+        });
     }
   }, [profile]);
 
@@ -64,18 +68,19 @@ export default function Profile() {
                 {postList?.length > 1 && "s"}.
               </h3>
             </div>
-            {postList && user.id === postList[0]?.user_id && (
-              <button
-                type="button"
-                className="ml-auto transition-all hover:scale-110 hover:text-granite-0"
-                onClick={logout}
-              >
-                <SettingsSvg />
-              </button>
+            {!username && (
+              <Link to="/my-profile/settings">
+                <button
+                  type="button"
+                  className="ml-auto transition-all hover:scale-110 hover:text-granite-0"
+                >
+                  <SettingsSvg />
+                </button>
+              </Link>
             )}
           </div>
         </div>
-        {postList && user.id === postList[0]?.user_id && (
+        {!username && (
           <Link to="/my-profile/edit">
             <button
               type="button"
@@ -86,7 +91,11 @@ export default function Profile() {
           </Link>
         )}
       </div>
-      <ul className="grid w-full grid-cols-2 gap-[0.1rem] lg:w-2/3">
+      <ul
+        className={`grid w-full ${
+          postList?.length > 0 ? "grid-cols-2" : "grid-cols-1"
+        } gap-[0.1rem] lg:w-2/3`}
+      >
         {postList && postList.length !== 0 ? (
           postList.map((post, index) => (
             <PostInsight
@@ -98,7 +107,7 @@ export default function Profile() {
             />
           ))
         ) : (
-          <p>Haven't posted anything yet.</p>
+          <p className="m-auto text-sm">Haven't posted anything yet.</p>
         )}
       </ul>
     </main>
