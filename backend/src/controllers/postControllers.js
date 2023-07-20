@@ -25,6 +25,19 @@ const browseByUser = (req, res) => {
     });
 };
 
+// Fetch All Liked Posts for a User
+const browseLikedByUser = (req, res) => {
+  models.post
+    .findAllLikedByUser(req.params.id)
+    .then(([rows]) => {
+      res.send(rows);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
+
 // Fetch a specific Posts with User Data
 const readWithUser = (req, res) => {
   models.post
@@ -96,6 +109,7 @@ const destroy = (req, res) => {
 module.exports = {
   browse,
   browseByUser,
+  browseLikedByUser,
   readWithUser,
   edit,
   add,
