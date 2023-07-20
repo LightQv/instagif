@@ -1,6 +1,6 @@
 const AbstractManager = require("./AbstractManager");
 
-class ItemManager extends AbstractManager {
+class PostManager extends AbstractManager {
   constructor() {
     super({ table: "post" });
   }
@@ -28,7 +28,7 @@ class ItemManager extends AbstractManager {
     );
   }
 
-  findByUser(username) {
+  findAllByUser(username) {
     return this.database.query(
       `select post.id as post_id, title, gif_url, created_at, user.id as user_id, user.username  
       from ${this.table} 
@@ -50,4 +50,4 @@ class ItemManager extends AbstractManager {
   }
 }
 
-module.exports = ItemManager;
+module.exports = PostManager;

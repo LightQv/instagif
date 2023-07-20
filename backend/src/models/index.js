@@ -34,10 +34,15 @@ const UserManager = require("./UserManager");
 models.user = new UserManager();
 models.user.setDatabase(pool);
 
-const PostManager = require("./postManager");
+const PostManager = require("./PostManager");
 
 models.post = new PostManager();
 models.post.setDatabase(pool);
+
+const LikeManager = require("./LikeManager");
+
+models.like = new LikeManager();
+models.like.setDatabase(pool);
 
 // bonus: use a proxy to personalize error message,
 // when asking for a non existing model

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { useUserContext } from "../context/UserContext";
+import { useUserContext } from "../contexts/UserContext";
 import SettingsSvg from "../components/svg/SettingsSvg";
 import PostInsight from "../components/profile/PostInsight";
 import APIService from "../services/APIService";

@@ -7,7 +7,7 @@ import BackSvg from "../svg/BackSvg";
 import notifySuccess, { notifyError } from "../../services/toasts";
 import { addPostSchema } from "../../services/validators";
 import APIService from "../../services/APIService";
-import { useUserContext } from "../../context/UserContext";
+import { useUserContext } from "../../contexts/UserContext";
 
 export default function CreatePostModal({ selectedGif, setIsShow }) {
   const { user } = useUserContext();

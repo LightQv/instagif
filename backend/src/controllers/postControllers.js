@@ -15,7 +15,7 @@ const browse = (req, res) => {
 // Fetch All Posts for a User
 const browseByUser = (req, res) => {
   models.post
-    .findByUser(req.params.username)
+    .findAllByUser(req.params.username)
     .then(([rows]) => {
       if (rows[0] == null) {
         res.sendStatus(404);

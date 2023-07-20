@@ -13,6 +13,7 @@ const {
 
 const userControllers = require("./controllers/userControllers");
 const postControllers = require("./controllers/postControllers");
+const likeControllers = require("./controllers/likeControllers");
 
 // Public Routes (without Auth)
 router.post("/login", getUserByEmailMiddleware, verifyPassword);
@@ -30,8 +31,12 @@ router.get("/logout", logout);
 router.put("/users/:id", validateUser, userControllers.edit);
 router.delete("/users/:id", userControllers.destroy);
 
-router.put("/posts/:id", postControllers.edit);
 router.post("/posts", postControllers.add);
+router.put("/posts/:id", postControllers.edit);
 router.delete("/posts/:id", postControllers.destroy);
+
+router.get("/likes-user/:id", likeControllers.browseByUser);
+router.post("/likes", likeControllers.add);
+router.delete("/likes/:id", likeControllers.destroy);
 
 module.exports = router;

@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import { useFormik } from "formik";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useEffect } from "react";
-import { useUserContext } from "../../context/UserContext";
+import { useUserContext } from "../../contexts/UserContext";
 import APIService from "../../services/APIService";
 import { loginSchema } from "../../services/validators";
 import { notifyError } from "../../services/toasts";
