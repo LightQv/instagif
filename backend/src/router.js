@@ -2,7 +2,7 @@ const express = require("express");
 
 const router = express.Router();
 
-const { validateUser } = require("./services/validators");
+const { validateUser, validateEditProfile } = require("./services/validators");
 const { getUserByEmailMiddleware } = require("./controllers/authControllers");
 const {
   hashPassword,
@@ -19,16 +19,16 @@ const likeControllers = require("./controllers/likeControllers");
 router.post("/login", getUserByEmailMiddleware, verifyPassword);
 
 router.get("/users", userControllers.browse);
-router.get("/users/:id", userControllers.read);
+router.get("/users/:username", userControllers.readByUsername);
 router.post("/users", validateUser, hashPassword, userControllers.add);
 router.get("/posts", postControllers.browse);
 router.get("/posts/:id", postControllers.readWithUser);
-router.get("/posts-user/:username", postControllers.browseByUser);
+router.get("/posts-user/:id", postControllers.browseByUser);
 
 // Private Routes (Auth requiered)
 router.use(verifyToken);
 router.get("/logout", logout);
-router.put("/users/:id", validateUser, userControllers.edit);
+router.put("/users/:id", validateEditProfile, userControllers.editProfile);
 router.delete("/users/:id", userControllers.destroy);
 
 router.post("/posts", postControllers.add);

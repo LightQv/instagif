@@ -14,13 +14,15 @@ export function LikeContextProvider({ children }) {
   const [sendLike, setSendLike] = useState(false);
 
   useEffect(() => {
-    APIService.get(`/likes-user/${user.id}`)
-      .then((res) => {
-        setLikes(res.data);
-        setSendLike(false);
-      })
-      .catch(() => notifyError("Error fetching likes datas."));
-  }, [user, sendLike]);
+    if (user.id) {
+      APIService.get(`/likes-user/${user.id}`)
+        .then((res) => {
+          setLikes(res.data);
+          setSendLike(false);
+        })
+        .catch(() => notifyError("Error fetching likes datas."));
+    }
+  }, [sendLike]);
 
   const memo = useMemo(() => {
     return { likes, setSendLike };

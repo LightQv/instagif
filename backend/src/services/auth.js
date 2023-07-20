@@ -44,7 +44,6 @@ const verifyPassword = (req, res) => {
 
         delete req.body.password;
         delete req.user.hashedPassword;
-        delete req.user.email;
 
         // Put token in cookie and send user
         res

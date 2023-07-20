@@ -37,7 +37,7 @@ export default function LoginForm({ setForm }) {
 
   useEffect(() => {
     if (searchParams.has("expired")) {
-      notifyError("Session expirée, veuillez vous reconnecter.");
+      notifyError("Unauthorized, please login.");
       setSearchParams(() => {
         return undefined;
       });

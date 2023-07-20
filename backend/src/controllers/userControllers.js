@@ -12,11 +12,9 @@ const browse = (req, res) => {
     });
 };
 
-const read = (req, res) => {
-  const id = parseInt(req.params.id, 10);
-
+const readByUsername = (req, res) => {
   models.user
-    .find(id)
+    .find(req.params.username)
     .then(([rows]) => {
       if (rows[0]) {
         res.send(rows[0]);
@@ -37,6 +35,26 @@ const edit = (req, res) => {
 
   models.user
     .update(user)
+    .then(([result]) => {
+      if (result.affectedRows === 0) {
+        res.status(404).send("User not found");
+      } else {
+        res.sendStatus(204);
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
+
+const editProfile = (req, res) => {
+  const user = req.body;
+
+  user.id = parseInt(req.params.id, 10);
+
+  models.user
+    .updateUsername(user)
     .then(([result]) => {
       if (result.affectedRows === 0) {
         res.status(404).send("User not found");
@@ -83,8 +101,9 @@ const destroy = (req, res) => {
 };
 module.exports = {
   browse,
-  read,
+  readByUsername,
   edit,
+  editProfile,
   add,
   destroy,
 };

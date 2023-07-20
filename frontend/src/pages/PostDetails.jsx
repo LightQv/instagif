@@ -42,14 +42,14 @@ export default function PostDetails() {
         <div className="my-4 flex gap-2 px-4 lg:w-2/6 lg:self-center">
           <button
             type="button"
-            className="h-fit w-full rounded-md bg-cobble-0 py-1 text-sm font-semibold text-dust-0"
+            className="h-fit w-full rounded-md bg-cobble-0 py-1 text-sm font-semibold text-dust-0 transition-all hover:scale-[1.03] hover:bg-granite-0"
             onClick={() => setIsShow({ editModal: true })}
           >
             Edit
           </button>
           <button
             type="button"
-            className="h-fit w-full rounded-md bg-cobble-0 py-1 text-sm font-semibold text-dust-0"
+            className="h-fit w-full rounded-md bg-cobble-0 py-1 text-sm font-semibold text-dust-0 transition-all hover:scale-[1.03] hover:bg-granite-0"
             onClick={() => setIsShow({ deleteModal: true })}
           >
             Delete

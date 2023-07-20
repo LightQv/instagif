@@ -24,8 +24,8 @@ export default function PostInsight({ data, index, loading, setLoading }) {
         <Link to={`/post-details/${data.post_id}`} className="h-full w-full">
           <img
             src={data.gif_url}
-            alt={`Post ${index + 1}`}
             onLoad={() => setLoading(false)}
+            alt={`Post ${index + 1}`}
             className="h-full w-full rounded-md object-cover"
           />
         </Link>
