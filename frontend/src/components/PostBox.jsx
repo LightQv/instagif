@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import TimeAgo from "javascript-time-ago";
-import en from "javascript-time-ago/locale/en.json";
+import fr from "javascript-time-ago/locale/en.json";
 import ReactTimeAgo from "react-time-ago";
 import { Link } from "react-router-dom";
 import LikeSvg from "./svg/interactions/LikeSvg";
@@ -14,7 +14,7 @@ import { notifyError } from "../services/toasts";
 export default function PostBox({ data }) {
   const { user } = useUserContext();
   const { likes, setSendLike } = useLikeContext();
-  TimeAgo.addLocale(en);
+  TimeAgo.addLocale(fr);
 
   // If Post's User = User's Loged : Link to My Profile
   function getProfilLink() {
@@ -76,11 +76,7 @@ export default function PostBox({ data }) {
               <Link to={getProfilLink()}>{data.username}'s </Link>
               <span className="text-xs font-normal italic">
                 mood{" "}
-                <ReactTimeAgo
-                  date={new Date(data.created_at).toLocaleDateString("en-US")}
-                  locale="en-US"
-                />
-                .
+                <ReactTimeAgo date={new Date(data.created_at)} locale="fr" />.
               </span>
             </h3>
             <div className="flex items-center gap-2">
