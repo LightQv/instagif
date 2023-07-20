@@ -14,6 +14,15 @@ class likeManager extends AbstractManager {
     );
   }
 
+  countLikeByUser(id) {
+    return this.database.query(
+      `SELECT COUNT(user_id) as like_count 
+    FROM post_like
+    WHERE post_like.user_id = ?`,
+      [id]
+    );
+  }
+
   findAllByUser(id) {
     return this.database.query(
       `select post_like.id, post_id, user_id  

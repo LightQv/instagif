@@ -22,7 +22,7 @@ export default function ProfileSettings() {
           <button
             type="button"
             className="float-left transition-all hover:scale-110 hover:text-granite-0"
-            onClick={() => navigate(-1)}
+            onClick={() => navigate("/my-profile")}
           >
             <BackSvg />
           </button>
