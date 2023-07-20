@@ -2,7 +2,11 @@ const express = require("express");
 
 const router = express.Router();
 
-const { validateUser, validateEditProfile } = require("./services/validators");
+const {
+  validateUser,
+  validateEditProfile,
+  validateEditUser,
+} = require("./services/validators");
 const { getUserByEmailMiddleware } = require("./controllers/authControllers");
 const {
   hashPassword,
@@ -28,7 +32,12 @@ router.get("/posts-user/:id", postControllers.browseByUser);
 // Private Routes (Auth requiered)
 router.use(verifyToken);
 router.get("/logout", logout);
-router.put("/users/:id", validateEditProfile, userControllers.editProfile);
+router.put("/users/:id", validateEditUser, userControllers.editUser);
+router.put(
+  "/users-profile/:id",
+  validateEditProfile,
+  userControllers.editProfile
+);
 router.delete("/users/:id", userControllers.destroy);
 
 router.get("/posts-liked/:id", postControllers.browseLikedByUser);

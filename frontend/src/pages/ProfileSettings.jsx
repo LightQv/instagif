@@ -4,6 +4,7 @@ import { useUserContext } from "../contexts/UserContext";
 import BackSvg from "../components/svg/navigation/BackSvg";
 import LikedPosts from "../components/profile/LikedPosts";
 import ThemeSwitcher from "../components/profile/ThemeSwitcher";
+import ChangeMail from "../components/profile/ChangeMail";
 import DeleteAccountModal from "../components/profile/DeleteAccountModal";
 
 export default function ProfileSettings() {
@@ -12,6 +13,7 @@ export default function ProfileSettings() {
   const [isShow, setIsShow] = useState({
     likedPosts: false,
     appTheme: false,
+    changeMail: false,
     deleteModal: false,
   });
 
@@ -34,8 +36,7 @@ export default function ProfileSettings() {
       <div className="flex w-full flex-col gap-4 py-4 lg:w-1/3 lg:self-center">
         <LikedPosts isShow={isShow} setIsShow={setIsShow} />
         <ThemeSwitcher isShow={isShow} setIsShow={setIsShow} />
-        <h3>Change mail</h3>
-        <h3>Change password</h3>
+        <ChangeMail isShow={isShow} setIsShow={setIsShow} />
         <div className="px-6">
           <button
             type="button"
