@@ -29,7 +29,7 @@ export default function EditPostModal({ post, setIsShow }) {
           setIsShow(false);
         } else throw new Error();
       } catch (error) {
-        if (error.request.status === 401) {
+        if (error.request?.status === 401) {
           notifyError("Error modifying your post.");
         }
       }
