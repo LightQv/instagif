@@ -34,7 +34,7 @@ export default function CreatePostModal({ selectedGif, setIsShow }) {
           navigate("/");
         } else throw new Error();
       } catch (error) {
-        if (error.request.status === 401) {
+        if (error.request?.status === 401) {
           notifyError("rror.");
         }
       }
