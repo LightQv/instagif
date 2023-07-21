@@ -19,7 +19,7 @@ export default function DeleteAccountModal({ setIsShow }) {
       throw new Error();
     } catch (err) {
       if (err.request?.status === 500) {
-        notifyError("Error deleting your post.");
+        notifyError("Error deleting your account.");
       }
     }
   };
