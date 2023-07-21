@@ -17,8 +17,8 @@ VALUES
 "$argon2id$v=19$m=65536,t=5,p=1$+8QKgBU+Z7zr2EVICuFDOg$74Nu7DWmpa/+VW7543Xm28gd+ATVrhtCV2lAakJ4i+A"
 ),
 (
-"Azraeth", 
-"azraeth@gmail.com", 
+"Tun4", 
+"jim.halpert@gmail.com", 
 "$argon2id$v=19$m=65536,t=5,p=1$+8QKgBU+Z7zr2EVICuFDOg$74Nu7DWmpa/+VW7543Xm28gd+ATVrhtCV2lAakJ4i+A"
 ),
 (
@@ -53,7 +53,7 @@ VALUES
 1
 ),
 (
-"My to-do list.", 
+"Looking at my to-do list.", 
 "https://media.giphy.com/media/QMHoU66sBXqqLqYvGO/giphy.gif", 
 "2023-07-15 10:22:42", 
 2
@@ -71,7 +71,7 @@ VALUES
 4
 ),
 (
-"Hey !", 
+"Hey, have a good day !", 
 "https://media.giphy.com/media/xTiIzJSKB4l7xTouE8/giphy.gif", 
 "2023-07-20 21:23:45", 
 1
