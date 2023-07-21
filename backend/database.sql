@@ -87,9 +87,11 @@ DROP TABLE IF EXISTS post_like;
 CREATE TABLE post_like (
   id int PRIMARY KEY NOT NULL AUTO_INCREMENT,
   post_id INT NOT NULL,
-  FOREIGN KEY (post_id) REFERENCES post(id),
+  FOREIGN KEY (post_id) REFERENCES post(id)
+  ON DELETE CASCADE,
   user_id INT NOT NULL,
   FOREIGN KEY (user_id) REFERENCES user(id)
+  ON DELETE CASCADE
 )
 ENGINE=InnoDB DEFAULT CHARSET = utf8;
 
@@ -109,23 +111,12 @@ CREATE TABLE post_feeling (
   id int PRIMARY KEY NOT NULL AUTO_INCREMENT,
   type TEXT NOT NULL,
   post_id INT NOT NULL,
-  FOREIGN KEY (post_id) REFERENCES post(id),
+  FOREIGN KEY (post_id) REFERENCES post(id)
+    ON DELETE CASCADE,
   user_id INT NOT NULL,
   FOREIGN KEY (user_id) REFERENCES user(id)
+  ON DELETE CASCADE
 )
 ENGINE=InnoDB DEFAULT CHARSET = utf8;
-
-INSERT INTO post_feeling (type, post_id, user_id) 
-VALUES 
-(
-"Cool!", 
-1,
-1
-),
-(
-"Top!", 
-1,
-2
-);
 
 SET foreign_key_checks = 1;
