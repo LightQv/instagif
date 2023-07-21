@@ -107,7 +107,7 @@ export default function CreatePostModal({ selectedGif, setIsShow }) {
               type="submit"
               onSubmit={formik.handleSubmit}
               disabled={!addPostSchema.isValidSync(formik.values)}
-              className="flex h-10 w-4/5 items-center justify-center rounded-md bg-red-800 py-2 text-sm font-semibold text-dust-0 transition-all hover:scale-[1.03] hover:bg-sand-0 disabled:bg-dust-0 disabled:text-cobble-0 disabled:hover:scale-100 dark:bg-granite-0 dark:text-sand-0"
+              className="flex h-10 w-4/5 items-center justify-center rounded-md bg-red-800 py-2 text-sm font-semibold text-dust-0 transition-all hover:scale-[1.03] hover:bg-red-600 disabled:bg-dust-0 disabled:text-cobble-0 disabled:hover:scale-100 dark:bg-granite-0 dark:text-sand-0"
             >
               Share
             </button>
