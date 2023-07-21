@@ -28,7 +28,7 @@ export default function PostDetails() {
         setLoading(true);
       })
       .catch((err) => notifyError(`${err}: fetching posts`));
-  }, []);
+  }, [isShow]);
 
   return (
     <main className="flex min-h-screen flex-col justify-start bg-dust-0 pb-12 font-inter dark:bg-cobble-0 lg:justify-center lg:pb-0 lg:pt-16">
