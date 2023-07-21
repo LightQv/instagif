@@ -44,7 +44,7 @@ export default function Profile() {
           setLoading(true);
         })
         .catch((err) => {
-          if (err.request.status === 500) {
+          if (err.request?.status === 500) {
             notifyError(`${err} : Fetching user's posts.`);
           }
         });
