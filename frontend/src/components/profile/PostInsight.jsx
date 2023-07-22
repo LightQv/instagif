@@ -21,7 +21,10 @@ export default function PostInsight({ data, index, loading, setLoading }) {
         className="flex h-[50dvw] w-full items-center justify-center lg:h-[25dvw]"
         style={{ display: loading ? "none" : "block" }}
       >
-        <Link to={`/post-details/${data.post_id}`} className="h-full w-full">
+        <Link
+          to={`/${data.username}/${data.post_id}`}
+          className="h-full w-full"
+        >
           <img
             src={data.gif_url}
             onLoad={() => setLoading(false)}

@@ -6,7 +6,7 @@ import DownSvg from "../svg/navigation/DownSvg";
 import SightSvg from "../svg/SightSvg";
 import UnsightSvg from "../svg/UnsightSvg";
 import APIService from "../../services/APIService";
-import { notifyError } from "../../services/toasts";
+import notifySuccess, { notifyError } from "../../services/toasts";
 import { editPwSchema } from "../../services/validators";
 import { useThemeContext } from "../../contexts/ThemeContext";
 
@@ -30,11 +30,12 @@ export default function ChangeMail({ isShow, setIsShow }) {
       try {
         const res = await APIService.put(`/users-pw/${user.id}`, values);
         if (res) {
+          notifySuccess("Password successfully changed.");
           logout();
         } else throw new Error();
       } catch (error) {
         if (error.request.status === 401) {
-          notifyError("Email already taken.");
+          notifyError("Error, please try again.");
         }
       }
     },

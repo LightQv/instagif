@@ -5,7 +5,10 @@ import { useUserContext } from "../../contexts/UserContext";
 import { useThemeContext } from "../../contexts/ThemeContext";
 import APIService from "../../services/APIService";
 import { registerSchema } from "../../services/validators";
-import notifySuccess, { notifyError } from "../../services/toasts";
+import notifySuccess, {
+  notifyDuplicate,
+  notifyError,
+} from "../../services/toasts";
 import SightSvg from "../svg/SightSvg";
 import UnsightSvg from "../svg/UnsightSvg";
 
@@ -31,18 +34,15 @@ export default function RegisterForm({ setForm }) {
         const res = await APIService.post(`/users`, values);
         if (res) {
           login(res.data);
-          notifySuccess("Account created, please Login");
+          notifySuccess("Account created.");
           setForm({ login: true, register: false });
         } else throw new Error();
       } catch (error) {
-        if (
-          error.request.status === 422 &&
-          error.response.data.validationErrors[0].context.key === "email"
-        ) {
-          notifyError("This email is already taken.");
+        if (error.request.status === 400) {
+          notifyDuplicate("Username or Email already taken.");
         }
         if (error.request.status === 500) {
-          notifyError("This username is already taken.");
+          notifyError("Error creating your account, please try again.");
         }
       }
     },
@@ -193,7 +193,7 @@ export default function RegisterForm({ setForm }) {
         </div>
         <button
           type="submit"
-          className="h-fit w-full rounded-md bg-dust-0 bg-red-800 px-4 py-2 text-base font-semibold text-white disabled:bg-gray-300 disabled:text-gray-800"
+          className="h-fit w-full rounded-md bg-dust-0 bg-red-800 px-4 py-2 text-base font-semibold text-dust-0 disabled:bg-gray-300 disabled:text-gray-800"
           onSubmit={formik.handleSubmit}
           disabled={!registerSchema.isValidSync(formik.values)}
         >
