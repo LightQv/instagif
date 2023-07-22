@@ -18,10 +18,10 @@ export default function PostBox({ data }) {
 
   // If Post's User = User's Loged : Link to My Profile
   function getProfilLink() {
-    if (user.id === data.user_id) {
+    if (user?.id === data.user_id) {
       return "/my-profile";
     }
-    return `/profile/${data.username.toLowerCase()}`;
+    return `/${data.username}`;
   }
 
   // --- Like logic --- //
@@ -61,7 +61,7 @@ export default function PostBox({ data }) {
 
   return (
     <li className="w-full text-cobble-0">
-      <Link to={`/post-details/${data.post_id}`}>
+      <Link to={`/${data.username}/${data.post_id}`}>
         <img src={data.gif_url} alt="mood_gif" className="w-full" />
       </Link>
       <div className="flex w-full items-center justify-start gap-2 p-4">
