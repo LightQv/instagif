@@ -48,13 +48,32 @@ const editProfile = async (req, res) => {
     });
 };
 
-const editUser = async (req, res) => {
+const editUserMail = async (req, res) => {
   const user = req.body;
 
   user.id = parseInt(req.params.id, 10);
 
   models.user
     .updateEmail(user)
+    .then(([result]) => {
+      if (result.affectedRows === 0) {
+        res.status(404).send("User not found");
+      } else {
+        res.sendStatus(204);
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
+const editUserPw = async (req, res) => {
+  const user = req.body;
+
+  user.id = parseInt(req.params.id, 10);
+
+  models.user
+    .updatePw(user)
     .then(([result]) => {
       if (result.affectedRows === 0) {
         res.status(404).send("User not found");
@@ -102,7 +121,8 @@ module.exports = {
   browse,
   readByUsername,
   editProfile,
-  editUser,
+  editUserMail,
+  editUserPw,
   add,
   destroy,
 };

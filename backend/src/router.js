@@ -5,7 +5,8 @@ const router = express.Router();
 const {
   validateUser,
   validateEditProfile,
-  validateEditUser,
+  validateEditUserMail,
+  validateEditUserPw,
 } = require("./services/validators");
 const { getUserByEmailMiddleware } = require("./controllers/authControllers");
 const {
@@ -32,7 +33,13 @@ router.get("/posts-user/:id", postControllers.browseByUser);
 // Private Routes (Auth requiered)
 router.use(verifyToken);
 router.get("/logout", logout);
-router.put("/users/:id", validateEditUser, userControllers.editUser);
+router.put("/users-ml/:id", validateEditUserMail, userControllers.editUserMail);
+router.put(
+  "/users-pw/:id",
+  validateEditUserPw,
+  hashPassword,
+  userControllers.editUserPw
+);
 router.put(
   "/users-profile/:id",
   validateEditProfile,
