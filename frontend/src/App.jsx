@@ -19,8 +19,8 @@ function App() {
         {/* Public Routes */}
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/post-details/:id" element={<PostDetails />} />
-        <Route path="/profile/:username" element={<Profile />} />
+        <Route path="/:username" element={<Profile />} />
+        <Route path="/:username/:id" element={<PostDetails />} />
         {/* Private Routes, Redirect to Login if no user Auth */}
         <Route element={<RequireAuth />}>
           <Route path="/create" element={<CreatePost />} />
