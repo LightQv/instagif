@@ -60,7 +60,7 @@ export default function RegisterForm({ setForm }) {
         <div className="flex flex-col">
           <label
             htmlFor="username"
-            className="mb-2 ml-1 text-sm lg:text-base"
+            className="mb-2 ml-1 text-sm"
             style={
               formik.touched.username && formik.errors.username
                 ? { color: "rgb(239, 3, 3)" }
@@ -86,7 +86,7 @@ export default function RegisterForm({ setForm }) {
         <div className="flex flex-col">
           <label
             htmlFor="email"
-            className="mb-2 ml-1 text-sm lg:text-base"
+            className="mb-2 ml-1 text-sm"
             style={
               formik.touched.email && formik.errors.email
                 ? { color: "rgb(239, 3, 3)" }
@@ -112,10 +112,9 @@ export default function RegisterForm({ setForm }) {
         <div className="flex flex-col">
           <label
             htmlFor="password"
-            className="mb-2 ml-1 flex w-full items-center justify-between text-sm lg:text-base"
+            className="mb-2 ml-1 flex w-full items-center justify-between text-sm"
           >
             <h3
-              className="ml-1"
               style={
                 formik.touched.password && formik.errors.password
                   ? { color: "rgb(239, 3, 3)" }
@@ -154,10 +153,9 @@ export default function RegisterForm({ setForm }) {
         <div className="flex flex-col">
           <label
             htmlFor="confirmPassword"
-            className="mb-2 ml-1 flex w-full items-center justify-between text-sm lg:text-base"
+            className="mb-2 ml-1 flex w-full items-center justify-between text-sm"
           >
             <h3
-              className="ml-1"
               style={
                 formik.touched.confirmPassword && formik.errors.confirmPassword
                   ? { color: "rgb(239, 3, 3)" }
@@ -190,7 +188,7 @@ export default function RegisterForm({ setForm }) {
             value={formik.values.confirmPassword}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
-            className="rounded-md px-4 py-2 placeholder:italic placeholder:opacity-50 dark:bg-cobble-0 dark:text-sand-0"
+            className="mb-2 rounded-md px-4 py-2 placeholder:italic placeholder:opacity-50 dark:bg-cobble-0 dark:text-sand-0"
           />
         </div>
         <button

@@ -62,7 +62,7 @@ export default function LoginForm({ setForm }) {
         <div className="flex flex-col">
           <label
             htmlFor="email"
-            className="mb-2 ml-1 text-base"
+            className="mb-2 ml-1 text-sm"
             style={
               formik.touched.email && formik.errors.email
                 ? { color: "rgb(239, 3, 3)" }
@@ -88,10 +88,9 @@ export default function LoginForm({ setForm }) {
         <div className="flex flex-col">
           <label
             htmlFor="password"
-            className="mb-2 flex w-full items-center justify-between text-base"
+            className="mb-2 ml-1 flex w-full items-center justify-between text-sm"
           >
             <h3
-              className="ml-1"
               style={
                 formik.touched.password && formik.errors.password
                   ? { color: "rgb(239, 3, 3)" }
@@ -104,14 +103,14 @@ export default function LoginForm({ setForm }) {
             </h3>
             <button
               type="button"
-              className="mr-1"
+              className="mr-2"
               onClick={() => setShowPassword(!showPassword)}
             >
               {showPassword ? <SightSvg /> : <UnsightSvg />}
             </button>
           </label>
           <input
-            type="password"
+            type={showPassword ? "text" : "password"}
             name="password"
             id="password"
             placeholder="••••••••"
@@ -119,7 +118,7 @@ export default function LoginForm({ setForm }) {
             value={formik.values.password}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
-            className="rounded-md px-4 py-2 placeholder:italic placeholder:opacity-50 dark:bg-cobble-0 dark:text-sand-0"
+            className="mb-2 rounded-md px-4 py-2 placeholder:italic placeholder:opacity-50 dark:bg-cobble-0 dark:text-sand-0"
           />
         </div>
         <button

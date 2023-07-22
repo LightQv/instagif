@@ -24,17 +24,23 @@ const userSchema = Joi.object({
     "string.min": "Password must contain min 7 characters",
     "string.max": "Password must contain max 30 characters",
   }),
+  confirmPassword: Joi.any()
+    .equal(Joi.ref("password"))
+    .required()
+    .label("Confirm password")
+    .messages({ "any.only": "{{#label}} does not match" }),
 });
 
 // Validator for register user
 const validateUser = (req, res, next) => {
-  const { username, email, password } = req.body;
+  const { username, email, password, confirmPassword } = req.body;
 
   const { error } = userSchema.validate(
     {
       username,
       email,
       password,
+      confirmPassword,
     },
     { abortEarly: false }
   );
