@@ -3,7 +3,10 @@ import { useFormik } from "formik";
 import { useUserContext } from "../../contexts/UserContext";
 import DownSvg from "../svg/navigation/DownSvg";
 import APIService from "../../services/APIService";
-import { notifyError } from "../../services/toasts";
+import notifySuccess, {
+  notifyDuplicate,
+  notifyError,
+} from "../../services/toasts";
 import { editMailSchema } from "../../services/validators";
 import { useThemeContext } from "../../contexts/ThemeContext";
 
@@ -22,11 +25,15 @@ export default function ChangeMail({ isShow, setIsShow }) {
       try {
         const res = await APIService.put(`/users-ml/${user.id}`, values);
         if (res) {
+          notifySuccess("Email successfully changed.");
           logout();
         } else throw new Error();
       } catch (error) {
-        if (error.request.status === 401) {
-          notifyError("Email already taken.");
+        if (error.request.status === 400) {
+          notifyDuplicate("Email already taken.");
+        }
+        if (error.request.status === 500) {
+          notifyError("Error, please try again.");
         }
       }
     },

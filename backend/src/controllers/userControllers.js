@@ -64,7 +64,9 @@ const editUserMail = async (req, res) => {
     })
     .catch((err) => {
       console.error(err);
-      res.sendStatus(500);
+      if (err.code === "ER_DUP_ENTRY") {
+        res.sendStatus(400);
+      } else res.sendStatus(500);
     });
 };
 const editUserPw = async (req, res) => {
@@ -97,7 +99,9 @@ const add = (req, res) => {
     })
     .catch((err) => {
       console.error(err);
-      res.sendStatus(500);
+      if (err.code === "ER_DUP_ENTRY") {
+        res.sendStatus(400);
+      } else res.sendStatus(500);
     });
 };
 

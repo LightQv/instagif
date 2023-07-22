@@ -14,7 +14,7 @@ export default function LikeCount({ profile }) {
         })
         .catch((err) => {
           if (err.request.status === 500) {
-            notifyError(`${err} : Fetching likes's count.`);
+            notifyError(`Error fetching likes's count.`);
           }
         });
     }

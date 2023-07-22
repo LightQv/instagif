@@ -1,10 +1,11 @@
 import PropTypes from "prop-types";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
+import LoadingBar from "react-top-loading-bar";
 import ExitSvg from "../svg/navigation/ExitSvg";
 import BeforeSvg from "../svg/navigation/BeforeSvg";
-import notifySuccess, { notifyError } from "../../services/toasts";
+import { notifyError } from "../../services/toasts";
 import { addPostSchema } from "../../services/validators";
 import APIService from "../../services/APIService";
 import { useUserContext } from "../../contexts/UserContext";
@@ -15,7 +16,10 @@ export default function CreatePostModal({ selectedGif, setIsShow }) {
     gifView: true,
     addTitle: false,
   });
+  const [showProgress, setShowProgress] = useState(false);
+  const [progress, setProgress] = useState(0);
   const navigate = useNavigate();
+  // console.log(progress);
 
   const formik = useFormik({
     initialValues: {
@@ -30,8 +34,7 @@ export default function CreatePostModal({ selectedGif, setIsShow }) {
       try {
         const res = await APIService.post(`/posts`, values);
         if (res) {
-          notifySuccess("Your post have been successfully created.");
-          navigate("/");
+          setShowProgress(true);
         } else throw new Error();
       } catch (error) {
         if (error.request?.status === 401) {
@@ -41,8 +44,43 @@ export default function CreatePostModal({ selectedGif, setIsShow }) {
     },
   });
 
+  // --- Loader logic --- //
+  // Parameter : 3sec
+  // Progess + 1 every 30ms = 100% in 3sec
+  // LoadingBar speed param at 10ms
+  // Once 100% is reached -> redirect to "/"
+  useEffect(() => {
+    if (showProgress) {
+      const interval = setInterval(() => {
+        setProgress(progress + 1);
+      }, 30);
+      if (progress === 100) {
+        clearInterval(interval);
+        navigate("/");
+      }
+    }
+    return undefined;
+  }, [showProgress, progress]);
+
+  const handleEndLoadBar = () => {
+    setShowProgress(false);
+    setProgress(0);
+  };
+
   return (
-    <div className="flex h-screen w-screen flex-col justify-between rounded-lg lg:w-fit">
+    <div className="relative flex h-screen w-screen flex-col justify-between rounded-lg lg:w-fit">
+      {showProgress && (
+        <div className="absolute bottom-0 left-0 h-1.5 w-full">
+          <LoadingBar
+            height={6}
+            color="rgb(153 27 27)"
+            progress={progress}
+            onLoaderFinished={() => handleEndLoadBar()}
+            loaderSpeed={10}
+            shadow
+          />
+        </div>
+      )}
       <button
         type="button"
         className="mr-2 mt-2 self-end text-dust-0 transition-all hover:scale-110 hover:text-sand-0"
@@ -107,7 +145,7 @@ export default function CreatePostModal({ selectedGif, setIsShow }) {
               type="submit"
               onSubmit={formik.handleSubmit}
               disabled={!addPostSchema.isValidSync(formik.values)}
-              className="flex h-10 w-4/5 items-center justify-center rounded-md bg-red-800 py-2 text-sm font-semibold text-dust-0 transition-all hover:scale-[1.03] hover:bg-red-600 disabled:bg-dust-0 disabled:text-cobble-0 disabled:hover:scale-100 dark:bg-granite-0 dark:text-sand-0"
+              className="flex h-10 w-4/5 items-center justify-center rounded-md bg-red-800 py-2 text-sm font-semibold text-dust-0 transition-all hover:scale-[1.03] hover:bg-red-600 disabled:bg-gray-300 disabled:text-gray-800 disabled:hover:scale-100 dark:bg-granite-0 dark:text-sand-0"
             >
               Share
             </button>
