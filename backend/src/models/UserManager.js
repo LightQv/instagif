@@ -46,6 +46,13 @@ class userManager extends AbstractManager {
     );
   }
 
+  updatePw(user) {
+    return this.database.query(
+      `UPDATE ${this.table} set hashedPassword = ? WHERE id = ?`,
+      [user.hashedPassword, user.id]
+    );
+  }
+
   findByEmailWithPassword(email) {
     return this.database.query(
       `SELECT id, username, email, hashedPassword

@@ -46,7 +46,7 @@ const validateUser = (req, res, next) => {
   }
 };
 
-// Schema for Edit Profile
+// Schema for Edit Profile Username
 const editProfileSchema = Joi.object({
   username: Joi.string().min(5).max(30).messages({
     "any.required": "Username is required",
@@ -55,7 +55,7 @@ const editProfileSchema = Joi.object({
   }),
 });
 
-// Validator for Edit Profile
+// Validator for Edit Profile Username
 const validateEditProfile = (req, res, next) => {
   const { username } = req.body;
 
@@ -73,8 +73,8 @@ const validateEditProfile = (req, res, next) => {
   }
 };
 
-// Schema for Edit user
-const editUserSchema = Joi.object({
+// Schema for Edit User Email
+const editUserMailSchema = Joi.object({
   email: Joi.string()
     .email({
       minDomainSegments: 2,
@@ -89,13 +89,46 @@ const editUserSchema = Joi.object({
     }),
 });
 
-// Validator for Edit user
-const validateEditUser = (req, res, next) => {
+// Validator for Edit User Email
+const validateEditUserMail = (req, res, next) => {
   const { email } = req.body;
 
-  const { error } = editUserSchema.validate(
+  const { error } = editUserMailSchema.validate(
     {
       email,
+    },
+    { abortEarly: false }
+  );
+
+  if (error) {
+    res.status(422).json({ validationErrors: error.details });
+  } else {
+    next();
+  }
+};
+
+// Schema for Edit User Pw
+const editUserPwSchema = Joi.object({
+  password: Joi.string().min(7).max(30).required().messages({
+    "any.required": "Password is required",
+    "string.min": "Password must contain min 7 characters",
+    "string.max": "Password must contain max 30 characters",
+  }),
+  confirmPassword: Joi.any()
+    .equal(Joi.ref("password"))
+    .required()
+    .label("Confirm password")
+    .messages({ "any.only": "{{#label}} does not match" }),
+});
+
+// Validator for Edit User Pw
+const validateEditUserPw = (req, res, next) => {
+  const { password, confirmPassword } = req.body;
+
+  const { error } = editUserPwSchema.validate(
+    {
+      password,
+      confirmPassword,
     },
     { abortEarly: false }
   );
@@ -110,5 +143,6 @@ const validateEditUser = (req, res, next) => {
 module.exports = {
   validateUser,
   validateEditProfile,
-  validateEditUser,
+  validateEditUserMail,
+  validateEditUserPw,
 };

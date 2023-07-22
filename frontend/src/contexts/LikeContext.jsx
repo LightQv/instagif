@@ -20,7 +20,10 @@ export function LikeContextProvider({ children }) {
           setLikes(res.data);
           setSendLike(false);
         })
-        .catch(() => notifyError("Error fetching likes datas."));
+        .catch((err) => {
+          if (err.request?.status === 500)
+            notifyError("Error fetching likes datas.");
+        });
     }
   }, [sendLike]);
 

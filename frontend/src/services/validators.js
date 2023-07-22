@@ -3,14 +3,24 @@ import * as Yup from "yup";
 export default function handleErrors() {}
 
 export const loginSchema = Yup.object({
-  email: Yup.string().email("A valid Email is required."),
-  password: Yup.string().min(7, "Password : Minimum 7 characters"),
+  email: Yup.string().email("Email : a valid Email is required.").max(255),
+  password: Yup.string()
+    .min(7, "Password : Minimum 7 characters")
+    .max(30, "Password : Maximum 30 characters"),
 });
 
 export const registerSchema = Yup.object({
-  username: Yup.string().min(5, "Username : Minimum 5 characters"),
-  email: Yup.string().email("A valid Email is required."),
-  password: Yup.string().min(7, "Password : Minimum 7 characters"),
+  username: Yup.string()
+    .min(5, "Username : Minimum 5 characters")
+    .max(30, "Username : Maximum 30 characters"),
+  email: Yup.string().email("Email : a valid Email is required.").max(255),
+  password: Yup.string()
+    .min(7, "Password : Minimum 7 characters")
+    .max(30, "Password : Maximum 30 characters"),
+  confirmPassword: Yup.string().oneOf(
+    [Yup.ref("password"), null],
+    "Passwords must match."
+  ),
 });
 
 export const addPostSchema = Yup.object({
@@ -22,9 +32,21 @@ export const addPostSchema = Yup.object({
 });
 
 export const editProfileSchema = Yup.object({
-  username: Yup.string().min(5, "Username : Minimum 5 characters").required(),
+  username: Yup.string()
+    .min(5, "Username : Minimum 5 characters")
+    .max(30, "Username : Maximum 30 characters"),
 });
 
 export const editMailSchema = Yup.object({
-  email: Yup.string().email("A valid Email is required."),
+  email: Yup.string().email("Email : a valid Email is required.").max(255),
+});
+
+export const editPwSchema = Yup.object({
+  password: Yup.string()
+    .min(7, "Password : Minimum 7 characters")
+    .max(30, "Password : Maximum 30 characters"),
+  confirmPassword: Yup.string().oneOf(
+    [Yup.ref("password"), null],
+    "Passwords must match."
+  ),
 });

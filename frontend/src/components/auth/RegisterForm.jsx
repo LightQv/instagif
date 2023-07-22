@@ -1,20 +1,28 @@
 import PropTypes from "prop-types";
 import { useFormik } from "formik";
+import { useState } from "react";
 import { useUserContext } from "../../contexts/UserContext";
 import { useThemeContext } from "../../contexts/ThemeContext";
 import APIService from "../../services/APIService";
 import { registerSchema } from "../../services/validators";
 import notifySuccess, { notifyError } from "../../services/toasts";
+import SightSvg from "../svg/SightSvg";
+import UnsightSvg from "../svg/UnsightSvg";
 
 export default function RegisterForm({ setForm }) {
   const { login } = useUserContext();
   const { theme } = useThemeContext();
+  const [showPassword, setShowPassword] = useState({
+    password: false,
+    confirmPassword: false,
+  });
 
   const formik = useFormik({
     initialValues: {
       username: "",
       email: "",
       password: "",
+      confirmPassword: "",
     },
     validationSchema: registerSchema,
 
@@ -52,7 +60,7 @@ export default function RegisterForm({ setForm }) {
         <div className="flex flex-col">
           <label
             htmlFor="username"
-            className="mb-2 text-base"
+            className="mb-2 ml-1 text-sm lg:text-base"
             style={
               formik.touched.username && formik.errors.username
                 ? { color: "rgb(239, 3, 3)" }
@@ -78,7 +86,7 @@ export default function RegisterForm({ setForm }) {
         <div className="flex flex-col">
           <label
             htmlFor="email"
-            className="mb-2 text-base"
+            className="mb-2 ml-1 text-sm lg:text-base"
             style={
               formik.touched.email && formik.errors.email
                 ? { color: "rgb(239, 3, 3)" }
@@ -104,24 +112,82 @@ export default function RegisterForm({ setForm }) {
         <div className="flex flex-col">
           <label
             htmlFor="password"
-            className="mb-2 text-base"
-            style={
-              formik.touched.password && formik.errors.password
-                ? { color: "rgb(239, 3, 3)" }
-                : { color: theme === "dark" ? "#f1efe7" : "black" }
-            }
+            className="mb-2 ml-1 flex w-full items-center justify-between text-sm lg:text-base"
           >
-            {formik.touched.password && formik.errors.password
-              ? formik.errors.password
-              : "Password"}
+            <h3
+              className="ml-1"
+              style={
+                formik.touched.password && formik.errors.password
+                  ? { color: "rgb(239, 3, 3)" }
+                  : { color: theme === "dark" ? "#f1efe7" : "black" }
+              }
+            >
+              {formik.touched.password && formik.errors.password
+                ? formik.errors.password
+                : "Password"}
+            </h3>
+            <button
+              type="button"
+              className="mr-2"
+              onClick={() =>
+                setShowPassword({
+                  ...showPassword,
+                  password: !showPassword.password,
+                })
+              }
+            >
+              {showPassword.password ? <SightSvg /> : <UnsightSvg />}
+            </button>
           </label>
           <input
-            type="password"
+            type={showPassword.password ? "text" : "password"}
             name="password"
             id="password"
             placeholder="••••••••"
             required=""
             value={formik.values.password}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            className="rounded-md px-4 py-2 placeholder:italic placeholder:opacity-50 dark:bg-cobble-0 dark:text-sand-0"
+          />
+        </div>
+        <div className="flex flex-col">
+          <label
+            htmlFor="confirmPassword"
+            className="mb-2 ml-1 flex w-full items-center justify-between text-sm lg:text-base"
+          >
+            <h3
+              className="ml-1"
+              style={
+                formik.touched.confirmPassword && formik.errors.confirmPassword
+                  ? { color: "rgb(239, 3, 3)" }
+                  : { color: theme === "dark" ? "#f1efe7" : "black" }
+              }
+            >
+              {formik.touched.confirmPassword && formik.errors.confirmPassword
+                ? formik.errors.confirmPassword
+                : "Confirm Password"}
+            </h3>
+            <button
+              type="button"
+              className="mr-2"
+              onClick={() =>
+                setShowPassword({
+                  ...showPassword,
+                  confirmPassword: !showPassword.confirmPassword,
+                })
+              }
+            >
+              {showPassword.confirmPassword ? <SightSvg /> : <UnsightSvg />}
+            </button>
+          </label>
+          <input
+            type={showPassword.confirmPassword ? "text" : "password"}
+            name="confirmPassword"
+            id="confirmPassword"
+            placeholder="••••••••"
+            required=""
+            value={formik.values.confirmPassword}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             className="rounded-md px-4 py-2 placeholder:italic placeholder:opacity-50 dark:bg-cobble-0 dark:text-sand-0"

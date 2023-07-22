@@ -5,6 +5,7 @@ import BackSvg from "../components/svg/navigation/BackSvg";
 import LikedPosts from "../components/profile/LikedPosts";
 import ThemeSwitcher from "../components/profile/ThemeSwitcher";
 import ChangeMail from "../components/profile/ChangeMail";
+import ChangePw from "../components/profile/ChangePw";
 import DeleteAccountModal from "../components/profile/DeleteAccountModal";
 
 export default function ProfileSettings() {
@@ -14,6 +15,7 @@ export default function ProfileSettings() {
     likedPosts: false,
     appTheme: false,
     changeMail: false,
+    changePw: false,
     deleteModal: false,
   });
 
@@ -37,6 +39,7 @@ export default function ProfileSettings() {
         <LikedPosts isShow={isShow} setIsShow={setIsShow} />
         <ThemeSwitcher isShow={isShow} setIsShow={setIsShow} />
         <ChangeMail isShow={isShow} setIsShow={setIsShow} />
+        <ChangePw isShow={isShow} setIsShow={setIsShow} />
         <div className="px-6">
           <button
             type="button"
