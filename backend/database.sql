@@ -129,10 +129,16 @@ VALUES
 1
 ),
 (
+  "heart",
+"2764-fe0f",
+2,
+1
+),
+(
   "gin",
 "1f603",
 2,
-1
+2
 );
 
 SET foreign_key_checks = 1;

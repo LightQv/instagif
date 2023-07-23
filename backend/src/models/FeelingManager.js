@@ -25,9 +25,10 @@ class feelingManager extends AbstractManager {
 
   findAllByPost(id) {
     return this.database.query(
-      `SELECT post_feeling.id as feeling_id, post_feeling.name as feeling_name, emoji, post_feeling.post_id, post_feeling.user_id  
+      `SELECT post_feeling.id as feeling_id, post_feeling.name as feeling_name, emoji, post_feeling.post_id, post_feeling.user_id, user.username  
       FROM ${this.table}
       JOIN post on post.id = post_feeling.post_id
+      JOIN user on post_feeling.user_id = user.id
       WHERE post.id = ?`,
       [id]
     );
