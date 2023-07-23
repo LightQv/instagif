@@ -17,7 +17,7 @@ class likeManager extends AbstractManager {
   countLikeByUser(id) {
     return this.database.query(
       `SELECT COUNT(user_id) as like_count 
-    FROM post_like
+    FROM ${this.table}
     WHERE post_like.user_id = ?`,
       [id]
     );

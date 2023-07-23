@@ -3,11 +3,11 @@ import { useNavigate, useParams } from "react-router-dom";
 import APIService from "../services/APIService";
 import BackSvg from "../components/svg/navigation/BackSvg";
 import NotificationSvg from "../components/svg/interactions/NotificationSvg";
-import PostBox from "../components/PostBox";
+import PostBox from "../components/post/PostBox";
 import { notifyError } from "../services/toasts";
 import { useUserContext } from "../contexts/UserContext";
-import EditPostModal from "../components/post/EditPostModal";
-import DeletePostModal from "../components/post/DeletePostModal";
+import EditPostModal from "../components/create/EditPostModal";
+import DeletePostModal from "../components/create/DeletePostModal";
 
 export default function PostDetails() {
   const { id } = useParams();

@@ -44,6 +44,11 @@ const LikeManager = require("./LikeManager");
 models.like = new LikeManager();
 models.like.setDatabase(pool);
 
+const FeelingManager = require("./FeelingManager");
+
+models.feeling = new FeelingManager();
+models.feeling.setDatabase(pool);
+
 // bonus: use a proxy to personalize error message,
 // when asking for a non existing model
 

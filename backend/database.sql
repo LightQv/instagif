@@ -109,7 +109,8 @@ VALUES
 DROP TABLE IF EXISTS post_feeling;
 CREATE TABLE post_feeling (
   id int PRIMARY KEY NOT NULL AUTO_INCREMENT,
-  type TEXT NOT NULL,
+  name varchar(255) NOT NULL,
+  emoji TEXT NOT NULL,
   post_id INT NOT NULL,
   FOREIGN KEY (post_id) REFERENCES post(id)
     ON DELETE CASCADE,
@@ -118,5 +119,20 @@ CREATE TABLE post_feeling (
   ON DELETE CASCADE
 )
 ENGINE=InnoDB DEFAULT CHARSET = utf8;
+
+INSERT INTO post_feeling (name, emoji, post_id, user_id) 
+VALUES 
+(
+  "gin",
+"1f603",
+1,
+1
+),
+(
+  "gin",
+"1f603",
+2,
+1
+);
 
 SET foreign_key_checks = 1;
