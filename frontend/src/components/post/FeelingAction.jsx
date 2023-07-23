@@ -35,7 +35,7 @@ export default function FeelingAction({ data, setSendFeelings }) {
     <>
       <button
         type="button"
-        className="relative ml-auto h-fit w-fit rounded-md bg-sand-0 p-2 hover:text-granite-0 dark:bg-granite-0 dark:text-sand-0"
+        className="relative h-fit w-fit rounded-md bg-sand-0 p-2 hover:text-granite-0 dark:bg-granite-0 dark:text-sand-0"
         onClick={() => setShowEmojis(!showEmojis)}
       >
         {showEmojis ? <ActiveFeelingSvg /> : <FeelingSvg />}
@@ -48,6 +48,7 @@ export default function FeelingAction({ data, setSendFeelings }) {
             onEmojiClick={(emojiData) => handleSelectedEmoji(emojiData)}
             searchPlaceHolder="How do you feel ?"
             previewConfig={{ showPreview: true }}
+            skinTonesDisabled
             suggestedEmojisMode="recent"
             theme={theme === "dark" ? "dark" : "light"}
             width="100%"
