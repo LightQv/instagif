@@ -3,14 +3,14 @@ import { useEffect, useState } from "react";
 import APIService from "../../services/APIService";
 import { notifyError } from "../../services/toasts";
 
-export default function LikeCount({ profile }) {
-  const [likeCount, setLikeCount] = useState(null);
+export default function FeelingCount({ profile }) {
+  const [feelingCount, setFeelingCount] = useState(null);
 
   useEffect(() => {
     if (profile) {
-      APIService.get(`/likes-stats/${profile.id}`)
+      APIService.get(`/feelings-stats/${profile.id}`)
         .then((res) => {
-          setLikeCount(res.data);
+          setFeelingCount(res.data);
         })
         .catch((err) => {
           if (err.request.status === 500) {
@@ -23,13 +23,15 @@ export default function LikeCount({ profile }) {
   return (
     <div className="flex flex-col items-center justify-center dark:text-dust-0">
       <h3 className="text-xl font-semibold">
-        {likeCount && likeCount.like_count}
+        {feelingCount && feelingCount.feeling_count}
       </h3>
-      <p className="-mt-1 text-sm">Like{likeCount?.like_count > 1 && "s"}</p>
+      <p className="-mt-1 text-sm">
+        Feeling{feelingCount?.feeling_count > 1 && "s"}
+      </p>
     </div>
   );
 }
 
-LikeCount.propTypes = {
+FeelingCount.propTypes = {
   profile: PropTypes.shape().isRequired,
 };
