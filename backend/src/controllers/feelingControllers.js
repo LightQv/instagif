@@ -17,7 +17,7 @@ const browseByPost = (req, res) => {
 const countByUser = (req, res) => {
   models.feeling
     .countFeelingByUser(req.params.id)
-    .then(([result]) => {
+    .then(([[result]]) => {
       res.send(result);
     })
     .catch((err) => {

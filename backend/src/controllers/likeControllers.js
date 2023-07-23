@@ -17,7 +17,7 @@ const browseByUser = (req, res) => {
 const countByUser = (req, res) => {
   models.like
     .countLikeByUser(req.params.id)
-    .then(([result]) => {
+    .then(([[result]]) => {
       res.send(result);
     })
     .catch((err) => {
