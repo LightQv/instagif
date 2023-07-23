@@ -19,21 +19,35 @@ const {
 const userControllers = require("./controllers/userControllers");
 const postControllers = require("./controllers/postControllers");
 const likeControllers = require("./controllers/likeControllers");
+const feelingControllers = require("./controllers/feelingControllers");
 
-// Public Routes (without Auth)
+// --- Public Routes (without Auth) --- //
+// Login & Register
 router.post("/login", getUserByEmailMiddleware, verifyPassword);
-
-router.get("/users", userControllers.browse);
-router.get("/users/:username", userControllers.readByUsername);
 router.post("/users", validateUser, hashPassword, userControllers.add);
+
+// Posts with Likes & Feelings
 router.get("/posts", postControllers.browse);
 router.get("/posts/:id", postControllers.readWithUser);
-router.get("/posts-user/:id", postControllers.browseByUser);
-router.get("/likes-stats/:id", likeControllers.countByUser);
+router.get("/feelings-post/:id", feelingControllers.browseByPost);
 
-// Private Routes (Auth requiered)
+// -> For User's Search-List
+router.get("/users", userControllers.browse);
+
+// Users's profiles
+router.get("/users/:username", userControllers.readByUsername);
+router.get("/posts-user/:id", postControllers.browseByUser);
+
+// Stats for each User
+router.get("/likes-stats/:id", likeControllers.countByUser);
+router.get("/feelings-stats/:id", feelingControllers.countByUser);
+
+// --- Private Routes (Auth requiered) --- //
 router.use(verifyToken);
+// Logout
 router.get("/logout", logout);
+
+// Edit User's Profile
 router.put("/users-ml/:id", validateEditUserMail, userControllers.editUserMail);
 router.put(
   "/users-pw/:id",
@@ -48,13 +62,23 @@ router.put(
 );
 router.delete("/users/:id", userControllers.destroy);
 
+// Auth's User's Likes
+router.get("/likes-user/:id", likeControllers.browseByUser);
+
+// Handle Like
 router.get("/posts-liked/:id", postControllers.browseLikedByUser);
+
+// Posts's CRUD
 router.post("/posts", postControllers.add);
 router.put("/posts/:id", postControllers.edit);
 router.delete("/posts/:id", postControllers.destroy);
 
-router.get("/likes-user/:id", likeControllers.browseByUser);
+// Likes's CD
 router.post("/likes", likeControllers.add);
 router.delete("/likes/:id", likeControllers.destroy);
+
+// Feelings's CD
+router.post("/feelings", feelingControllers.add);
+router.delete("/feelings/:id", feelingControllers.destroy);
 
 module.exports = router;

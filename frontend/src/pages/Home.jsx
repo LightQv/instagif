@@ -4,7 +4,7 @@ import APIService from "../services/APIService";
 import logo from "../assets/images/logo.jpg";
 import logoDark from "../assets/images/logo-dark.jpg";
 import NotificationSvg from "../components/svg/interactions/NotificationSvg";
-import PostBox from "../components/PostBox";
+import PostBox from "../components/post/PostBox";
 import { notifyError } from "../services/toasts";
 import { useThemeContext } from "../contexts/ThemeContext";
 

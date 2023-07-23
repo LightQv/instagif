@@ -19,7 +19,6 @@ export default function CreatePostModal({ selectedGif, setIsShow }) {
   const [showProgress, setShowProgress] = useState(false);
   const [progress, setProgress] = useState(0);
   const navigate = useNavigate();
-  // console.log(progress);
 
   const formik = useFormik({
     initialValues: {

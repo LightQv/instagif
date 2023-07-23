@@ -4,10 +4,10 @@ import axios from "axios";
 import { useUserContext } from "../contexts/UserContext";
 import BackSvg from "../components/svg/navigation/BackSvg";
 import { notifyError } from "../services/toasts";
-import GifInsight from "../components/post/GifInsight";
+import GifInsight from "../components/create/GifInsight";
 import ActiveFireSvg from "../components/svg/ActiveFireSvg";
 import FireSvg from "../components/svg/FireSvg";
-import CreatePostModal from "../components/post/CreatePostModal";
+import CreatePostModal from "../components/create/CreatePostModal";
 
 const API_KEY = import.meta.env.VITE_GIPHY_API_KEY;
 
