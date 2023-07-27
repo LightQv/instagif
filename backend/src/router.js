@@ -48,17 +48,17 @@ router.use(verifyToken);
 router.get("/logout", logout);
 
 // Edit User's Profile
-router.put("/users-ml/:id", validateEditUserMail, userControllers.editUserMail);
+router.put("/users-ml/:id", validateEditUserMail, userControllers.editMail);
 router.put(
   "/users-pw/:id",
   validateEditUserPw,
   hashPassword,
-  userControllers.editUserPw
+  userControllers.editPw
 );
 router.put(
   "/users-profile/:id",
   validateEditProfile,
-  userControllers.editProfile
+  userControllers.editUsername
 );
 router.delete("/users/:id", userControllers.destroy);
 

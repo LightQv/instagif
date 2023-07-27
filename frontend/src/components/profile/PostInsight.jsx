@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { RotatingLines } from "react-loader-spinner";
 
-export default function PostInsight({ data, index, loading, setLoading }) {
+export default function PostInsight({ post, index, loading, setLoading }) {
   return (
     <li className="h-full w-full">
       <div
@@ -22,11 +22,11 @@ export default function PostInsight({ data, index, loading, setLoading }) {
         style={{ display: loading ? "none" : "block" }}
       >
         <Link
-          to={`/${data.username}/${data.post_id}`}
+          to={`/${post.user?.username}/${post.id}`}
           className="h-full w-full"
         >
           <img
-            src={data.gif_url}
+            src={post.gif_url}
             onLoad={() => setLoading(false)}
             alt={`Post ${index + 1}`}
             className="h-full w-full rounded-md object-cover"
@@ -38,7 +38,7 @@ export default function PostInsight({ data, index, loading, setLoading }) {
 }
 
 PostInsight.propTypes = {
-  data: PropTypes.shape().isRequired,
+  post: PropTypes.shape().isRequired,
   index: PropTypes.number.isRequired,
   loading: PropTypes.bool.isRequired,
   setLoading: PropTypes.func.isRequired,

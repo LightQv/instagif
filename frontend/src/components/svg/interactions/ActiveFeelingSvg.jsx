@@ -4,7 +4,7 @@ export default function ActiveFeelingSvg() {
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
       fill="currentColor"
-      className="h-[22px] w-[22px] transition-all hover:scale-110 hover:text-granite-0 dark:hover:text-sand-0"
+      className="h-[18px] w-[18px] transition-all hover:scale-110 hover:text-granite-0 dark:hover:text-sand-0"
     >
       <path
         fillRule="evenodd"

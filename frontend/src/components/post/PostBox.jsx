@@ -12,115 +12,157 @@ import FeelingAction from "./FeelingAction";
 import APIService from "../../services/APIService";
 import { notifyError } from "../../services/toasts";
 
-export default function PostBox({ data }) {
+export default function PostBox({ post }) {
   const { user } = useUserContext();
   TimeAgo.addLocale(fr);
-  const [sendFeelings, setSendFeelings] = useState(false);
   const [feelings, setFeelings] = useState(null);
+  const [feelingsCount, setFeelingsCount] = useState(null);
+  const [sendFeelings, setSendFeelings] = useState(true);
 
   // If Post's User = User's Loged : Link to My Profile
   function getProfilLink() {
-    if (user?.id === data.user_id) {
+    if (user?.id === post.user.id) {
       return "/my-profile";
     }
-    return `/${data.username}`;
+    return `/${post.user.username}`;
   }
 
   // --- Feeling logic --- //
   useEffect(() => {
-    if (data) {
-      APIService.get(`/feelings-post/${data.post_id}`)
-        .then((res) => setFeelings(res.data))
+    if (sendFeelings) {
+      APIService.get(`/feelings-post/${post.id}`)
+        .then((res) => {
+          setFeelingsCount(res.data.count);
+          setFeelings(res.data.data);
+          setSendFeelings(false);
+        })
         .catch((err) => {
-          if (err.request.status === 500) {
+          if (err.request?.status === 500) {
             notifyError("Error, please try later.");
           }
         });
     }
-  }, [sendFeelings]);
+  }, [feelings, sendFeelings]);
 
-  // Handle Feeling
+  // Handle Feeling already created (Create new Feelings -> FeelingAction.jsx)
+  // Store User's feelings
+  const userFeeling = feelings?.filter((el) => el.user_id === user.id);
+
   // Feeling already exist & is User's : delete Feeling
   // User's didn't post this feeling : add Feeling
   const handleFeeling = (feeling) => {
+    // Check If Selected Feeling is a userFeeling
+    const selectedFeeling = userFeeling.filter(
+      (el) => el.emoji === feeling.emoji
+    );
     setSendFeelings(false);
-    if (feeling && feeling.user_id === user.id) {
-      APIService.delete(`/feelings/${feeling.feeling_id}`)
+    if (feeling && userFeeling && selectedFeeling.length > 0) {
+      APIService.delete(`/feelings/${selectedFeeling[0]?.id}`)
         .then(() => setSendFeelings(true))
         .catch((err) => {
-          if (err.request.status === 500) {
+          if (err.request?.status === 500) {
             notifyError("Error, please try later.");
           }
         });
     } else {
       APIService.post(`/feelings`, {
-        name: feeling.feeling_name,
+        name: feeling.name,
         emoji: feeling.emoji,
-        post_id: data.post_id,
+        post_id: post.id,
         user_id: user.id,
       })
         .then(() => setSendFeelings(true))
         .catch((err) => {
-          if (err.request.status === 404 || err.request.status === 500) {
+          if (err.request?.status === 404 || err.request?.status === 500) {
             notifyError("Error, please try later.");
           }
         });
     }
   };
 
+  // Tooltip text based of number of user's which felt the same way
+  const getAuthors = (feeling) => {
+    const authors = [];
+    feelings.filter((el) => {
+      if (el.emoji === feeling.emoji) authors.push(el.user.username);
+      return null;
+    });
+    if (authors.length === 1) {
+      return authors.toString();
+    }
+    if (authors.length === 2) {
+      return `${authors[0]} and ${authors[1]}`;
+    }
+    return `${authors[0]}, ${authors[1]} and ${authors.length - 2} more person${
+      authors.length > 3 ? "s" : ""
+    }`;
+  };
+
   return (
     <li className="w-full border-b-[1px] border-sand-0 text-cobble-0 last:border-b-0 lg:pt-4">
-      <Link to={`/${data.username}/${data.post_id}`}>
-        <img src={data.gif_url} alt="mood_gif" className="w-full" />
+      <Link to={`/${post.user?.username}/${post.id}`}>
+        <img src={post.gif_url} alt="mood_gif" className="w-full" />
       </Link>
       <div className="px-4 pb-8 pt-2 lg:pb-8">
         <div className="flex w-full items-center justify-start gap-2">
           <Link to={getProfilLink()}>
             <div className="flex h-8 w-8 items-center justify-center self-start rounded-full bg-cobble-0 text-dust-0 transition-all hover:scale-105 hover:bg-granite-0 dark:bg-sand-0 dark:text-cobble-0 dark:hover:bg-granite-0">
-              {data.username.slice(0, 1)}
+              {post.user?.username.slice(0, 1)}
             </div>
           </Link>
           <div className="mt-1 w-[calc(100%-2.5rem)]">
             <div className="flex items-center justify-between">
               <h3 className="font-semibold transition-all hover:text-granite-0 dark:text-dust-0 dark:hover:text-granite-0 lg:font-bold">
-                <Link to={getProfilLink()}>{data.username}'s </Link>
+                <Link to={getProfilLink()}>{post.user?.username}'s </Link>
                 <span className="text-xs font-normal italic">
                   mood{" "}
-                  <ReactTimeAgo date={new Date(data.created_at)} locale="fr" />.
+                  <ReactTimeAgo date={new Date(post.created_at)} locale="fr" />.
                 </span>
               </h3>
               <div className="flex items-center gap-2">
-                <LikeAction data={data} />
-                <FeelingAction data={data} setSendFeelings={setSendFeelings} />
+                <LikeAction post={post} />
               </div>
             </div>
             <p className="-mt-2 text-lg font-bold dark:text-dust-0">
-              "{data.title}"
+              "{post.title}"
             </p>
           </div>
         </div>
-        <ul className="mt-1 flex w-full items-center gap-2">
-          {feelings &&
-            feelings.length > 0 &&
-            feelings.map((feeling) => (
+        <ul className="mt-1 flex w-full flex-wrap items-center gap-2">
+          {feelingsCount &&
+            feelingsCount.map((feeling) => (
               <button
-                key={feeling.feeling_id}
+                key={feeling.emoji}
                 type="button"
                 onClick={() => handleFeeling(feeling)}
-                className={`hover: w-fit rounded-md bg-sand-0 p-2 transition-all hover:scale-105 hover:grayscale-0 dark:bg-granite-0 ${
-                  feeling.user_id === user.id ? "grayscale-0" : "grayscale"
+                className={`flex w-fit items-center gap-2 rounded-md bg-sand-0 p-2 transition-all hover:scale-105 hover:grayscale-0 dark:bg-granite-0 ${
+                  feelings?.some(
+                    (el) => el.emoji === feeling.emoji && el.user_id === user.id
+                  )
+                    ? "text-red-800 outline outline-1 outline-red-800"
+                    : "outline outline-1 outline-sand-0"
                 }`}
                 data-tooltip-id="my-tooltip"
-                data-tooltip-content={`${feeling.username} felt :${feeling.feeling_name}:`}
+                data-tooltip-content={`${getAuthors(feeling)} felt :${
+                  feeling?.name
+                }:`}
               >
                 <Emoji
                   unified={feeling.emoji}
                   emojiStyle="twitter"
-                  size={22}
+                  size={18}
                   id="my-element"
                 />
+                {/* <p className="text-xs font-medium">{feeling._count}</p> */}
               </button>
             ))}
+          <div>
+            <FeelingAction
+              post={post}
+              feelings={feelings}
+              setSendFeelings={setSendFeelings}
+            />
+          </div>
         </ul>
       </div>
       <Tooltip id="my-tooltip" />
@@ -129,5 +171,5 @@ export default function PostBox({ data }) {
 }
 
 PostBox.propTypes = {
-  data: PropTypes.shape().isRequired,
+  post: PropTypes.shape().isRequired,
 };

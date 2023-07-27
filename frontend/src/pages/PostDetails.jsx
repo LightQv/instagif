@@ -59,8 +59,8 @@ export default function PostDetails() {
       <ul className="flex flex-col gap-4 lg:w-2/6 lg:self-center">
         {post && (
           <PostBox
-            data={post}
-            key={post.post_id}
+            post={post}
+            key={post.id}
             loading={loading}
             setLoading={setLoading}
           />

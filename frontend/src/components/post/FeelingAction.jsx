@@ -8,16 +8,26 @@ import APIService from "../../services/APIService";
 import { notifyError } from "../../services/toasts";
 import { useUserContext } from "../../contexts/UserContext";
 
-export default function FeelingAction({ data, setSendFeelings }) {
+export default function FeelingAction({ post, feelings, setSendFeelings }) {
   const { user } = useUserContext();
   const { theme } = useThemeContext();
   const [showEmojis, setShowEmojis] = useState(false);
 
+  // If This emoji is already used by user, nothing happened
+  // Else POST a new Feeling
   const handleSelectedEmoji = (emojiData) => {
+    if (
+      feelings.some(
+        (el) => el.emoji === emojiData.unified && el.user_id === user.id
+      )
+    ) {
+      setShowEmojis(false);
+      return null;
+    }
     APIService.post(`/feelings`, {
       name: emojiData.names[0],
       emoji: emojiData.unified,
-      post_id: data.post_id,
+      post_id: post.id,
       user_id: user.id,
     })
       .then(() => {
@@ -25,20 +35,22 @@ export default function FeelingAction({ data, setSendFeelings }) {
         setShowEmojis(false);
       })
       .catch((err) => {
-        if (err.request.status === 404 || err.request.status === 500) {
+        if (err.request?.status === 404 || err.request?.status === 500) {
           notifyError("Error, please try later.");
         }
       });
+    return null;
   };
 
   return (
     <>
       <button
         type="button"
-        className="relative h-fit w-fit rounded-md bg-sand-0 p-2 hover:text-granite-0 dark:bg-granite-0 dark:text-sand-0"
+        className="relative flex h-fit w-fit items-center gap-1 rounded-md bg-sand-0 p-2 outline outline-1 outline-sand-0 hover:text-granite-0 dark:bg-granite-0 dark:text-sand-0"
         onClick={() => setShowEmojis(!showEmojis)}
       >
         {showEmojis ? <ActiveFeelingSvg /> : <FeelingSvg />}
+        <p className="text-xs font-medium">+</p>
       </button>
       {showEmojis && (
         <div className="fixed bottom-12 left-0 z-30 lg:left-12">
@@ -46,8 +58,9 @@ export default function FeelingAction({ data, setSendFeelings }) {
             autoFocusSearch={false}
             emojiStyle="twitter"
             onEmojiClick={(emojiData) => handleSelectedEmoji(emojiData)}
-            searchPlaceHolder="How do you feel ?"
+            lazyLoadEmojis="true"
             previewConfig={{ showPreview: true }}
+            searchPlaceHolder="How do you feel ?"
             skinTonesDisabled
             suggestedEmojisMode="recent"
             theme={theme === "dark" ? "dark" : "light"}
@@ -60,6 +73,7 @@ export default function FeelingAction({ data, setSendFeelings }) {
 }
 
 FeelingAction.propTypes = {
-  data: PropTypes.shape().isRequired,
+  post: PropTypes.shape().isRequired,
+  feelings: PropTypes.arrayOf(PropTypes.shape()).isRequired,
   setSendFeelings: PropTypes.func.isRequired,
 };

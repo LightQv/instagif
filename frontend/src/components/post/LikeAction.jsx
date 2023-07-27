@@ -6,19 +6,19 @@ import ActiveLikeSvg from "../svg/interactions/ActiveLikeSvg";
 import APIService from "../../services/APIService";
 import { notifyError } from "../../services/toasts";
 
-export default function LikeAction({ data }) {
+export default function LikeAction({ post }) {
   const { user } = useUserContext();
   const { likes, setSendLike } = useLikeContext();
 
   // --- Like logic --- //
   // Determine if Actual Post is Liked based on LikeContext, Post's ID & User's ID
   const postIsLiked = likes?.some(
-    (el) => el.post_id === data.post_id && el.user_id === user.id
+    (el) => el.post_id === post.id && el.user_id === user.id
   );
 
   // Get Like Object for Delete Request
   const likeObject = likes?.find(
-    (el) => el.post_id === data.post_id && el.user_id === user.id
+    (el) => el.post_id === post.id && el.user_id === user.id
   );
 
   // Handle Like
@@ -35,7 +35,7 @@ export default function LikeAction({ data }) {
         });
     } else {
       APIService.post(`/likes`, {
-        post_id: data.post_id,
+        post_id: post.id,
         user_id: user.id,
       })
         .then(() => setSendLike(true))
@@ -59,5 +59,5 @@ export default function LikeAction({ data }) {
 }
 
 LikeAction.propTypes = {
-  data: PropTypes.shape().isRequired,
+  post: PropTypes.shape().isRequired,
 };
