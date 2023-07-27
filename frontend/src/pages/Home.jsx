@@ -31,8 +31,7 @@ export default function Home() {
         <NotificationSvg />
       </header>
       <ul className="flex flex-col lg:w-2/6 lg:gap-4 lg:self-center">
-        {posts &&
-          posts.map((post) => <PostBox data={post} key={post.post_id} />)}
+        {posts && posts.map((post) => <PostBox post={post} key={post.id} />)}
       </ul>
     </main>
   );

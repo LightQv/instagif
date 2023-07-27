@@ -23,7 +23,7 @@ export default function EditPostModal({ post, setIsShow }) {
 
     onSubmit: async (values) => {
       try {
-        const res = await APIService.put(`/posts/${post.post_id}`, values);
+        const res = await APIService.put(`/posts/${post.id}`, values);
         if (res) {
           notifySuccess("Your post have been successfully modified.");
           setIsShow(false);

@@ -9,7 +9,7 @@ export default function FeelingSvg() {
       viewBox="0 0 24 24"
       strokeWidth={1.5}
       stroke={theme === "dark" ? "#f1efe7" : "currentColor"}
-      className="h-[22px] w-[22px] transition-all hover:scale-110 hover:text-granite-0 dark:hover:text-sand-0"
+      className="h-[18px] w-[18px] transition-all hover:scale-110 hover:text-granite-0 dark:hover:text-sand-0"
     >
       <path
         strokeLinecap="round"

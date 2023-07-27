@@ -23,11 +23,9 @@ export default function FeelingCount({ profile }) {
   return (
     <div className="flex flex-col items-center justify-center dark:text-dust-0">
       <h3 className="text-xl font-semibold">
-        {feelingCount && feelingCount.feeling_count}
+        {feelingCount && feelingCount.count}
       </h3>
-      <p className="-mt-1 text-sm">
-        Feeling{feelingCount?.feeling_count > 1 && "s"}
-      </p>
+      <p className="-mt-1 text-sm">Feeling{feelingCount?.count > 1 && "s"}</p>
     </div>
   );
 }

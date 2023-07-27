@@ -22,10 +22,8 @@ export default function LikeCount({ profile }) {
 
   return (
     <div className="flex flex-col items-center justify-center dark:text-dust-0">
-      <h3 className="text-xl font-semibold">
-        {likeCount && likeCount.like_count}
-      </h3>
-      <p className="-mt-1 text-sm">Like{likeCount?.like_count > 1 && "s"}</p>
+      <h3 className="text-xl font-semibold">{likeCount && likeCount.count}</h3>
+      <p className="-mt-1 text-sm">Like{likeCount?.count > 1 && "s"}</p>
     </div>
   );
 }

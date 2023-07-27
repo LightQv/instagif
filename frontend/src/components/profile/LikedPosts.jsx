@@ -52,7 +52,7 @@ export default function LikedPosts({ isShow, setIsShow }) {
           {likedPosts && likedPosts.length !== 0 ? (
             likedPosts.map((post, index) => (
               <PostInsight
-                data={post}
+                post={post}
                 index={index}
                 key={post.id}
                 loading={loading}
