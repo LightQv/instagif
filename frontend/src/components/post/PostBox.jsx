@@ -3,7 +3,7 @@ import TimeAgo from "javascript-time-ago";
 import fr from "javascript-time-ago/locale/en.json";
 import ReactTimeAgo from "react-time-ago";
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { Emoji } from "emoji-picker-react";
 import { Tooltip } from "react-tooltip";
 import { useUserContext } from "../../contexts/UserContext";
@@ -18,6 +18,9 @@ export default function PostBox({ post }) {
   const [feelings, setFeelings] = useState(null);
   const [feelingsCount, setFeelingsCount] = useState(null);
   const [sendFeelings, setSendFeelings] = useState(true);
+
+  const gifRef = useRef();
+  const headerRef = useRef();
 
   // If Post's User = User's Loged : Link to My Profile
   function getProfilLink() {
@@ -101,9 +104,14 @@ export default function PostBox({ post }) {
   return (
     <li className="w-full border-b-[1px] border-sand-0 text-cobble-0 last:border-b-0 lg:pt-4">
       <Link to={`/${post.user?.username}/${post.id}`}>
-        <img src={post.gif_url} alt="mood_gif" className="w-full" />
+        <img
+          src={post.gif_url}
+          alt="mood_gif"
+          className="w-full"
+          ref={gifRef}
+        />
       </Link>
-      <div className="px-4 pb-8 pt-2 lg:pb-8">
+      <div className="px-4 pb-8 pt-2 lg:pb-8" ref={headerRef}>
         <div className="flex w-full items-center justify-start gap-2">
           <Link to={getProfilLink()}>
             <div className="flex h-8 w-8 items-center justify-center self-start rounded-full bg-cobble-0 text-dust-0 transition-all hover:scale-105 hover:bg-granite-0 dark:bg-sand-0 dark:text-cobble-0 dark:hover:bg-granite-0">
@@ -153,7 +161,7 @@ export default function PostBox({ post }) {
                   size={18}
                   id="my-element"
                 />
-                {/* <p className="text-xs font-medium">{feeling._count}</p> */}
+                <p className="text-xs font-medium">{feeling._count}</p>
               </button>
             ))}
           <div>
@@ -161,6 +169,8 @@ export default function PostBox({ post }) {
               post={post}
               feelings={feelings}
               setSendFeelings={setSendFeelings}
+              gifRef={gifRef}
+              headerRef={headerRef}
             />
           </div>
         </ul>
