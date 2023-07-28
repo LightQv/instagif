@@ -105,7 +105,7 @@ export default function Profile() {
         {postList && postList.length !== 0 ? (
           postList.map((post, index) => (
             <PostInsight
-              data={post}
+              post={post}
               index={index}
               key={post.post_id}
               loading={loading}

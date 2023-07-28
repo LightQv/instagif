@@ -17,3 +17,9 @@
 
   --toastify-color-success: #171819;
 }
+
+.EmojiPickerReact {
+  --epr-emoji-size: 30px;
+  --epr-preview-height: 60px;
+  --epr-header-padding: 10px var(--epr-horizontal-padding);
+}
