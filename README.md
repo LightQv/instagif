@@ -49,3 +49,36 @@ Create `.env` files in /frontend and /backend following `.env.sample` examples.
 - _Prettier_ : "Quality of code" tool as well, focuses on the styleguide
 - _ Airbnb Standard_ : One of the most known "standards", even though it's not officially linked to ES/JS
 - _Nodemon_ : Allows to restart the server everytime a .js file is udated
+
+### Next Updates
+
+- _Likes_ : Add number of Likes per post
+- _Sort_ : Sort liked posts by date ASC or DESC
+- _Profile_ : Add Profile's Picture feature
+- _Notification_ : In App and Browser Notification for Likes/Reaction/New Post
+- _Message_ : Private message between users
+- _Users_ : Follower/Following system
+- _Moderation_ : Add Moderator status to delete offensive content
+
+### Deployement
+
+Work in progress. Here's some screenshot while it's done.
+
+_Landing Page with User's posts_
+
+![Alt text](https://i.imgur.com/nDN3ASk.png "Landing Page")
+
+
+_Share a Feeling_
+
+![Alt text](https://i.imgur.com/MdNObZW.png "Share Page")
+
+
+_My Profile Page_
+
+![Alt text](https://i.imgur.com/xJJo0jK.png "My Profile")
+
+
+_Settings Page_
+
+![Alt text](https://i.imgur.com/FLjC4nQ.png "Settings")
