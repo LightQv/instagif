@@ -2,6 +2,36 @@ const { PrismaClient } = require("@prisma/client");
 
 const prisma = new PrismaClient();
 
+// Fetch all likes for a Post
+const browseByPost = async (req, res) => {
+  try {
+    const aggregate = await prisma.like.groupBy({
+      by: ["post_id"],
+      _count: true,
+      where: {
+        post_id: parseInt(req.params.id, 10),
+      },
+    });
+    const likes = await prisma.like.findMany({
+      where: {
+        post_id: parseInt(req.params.id, 10),
+      },
+      include: {
+        user: {
+          select: {
+            id: true,
+            username: true,
+          },
+        },
+      },
+    });
+    res.json({ count: aggregate, data: likes });
+  } catch (err) {
+    console.error(err);
+    res.sendStatus(500);
+  }
+};
+
 // Fetch all like for a User
 const browseByUser = async (req, res) => {
   try {
@@ -64,6 +94,7 @@ const destroy = async (req, res) => {
 };
 
 module.exports = {
+  browseByPost,
   browseByUser,
   countByUser,
   add,

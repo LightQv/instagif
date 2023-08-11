@@ -29,6 +29,7 @@ router.post("/users", validateUser, hashPassword, userControllers.add);
 // Posts with Likes & Feelings
 router.get("/posts", postControllers.browse);
 router.get("/posts/:id", postControllers.readWithUser);
+router.get("/likes-post/:id", likeControllers.browseByPost);
 router.get("/feelings-post/:id", feelingControllers.browseByPost);
 
 // -> For User's Search-List

@@ -7,6 +7,7 @@ import { useEffect, useState, useRef } from "react";
 import { Emoji } from "emoji-picker-react";
 import { Tooltip } from "react-tooltip";
 import { useUserContext } from "../../contexts/UserContext";
+import { useLikeContext } from "../../contexts/LikeContext";
 import LikeAction from "./LikeAction";
 import FeelingAction from "./FeelingAction";
 import APIService from "../../services/APIService";
@@ -14,10 +15,14 @@ import { notifyError } from "../../services/toasts";
 
 export default function PostBox({ post }) {
   const { user } = useUserContext();
+  const { sendLike } = useLikeContext();
+
   TimeAgo.addLocale(fr);
   const [feelings, setFeelings] = useState(null);
   const [feelingsCount, setFeelingsCount] = useState(null);
-  const [sendFeelings, setSendFeelings] = useState(true);
+  const [sendFeeling, setSendFeeling] = useState(true);
+  const [likes, setLikes] = useState(null);
+  const [likesCount, setLikesCount] = useState(null);
 
   const gifRef = useRef();
   const headerRef = useRef();
@@ -30,14 +35,28 @@ export default function PostBox({ post }) {
     return `/${post.user.username}`;
   }
 
+  // --- Likes logic --- //
+  useEffect(() => {
+    APIService.get(`/likes-post/${post.id}`)
+      .then((res) => {
+        setLikesCount(res.data.count);
+        setLikes(res.data.data);
+      })
+      .catch((err) => {
+        if (err.request?.status === 500) {
+          notifyError("Error, please try later.");
+        }
+      });
+  }, [sendLike]);
+
   // --- Feeling logic --- //
   useEffect(() => {
-    if (sendFeelings) {
+    if (sendFeeling) {
       APIService.get(`/feelings-post/${post.id}`)
         .then((res) => {
           setFeelingsCount(res.data.count);
           setFeelings(res.data.data);
-          setSendFeelings(false);
+          setSendFeeling(false);
         })
         .catch((err) => {
           if (err.request?.status === 500) {
@@ -45,7 +64,7 @@ export default function PostBox({ post }) {
           }
         });
     }
-  }, [feelings, sendFeelings]);
+  }, [feelings, sendFeeling]);
 
   // Handle Feeling already created (Create new Feelings -> FeelingAction.jsx)
   // Store User's feelings
@@ -58,10 +77,10 @@ export default function PostBox({ post }) {
     const selectedFeeling = userFeeling.filter(
       (el) => el.emoji === feeling.emoji
     );
-    setSendFeelings(false);
+    setSendFeeling(false);
     if (feeling && userFeeling && selectedFeeling.length > 0) {
       APIService.delete(`/feelings/${selectedFeeling[0]?.id}`)
-        .then(() => setSendFeelings(true))
+        .then(() => setSendFeeling(true))
         .catch((err) => {
           if (err.request?.status === 500) {
             notifyError("Error, please try later.");
@@ -74,7 +93,7 @@ export default function PostBox({ post }) {
         post_id: post.id,
         user_id: user.id,
       })
-        .then(() => setSendFeelings(true))
+        .then(() => setSendFeeling(true))
         .catch((err) => {
           if (err.request?.status === 404 || err.request?.status === 500) {
             notifyError("Error, please try later.");
@@ -127,7 +146,18 @@ export default function PostBox({ post }) {
                   <ReactTimeAgo date={new Date(post.created_at)} locale="fr" />.
                 </span>
               </h3>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-1">
+                {likesCount && likesCount.length > 0 && (
+                  <p
+                    className={`text-sm font-medium ${
+                      likes?.some((el) => el.user_id === user.id)
+                        ? "text-red-800"
+                        : ""
+                    }`}
+                  >
+                    {likesCount[0]._count}
+                  </p>
+                )}
                 <LikeAction post={post} />
               </div>
             </div>
@@ -168,7 +198,7 @@ export default function PostBox({ post }) {
             <FeelingAction
               post={post}
               feelings={feelings}
-              setSendFeelings={setSendFeelings}
+              setSendFeeling={setSendFeeling}
               gifRef={gifRef}
               headerRef={headerRef}
             />

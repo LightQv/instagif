@@ -11,7 +11,7 @@ import { useUserContext } from "../../contexts/UserContext";
 export default function FeelingAction({
   post,
   feelings,
-  setSendFeelings,
+  setSendFeeling,
   gifRef,
   headerRef,
 }) {
@@ -37,7 +37,7 @@ export default function FeelingAction({
       user_id: user.id,
     })
       .then(() => {
-        setSendFeelings(true);
+        setSendFeeling(true);
         setShowEmojis(false);
       })
       .catch((err) => {
@@ -98,7 +98,7 @@ export default function FeelingAction({
 FeelingAction.propTypes = {
   post: PropTypes.shape().isRequired,
   feelings: PropTypes.arrayOf(PropTypes.shape()).isRequired,
-  setSendFeelings: PropTypes.func.isRequired,
+  setSendFeeling: PropTypes.func.isRequired,
   gifRef: PropTypes.shape().isRequired,
   headerRef: PropTypes.shape().isRequired,
 };
