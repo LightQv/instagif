@@ -50,8 +50,13 @@ export default function FeelingAction({
 
   const handleEmojisPanel = () => {
     setShowEmojis(!showEmojis);
-    if (!showEmojis) {
+    if (!showEmojis && window.innerWidth < 785) {
       headerRef.current?.scrollIntoView({ behovior: "smooth" });
+    } else if (!showEmojis && window.innerWidth > 785) {
+      gifRef.current?.scrollIntoView({
+        behovior: "smooth",
+        inline: "start",
+      });
     } else
       gifRef.current?.scrollIntoView({
         behovior: "smooth",
@@ -71,7 +76,7 @@ export default function FeelingAction({
         <p className="text-xs font-medium">+</p>
       </button>
       {showEmojis && (
-        <div className="fixed bottom-0 left-0 z-30 text-xs lg:bottom-12 lg:left-12">
+        <div className="fixed bottom-0 left-0 z-30 text-xs lg:left-64 lg:top-4 lg:w-fit">
           <EmojiPicker
             autoFocusSearch={false}
             emojiStyle="twitter"
@@ -86,8 +91,8 @@ export default function FeelingAction({
             skinTonesDisabled
             suggestedEmojisMode="recent"
             theme={theme === "dark" ? "dark" : "light"}
-            height="70dvh"
-            width="100dvw"
+            height={`${window.innerWidth < 785 ? "70dvh" : "95dvh"}`}
+            width={`${window.innerWidth < 785 ? "100dvw" : "23dvw"}`}
           />
         </div>
       )}

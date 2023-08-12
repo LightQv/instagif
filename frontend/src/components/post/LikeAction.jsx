@@ -1,14 +1,12 @@
 import PropTypes from "prop-types";
 import { useUserContext } from "../../contexts/UserContext";
-import { useLikeContext } from "../../contexts/LikeContext";
 import LikeSvg from "../svg/interactions/LikeSvg";
 import ActiveLikeSvg from "../svg/interactions/ActiveLikeSvg";
 import APIService from "../../services/APIService";
 import { notifyError } from "../../services/toasts";
 
-export default function LikeAction({ post }) {
+export default function LikeAction({ post, likes, setSendLike }) {
   const { user } = useUserContext();
-  const { likes, setSendLike } = useLikeContext();
 
   // --- Like logic --- //
   // Determine if Actual Post is Liked based on LikeContext, Post's ID & User's ID
@@ -60,4 +58,6 @@ export default function LikeAction({ post }) {
 
 LikeAction.propTypes = {
   post: PropTypes.shape().isRequired,
+  likes: PropTypes.shape().isRequired,
+  setSendLike: PropTypes.func.isRequired,
 };

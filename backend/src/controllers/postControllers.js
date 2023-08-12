@@ -43,6 +43,9 @@ const browseByUser = async (req, res) => {
           },
         },
       },
+      orderBy: {
+        created_at: "desc",
+      },
     });
     res.send(posts);
   } catch (err) {
@@ -56,9 +59,14 @@ const browseLikedByUser = async (req, res) => {
   try {
     const userLikes = await prisma.post.findMany({
       where: {
-        user_id: parseInt(req.params.id, 10),
+        likes: {
+          some: {
+            user_id: parseInt(req.params.id, 10),
+          },
+        },
       },
       include: {
+        likes: true,
         feelings: true,
         user: {
           select: {
@@ -66,6 +74,9 @@ const browseLikedByUser = async (req, res) => {
             username: true,
           },
         },
+      },
+      orderBy: {
+        created_at: "desc",
       },
     });
     res.send(userLikes);
