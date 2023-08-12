@@ -28,6 +28,8 @@ const readByUsername = async (req, res) => {
       },
       include: {
         likes: true,
+        followedBy: true,
+        following: true,
       },
     });
     if (user) {
