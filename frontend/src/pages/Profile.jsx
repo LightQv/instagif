@@ -7,6 +7,7 @@ import APIService from "../services/APIService";
 import { notifyError } from "../services/toasts";
 import LikeCount from "../components/profile/LikeCount";
 import FeelingCount from "../components/profile/FeelingCount";
+import FollowAction from "../components/post/FollowAction";
 
 export default function Profile() {
   const { user } = useUserContext();
@@ -14,6 +15,7 @@ export default function Profile() {
   const { username } = useParams();
   const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [sendFollow, setSendFollow] = useState(false);
 
   function getUsername() {
     if (username) {
@@ -30,12 +32,13 @@ export default function Profile() {
       APIService.get(`/users/${username}`)
         .then((res) => {
           setProfile(res.data);
+          setSendFollow(false);
         })
         .catch((err) => notifyError(`${err} : Fetching user's data.`));
     } else {
       setProfile(user);
     }
-  }, []);
+  }, [sendFollow]);
 
   useEffect(() => {
     if (profile) {
@@ -70,7 +73,9 @@ export default function Profile() {
                 {postList?.length > 1 && "s"}.
               </h3>
             </div>
-            {!username && (
+            {username ? (
+              <FollowAction profile={profile} setSendFollow={setSendFollow} />
+            ) : (
               <Link to="/my-profile/settings">
                 <button
                   type="button"

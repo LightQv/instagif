@@ -20,6 +20,7 @@ const userControllers = require("./controllers/userControllers");
 const postControllers = require("./controllers/postControllers");
 const likeControllers = require("./controllers/likeControllers");
 const feelingControllers = require("./controllers/feelingControllers");
+const followControllers = require("./controllers/followControllers");
 
 // --- Public Routes (without Auth) --- //
 // Login & Register
@@ -81,5 +82,9 @@ router.delete("/likes/:id", likeControllers.destroy);
 // Feelings's CD
 router.post("/feelings", feelingControllers.add);
 router.delete("/feelings/:id", feelingControllers.destroy);
+
+// Follow's CD
+router.post("/follows", followControllers.add);
+router.delete("/follows/:followerId&:followingId", followControllers.destroy);
 
 module.exports = router;
