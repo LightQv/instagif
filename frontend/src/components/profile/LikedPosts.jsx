@@ -46,7 +46,9 @@ export default function LikedPosts({ isShow, setIsShow }) {
       {isShow.likedPosts && (
         <ul
           className={`mt-2 grid w-full ${
-            likedPosts?.length > 0 ? "grid-cols-2" : "grid-cols-1"
+            likedPosts?.length > 0
+              ? "grid-cols-2 lg:grid-cols-4"
+              : "grid-cols-1"
           } gap-[0.1rem]`}
         >
           {likedPosts && likedPosts.length !== 0 ? (
@@ -57,6 +59,7 @@ export default function LikedPosts({ isShow, setIsShow }) {
                 key={post.id}
                 loading={loading}
                 setLoading={setLoading}
+                likePage
               />
             ))
           ) : (

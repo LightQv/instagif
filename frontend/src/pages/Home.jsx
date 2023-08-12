@@ -19,7 +19,7 @@ export default function Home() {
   }, []);
 
   return (
-    <main className="flex min-h-screen flex-col justify-between scroll-smooth bg-dust-0 pb-12 font-inter dark:bg-cobble-0 lg:pb-0 lg:pt-16">
+    <main className="flex min-h-screen flex-col justify-between scroll-smooth bg-dust-0 pb-12 font-inter dark:bg-cobble-0 lg:pb-0 lg:pl-60">
       <header className="flex h-12 w-full items-center justify-between bg-dust-0 px-6 dark:bg-cobble-0 lg:hidden">
         <Link to="/" className="flex h-full w-full items-center">
           <img
@@ -30,7 +30,7 @@ export default function Home() {
         </Link>
         <NotificationSvg />
       </header>
-      <ul className="flex flex-col lg:w-2/6 lg:gap-4 lg:self-center">
+      <ul className="flex flex-col lg:w-2/5 lg:gap-4 lg:self-center">
         {posts && posts.map((post) => <PostBox post={post} key={post.id} />)}
       </ul>
     </main>

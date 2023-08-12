@@ -20,7 +20,7 @@ export default function ProfileSettings() {
   });
 
   return (
-    <main className="flex min-h-screen flex-col justify-start bg-dust-0 pb-12 font-inter dark:bg-cobble-0 lg:mb-0 lg:pb-0 lg:pt-16">
+    <main className="flex min-h-screen flex-col justify-start bg-dust-0 pb-12 font-inter dark:bg-cobble-0 lg:mb-0 lg:pb-0 lg:pl-60">
       <header className="flex h-12 w-full items-center justify-between bg-dust-0 px-6 dark:bg-cobble-0 lg:hidden">
         <div className="h-fit w-full">
           <button
@@ -35,7 +35,7 @@ export default function ProfileSettings() {
           </h3>
         </div>
       </header>
-      <div className="flex w-full flex-col gap-4 py-4 lg:w-1/3 lg:self-center">
+      <div className="flex w-full flex-col gap-4 py-4 lg:w-3/5 lg:self-center">
         <LikedPosts isShow={isShow} setIsShow={setIsShow} />
         <ThemeSwitcher isShow={isShow} setIsShow={setIsShow} />
         <ChangeMail isShow={isShow} setIsShow={setIsShow} />

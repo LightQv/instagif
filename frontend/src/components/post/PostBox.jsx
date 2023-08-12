@@ -7,7 +7,6 @@ import { useEffect, useState, useRef } from "react";
 import { Emoji } from "emoji-picker-react";
 import { Tooltip } from "react-tooltip";
 import { useUserContext } from "../../contexts/UserContext";
-import { useLikeContext } from "../../contexts/LikeContext";
 import LikeAction from "./LikeAction";
 import FeelingAction from "./FeelingAction";
 import APIService from "../../services/APIService";
@@ -15,14 +14,14 @@ import { notifyError } from "../../services/toasts";
 
 export default function PostBox({ post }) {
   const { user } = useUserContext();
-  const { sendLike } = useLikeContext();
 
   TimeAgo.addLocale(fr);
+  const [likes, setLikes] = useState(null);
+  const [likesCount, setLikesCount] = useState(null);
+  const [sendLike, setSendLike] = useState(true);
   const [feelings, setFeelings] = useState(null);
   const [feelingsCount, setFeelingsCount] = useState(null);
   const [sendFeeling, setSendFeeling] = useState(true);
-  const [likes, setLikes] = useState(null);
-  const [likesCount, setLikesCount] = useState(null);
 
   const gifRef = useRef();
   const headerRef = useRef();
@@ -37,17 +36,20 @@ export default function PostBox({ post }) {
 
   // --- Likes logic --- //
   useEffect(() => {
-    APIService.get(`/likes-post/${post.id}`)
-      .then((res) => {
-        setLikesCount(res.data.count);
-        setLikes(res.data.data);
-      })
-      .catch((err) => {
-        if (err.request?.status === 500) {
-          notifyError("Error, please try later.");
-        }
-      });
-  }, [sendLike]);
+    if (sendLike) {
+      APIService.get(`/likes-post/${post.id}`)
+        .then((res) => {
+          setLikesCount(res.data.count);
+          setLikes(res.data.data);
+          setSendLike(false);
+        })
+        .catch((err) => {
+          if (err.request?.status === 500) {
+            notifyError("Error, please try later.");
+          }
+        });
+    }
+  }, [likes, sendLike]);
 
   // --- Feeling logic --- //
   useEffect(() => {
@@ -121,7 +123,7 @@ export default function PostBox({ post }) {
   };
 
   return (
-    <li className="w-full border-b-[1px] border-sand-0 text-cobble-0 last:border-b-0 lg:pt-4">
+    <li className="w-full border-b-[1px] border-sand-0 text-cobble-0 last:border-b-0 dark:border-granite-0 lg:pt-4">
       <Link to={`/${post.user?.username}/${post.id}`}>
         <img
           src={post.gif_url}
@@ -152,13 +154,17 @@ export default function PostBox({ post }) {
                     className={`text-sm font-medium ${
                       likes?.some((el) => el.user_id === user.id)
                         ? "text-red-800"
-                        : ""
+                        : "dark:text-dust-0"
                     }`}
                   >
                     {likesCount[0]._count}
                   </p>
                 )}
-                <LikeAction post={post} />
+                <LikeAction
+                  post={post}
+                  likes={likes}
+                  setSendLike={setSendLike}
+                />
               </div>
             </div>
             <p className="-mt-2 text-lg font-bold dark:text-dust-0">
