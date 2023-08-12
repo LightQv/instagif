@@ -76,7 +76,7 @@ const browseLikedByUser = async (req, res) => {
         },
       },
       orderBy: {
-        created_at: "desc",
+        created_at: req.query.sort,
       },
     });
     res.send(userLikes);

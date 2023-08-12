@@ -52,12 +52,10 @@ Create `.env` files in /frontend and /backend following `.env.sample` examples.
 
 ### Next Updates
 
-- _Likes_ : Add number of Likes per post
-- _Sort_ : Sort liked posts by date ASC or DESC
+- _Users_ : Follower/Following system
 - _Profile_ : Add Profile's Picture feature
 - _Notification_ : In App and Browser Notification for Likes/Reaction/New Post
 - _Message_ : Private message between users
-- _Users_ : Follower/Following system
 - _Moderation_ : Add Moderator status to delete offensive content
 
 ### Deployement
@@ -68,16 +66,13 @@ _Landing Page with User's posts_
 
 ![Alt text](https://i.imgur.com/nDN3ASk.png "Landing Page")
 
-
 _Share a Feeling_
 
 ![Alt text](https://i.imgur.com/MdNObZW.png "Share Page")
 
-
 _My Profile Page_
 
 ![Alt text](https://i.imgur.com/xJJo0jK.png "My Profile")
-
 
 _Settings Page_
 

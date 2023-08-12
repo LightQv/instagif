@@ -40,33 +40,39 @@ export default function ThemeSwitcher({ isShow, setIsShow }) {
           <button
             type="button"
             onClick={() => setTheme("light")}
-            className={
+            className={`flex h-fit items-center justify-center rounded-md p-2 text-sm font-semibold transition-all
+            ${
               theme === "light"
-                ? "flex h-fit w-4/6 items-center justify-center rounded-md bg-red-800 p-2 text-sm font-semibold text-dust-0 transition-all hover:bg-red-600"
-                : "flex h-fit w-1/6 items-center justify-center rounded-md bg-cobble-0 p-2 text-sm font-semibold text-dust-0 transition-all hover:scale-[1.03] hover:bg-granite-0 dark:bg-granite-0 dark:text-sand-0"
+                ? "w-4/6 cursor-default bg-red-800 text-dust-0"
+                : "w-1/6 bg-gray-300 text-cobble-0 hover:scale-[1.03] dark:bg-granite-0 dark:text-sand-0"
             }
+          `}
           >
             {theme === "light" ? <ActiveSunSvg /> : <SunSvg />}
           </button>
           <button
             type="button"
             onClick={() => setTheme("dark")}
-            className={
+            className={`flex h-fit items-center justify-center rounded-md p-2 text-sm font-semibold transition-all
+            ${
               theme === "dark"
-                ? "flex h-fit w-4/6 items-center justify-center rounded-md bg-red-800 p-2 text-sm font-semibold text-dust-0 transition-all hover:bg-red-600"
-                : "flex h-fit w-1/6 items-center justify-center rounded-md bg-cobble-0 p-2 text-sm font-semibold text-dust-0 transition-all hover:scale-[1.03] hover:bg-granite-0 dark:bg-granite-0 dark:text-sand-0"
+                ? "w-4/6 cursor-default bg-red-800 text-dust-0"
+                : "w-1/6 bg-gray-300 text-cobble-0 hover:scale-[1.03] dark:bg-granite-0 dark:text-sand-0"
             }
+          `}
           >
             {theme === "dark" ? <ActiveMoonSvg /> : <MoonSvg />}
           </button>
           <button
             type="button"
             onClick={() => setTheme("system")}
-            className={
+            className={`flex h-fit items-center justify-center rounded-md p-2 text-sm font-semibold transition-all
+            ${
               theme === "system"
-                ? "flex h-fit w-4/6 items-center justify-center rounded-md bg-red-800 p-2 text-sm font-semibold text-dust-0 transition-all hover:bg-red-600"
-                : "flex h-fit w-1/6 items-center justify-center rounded-md bg-cobble-0 p-2 text-sm font-semibold text-dust-0 transition-all hover:scale-[1.03] hover:bg-granite-0 dark:bg-granite-0 dark:text-sand-0"
+                ? "w-4/6 cursor-default bg-red-800 text-dust-0"
+                : "w-1/6 bg-gray-300 text-cobble-0 hover:scale-[1.03] dark:bg-granite-0 dark:text-sand-0"
             }
+          `}
           >
             {theme === "system" ? <ActiveSystemSvg /> : <SystemSvg />}
           </button>
