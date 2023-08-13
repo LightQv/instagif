@@ -32,19 +32,6 @@ const browseByPost = async (req, res) => {
   }
 };
 
-// Fetch all like for a User
-const browseByUser = async (req, res) => {
-  try {
-    const likes = await prisma.like.findMany({
-      where: { user: { id: parseInt(req.params.id, 10) } },
-    });
-    res.send(likes);
-  } catch (err) {
-    console.error(err);
-    res.sendStatus(500);
-  }
-};
-
 // Fetch Like amount for a User
 const countByUser = async (req, res) => {
   try {
@@ -95,7 +82,6 @@ const destroy = async (req, res) => {
 
 module.exports = {
   browseByPost,
-  browseByUser,
   countByUser,
   add,
   destroy,

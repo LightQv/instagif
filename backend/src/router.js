@@ -64,10 +64,10 @@ router.put(
 );
 router.delete("/users/:id", userControllers.destroy);
 
-// Auth's User's Likes
-router.get("/likes-user/:id", likeControllers.browseByUser);
+// Auth's User's Followed Posts
+router.get("/posts-followed/:id", postControllers.browseByFollow);
 
-// Handle Like
+// Handle Liked Posts
 router.get("/posts-liked/:id", postControllers.browseLikedByUser);
 
 // Posts's CRUD

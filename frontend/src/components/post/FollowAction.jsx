@@ -46,7 +46,7 @@ export default function FollowAction({ profile, setSendFollow }) {
       className={`flex h-fit w-2/5 items-center justify-center space-x-1 rounded-md p-2 text-sm transition-all
       ${
         !userIsFollowed
-          ? "cursor-default bg-red-800 text-dust-0"
+          ? "bg-red-800 text-dust-0"
           : "bg-gray-300 text-cobble-0 hover:scale-[1.03] dark:bg-granite-0 dark:text-sand-0"
       }
     `}
