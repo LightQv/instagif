@@ -7,7 +7,7 @@ export default function FollowAction({ profile, setSendFollow }) {
   const { user } = useUserContext();
 
   // --- Follow logic --- //
-  // Determine if Actual User is Followed by User's Logged In
+  // Determine if Selected User is Followed by User's Logged In
   const userIsFollowed = profile?.followedBy.some(
     (el) => el.followerId === user.id
   );
