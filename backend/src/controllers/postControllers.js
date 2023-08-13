@@ -26,6 +26,39 @@ const browse = async (req, res) => {
   }
 };
 
+const browseByFollow = async (req, res) => {
+  try {
+    const posts = await prisma.post.findMany({
+      include: {
+        likes: true,
+        feelings: true,
+        user: {
+          select: {
+            id: true,
+            username: true,
+          },
+        },
+      },
+      orderBy: {
+        created_at: "desc",
+      },
+      where: {
+        user: {
+          followedBy: {
+            some: {
+              followerId: parseInt(req.params.id, 10),
+            },
+          },
+        },
+      },
+    });
+    res.send(posts);
+  } catch (err) {
+    console.error(err);
+    res.sendStatus(500);
+  }
+};
+
 // Fetch All Posts for a User
 const browseByUser = async (req, res) => {
   try {
@@ -173,6 +206,7 @@ const destroy = async (req, res) => {
 
 module.exports = {
   browse,
+  browseByFollow,
   browseByUser,
   browseLikedByUser,
   readWithUser,

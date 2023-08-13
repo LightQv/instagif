@@ -6,7 +6,9 @@ const browse = async (req, res) => {
   try {
     const users = await prisma.user.findMany({
       include: {
-        post_likes: true,
+        likes: true,
+        followedBy: true,
+        following: true,
       },
     });
     for (let i = 0; i < users.length; i += 1) {
