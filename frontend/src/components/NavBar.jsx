@@ -1,6 +1,8 @@
 import { NavLink, Link } from "react-router-dom";
 import HomeSvg from "./svg/navbar/HomeSvg";
 import ActiveHomeSvg from "./svg/navbar/ActiveHomeSvg";
+import SearchSvg from "./svg/navbar/SearchSvg";
+import ActiveSearchSvg from "./svg/navbar/ActiveSearchSvg";
 import ProfileSvg from "./svg/navbar/ProfileSvg";
 import ActiveProfileSvg from "./svg/navbar/ActiveProfileSvg";
 import PostSvg from "./svg/navbar/PostSvg";
@@ -17,7 +19,7 @@ export default function NavBar() {
   const { theme } = useThemeContext();
   return (
     <nav className="fixed bottom-0 z-10 flex h-12 w-full items-center justify-evenly bg-gradient-to-b from-dust-0 via-dust-0 via-30% to-dustparent-0 dark:from-cobble-0 dark:via-cobble-0 dark:to-cobbleparent-0 lg:left-0 lg:h-full lg:w-60 lg:flex-col lg:justify-start lg:border-r-[1px] lg:border-sand-0 lg:bg-none lg:px-8 lg:py-12 lg:dark:border-granite-0 lg:dark:bg-cobble-0 lg:dark:bg-none">
-      <div className="hidden lg:-ml-2 lg:mb-16 lg:block lg:h-fit lg:w-3/4 lg:self-start">
+      <div className="hidden lg:-ml-2 lg:mb-24 lg:block lg:h-fit lg:w-3/4 lg:self-start">
         <Link to="/" className="h-full">
           <img src={theme === "dark" ? logoDark : logo} alt="logo" />
         </Link>
@@ -41,6 +43,27 @@ export default function NavBar() {
                   <HomeSvg />
                   <p className="hidden lg:block lg:text-base lg:font-normal lg:dark:text-sand-0">
                     Home
+                  </p>
+                </div>
+              )
+            }
+          </NavLink>
+        </li>
+        <li>
+          <NavLink to="/search" className="lg:flex lg:items-center lg:gap-2">
+            {({ isActive }) =>
+              isActive ? (
+                <>
+                  <ActiveSearchSvg />
+                  <p className="hidden lg:block lg:text-base lg:font-bold lg:text-red-800">
+                    Search
+                  </p>
+                </>
+              ) : (
+                <div className="transition-all hover:scale-105 hover:text-granite-0 dark:hover:text-sand-0 lg:flex lg:items-center lg:gap-2">
+                  <SearchSvg />
+                  <p className="hidden lg:block lg:text-base lg:font-normal lg:dark:text-sand-0">
+                    Search
                   </p>
                 </div>
               )

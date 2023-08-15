@@ -6,7 +6,7 @@ export default function Login() {
   const [form, setForm] = useState({ login: true, register: false });
 
   return (
-    <main className="flex h-[calc(100dvh-3rem)] w-screen flex-col justify-center bg-dust-0 font-inter dark:bg-cobble-0 lg:mt-16 lg:h-[calc(100dvh-4rem)] lg:items-center">
+    <main className="flex h-[calc(100dvh-3rem)] w-screen flex-col justify-center bg-dust-0 font-inter dark:bg-cobble-0 lg:h-screen lg:items-center lg:pb-0 lg:pl-60">
       {form.login ? (
         <LoginForm setForm={setForm} />
       ) : (

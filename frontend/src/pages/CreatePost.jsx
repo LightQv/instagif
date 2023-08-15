@@ -78,7 +78,7 @@ export default function CreatePost() {
           </h3>
         </div>
       </header>
-      <div className="py-4 lg:m-auto lg:w-2/5">
+      <div className="pb-4 lg:m-auto lg:w-2/5 lg:py-4">
         <h3 className="mr-6 hidden text-center font-spartan text-xl dark:text-dust-0 lg:block">
           Hey, <span className="font-semibold">{user.username}</span>
         </h3>
