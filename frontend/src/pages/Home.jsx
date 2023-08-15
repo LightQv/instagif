@@ -16,17 +16,27 @@ export default function Home() {
 
   // Fetch every posts if nobody's logged in
   // Fetch automatically followed users's posts when logged in
+  const fetchPosts = async () => {
+    try {
+      if (feedValue === "all") {
+        const allPosts = await APIService.get("/posts");
+        if (allPosts) {
+          setPosts(allPosts.data);
+        } else throw new Error();
+      }
+      if (feedValue === "follow") {
+        const followPosts = await APIService.get(`/posts-followed/${user.id}`);
+        if (followPosts) {
+          setPosts(followPosts.data);
+        } else throw new Error();
+      }
+    } catch (err) {
+      notifyError(`${err}: fetching posts`);
+    }
+  };
+
   useEffect(() => {
-    if (feedValue === "all") {
-      APIService.get("/posts")
-        .then((res) => setPosts(res.data))
-        .catch((err) => notifyError(`${err}: fetching posts`));
-    }
-    if (feedValue === "follow") {
-      APIService.get(`/posts-followed/${user.id}`)
-        .then((res) => setPosts(res.data))
-        .catch((err) => notifyError(`${err}: fetching posts`));
-    }
+    fetchPosts();
   }, [feedValue]);
 
   return (

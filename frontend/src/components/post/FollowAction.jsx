@@ -5,7 +5,12 @@ import { notifyError } from "../../services/toasts";
 import FollowSvg from "../svg/interactions/FollowSvg";
 import UnfollowSvg from "../svg/interactions/UnfollowSvg";
 
-export default function FollowAction({ profile, setSendFollow }) {
+export default function FollowAction({
+  profile,
+  setSendFollow,
+  width,
+  textSize,
+}) {
   const { user } = useUserContext();
 
   // --- Follow logic --- //
@@ -43,7 +48,7 @@ export default function FollowAction({ profile, setSendFollow }) {
   return (
     <button
       type="button"
-      className={`flex h-fit w-2/5 items-center justify-center space-x-1 rounded-md p-2 text-sm transition-all
+      className={`flex h-fit ${width} items-center justify-center space-x-1 rounded-md p-2 ${textSize} transition-all
       ${
         !userIsFollowed
           ? "bg-red-800 text-dust-0"
@@ -70,4 +75,6 @@ export default function FollowAction({ profile, setSendFollow }) {
 FollowAction.propTypes = {
   profile: PropTypes.shape().isRequired,
   setSendFollow: PropTypes.func.isRequired,
+  width: PropTypes.string.isRequired,
+  textSize: PropTypes.string.isRequired,
 };

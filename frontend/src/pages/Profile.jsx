@@ -74,7 +74,12 @@ export default function Profile() {
               </h3>
             </div>
             {username ? (
-              <FollowAction profile={profile} setSendFollow={setSendFollow} />
+              <FollowAction
+                profile={profile}
+                setSendFollow={setSendFollow}
+                width="w-2/5"
+                textSize="text-sm"
+              />
             ) : (
               <Link to="/my-profile/settings">
                 <button

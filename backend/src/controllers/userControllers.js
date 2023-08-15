@@ -5,10 +5,24 @@ const prisma = new PrismaClient();
 const browse = async (req, res) => {
   try {
     const users = await prisma.user.findMany({
-      include: {
-        likes: true,
+      orderBy: {
+        username: "asc",
+      },
+      select: {
+        id: true,
+        username: true,
         followedBy: true,
-        following: true,
+        _count: {
+          select: {
+            followedBy: true,
+            following: true,
+          },
+        },
+      },
+      where: {
+        username: {
+          startsWith: req.query.username,
+        },
       },
     });
     for (let i = 0; i < users.length; i += 1) {
