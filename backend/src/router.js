@@ -41,6 +41,7 @@ router.get("/users/:username", userControllers.readByUsername);
 router.get("/posts-user/:id", postControllers.browseByUser);
 
 // Stats for each User
+router.get("/follows-stats/:id", followControllers.countByUser);
 router.get("/likes-stats/:id", likeControllers.countByUser);
 router.get("/feelings-stats/:id", feelingControllers.countByUser);
 

@@ -5,6 +5,7 @@ import SettingsSvg from "../components/svg/navigation/SettingsSvg";
 import PostInsight from "../components/profile/PostInsight";
 import APIService from "../services/APIService";
 import { notifyError } from "../services/toasts";
+import FollowingCount from "../components/profile/FollowingCount";
 import LikeCount from "../components/profile/LikeCount";
 import FeelingCount from "../components/profile/FeelingCount";
 import FollowAction from "../components/post/FollowAction";
@@ -103,6 +104,7 @@ export default function Profile() {
           </Link>
         )}
         <div className="flex h-fit w-full justify-evenly">
+          <FollowingCount profile={profile} />
           <LikeCount profile={profile} />
           <FeelingCount profile={profile} />
         </div>

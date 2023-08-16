@@ -15,7 +15,7 @@ export default function Home() {
   const [feedValue, setFeedValue] = useState(user.id ? "follow" : "all");
 
   // Fetch every posts if nobody's logged in
-  // Fetch automatically followed users's posts when logged in
+  // Fetch automatically users's followed posts when logged in
   const fetchPosts = async () => {
     try {
       if (feedValue === "all") {
@@ -40,7 +40,7 @@ export default function Home() {
   }, [feedValue]);
 
   return (
-    <main className="flex min-h-screen flex-col justify-between scroll-smooth bg-dust-0 pb-12 font-inter dark:bg-cobble-0 lg:pb-0 lg:pl-60">
+    <main className="flex min-h-screen flex-col justify-start scroll-smooth bg-dust-0 pb-12 font-inter dark:bg-cobble-0 lg:pb-0 lg:pl-60">
       <header className="flex h-12 w-full items-center justify-between bg-dust-0 px-6 dark:bg-cobble-0 lg:mx-auto lg:w-2/5 lg:px-0 lg:pt-4">
         {!user.id && (
           <img
@@ -66,7 +66,15 @@ export default function Home() {
         )}
       </header>
       <ul className="flex flex-col lg:w-2/5 lg:gap-4 lg:self-center">
-        {posts && posts.map((post) => <PostBox post={post} key={post.id} />)}
+        {posts && posts.length > 0 ? (
+          posts.map((post) => <PostBox post={post} key={post.id} />)
+        ) : (
+          <p className="my-auto px-6 text-center text-sm italic">{`${
+            feedValue === "all"
+              ? "Nobody posted anything yet."
+              : "Users you're following haven't posted anything yet. Switch to World section to discover other user's feelings."
+          }`}</p>
+        )}
       </ul>
     </main>
   );
