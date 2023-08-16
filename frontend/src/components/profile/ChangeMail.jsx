@@ -3,11 +3,16 @@ import { useFormik } from "formik";
 import { useUserContext } from "../../contexts/UserContext";
 import DownSvg from "../svg/navigation/DownSvg";
 import APIService from "../../services/APIService";
-import { notifyError } from "../../services/toasts";
+import notifySuccess, {
+  notifyDuplicate,
+  notifyError,
+} from "../../services/toasts";
 import { editMailSchema } from "../../services/validators";
+import { useThemeContext } from "../../contexts/ThemeContext";
 
 export default function ChangeMail({ isShow, setIsShow }) {
   const { user, logout } = useUserContext();
+  const { theme } = useThemeContext();
 
   const formik = useFormik({
     initialValues: {
@@ -18,13 +23,17 @@ export default function ChangeMail({ isShow, setIsShow }) {
 
     onSubmit: async (values) => {
       try {
-        const res = await APIService.put(`/users/${user.id}`, values);
+        const res = await APIService.put(`/users-ml/${user.id}`, values);
         if (res) {
+          notifySuccess("Email successfully changed.");
           logout();
         } else throw new Error();
       } catch (error) {
-        if (error.request.status === 401) {
-          notifyError("Email already taken.");
+        if (error.request.status === 400) {
+          notifyDuplicate("Email already taken.");
+        }
+        if (error.request.status === 500) {
+          notifyError("Error, please try again.");
         }
       }
     },
@@ -39,7 +48,7 @@ export default function ChangeMail({ isShow, setIsShow }) {
           className="h-fit w-full"
         >
           <h3 className="text-left text-sm font-semibold text-cobble-0 dark:text-dust-0">
-            Change my email
+            Change email
           </h3>
         </button>
         <button
@@ -63,22 +72,22 @@ export default function ChangeMail({ isShow, setIsShow }) {
           <div className="flex flex-col">
             <label
               htmlFor="email"
-              className="mb-2 text-xs"
+              className="mb-2 ml-1 text-xs lg:text-sm"
               style={
                 formik.touched.email && formik.errors.email
                   ? { color: "rgb(239, 3, 3)" }
-                  : { color: "black" }
+                  : { color: theme === "dark" ? "#f1efe7" : "black" }
               }
             >
               {formik.touched.email && formik.errors.email
                 ? formik.errors.email
-                : ""}
+                : "Email"}
             </label>
             <input
               type="text"
               name="email"
               id="email"
-              placeholder="Email"
+              placeholder="example@mail.com"
               required=""
               value={formik.values.email}
               onChange={formik.handleChange}

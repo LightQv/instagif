@@ -1,0 +1,66 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model post {
+  id         Int       @id @default(autoincrement())
+  title      String    @db.VarChar(255)
+  gif_url    String    @db.Text
+  created_at DateTime  @default(now()) @db.DateTime(0)
+  user_id    Int
+  user       user      @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "post_ibfk_1")
+  feelings   feeling[]
+  likes      like[]
+
+  @@index([user_id], map: "user_id")
+}
+
+model feeling {
+  id      Int    @id @default(autoincrement())
+  name    String @db.VarChar(255)
+  emoji   String @db.Text
+  post_id Int
+  user_id Int
+  post    post   @relation(fields: [post_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "feeling_ibfk_1")
+  user    user   @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "feeling_ibfk_2")
+
+  @@index([post_id], map: "post_id")
+  @@index([user_id], map: "user_id")
+}
+
+model like {
+  id      Int  @id @default(autoincrement())
+  post_id Int
+  user_id Int
+  post    post @relation(fields: [post_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "like_ibfk_1")
+  user    user @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "ike_ibfk_2")
+
+  @@index([post_id], map: "post_id")
+  @@index([user_id], map: "user_id")
+}
+
+model user {
+  id             Int       @id @default(autoincrement())
+  username       String    @unique(map: "username") @db.VarChar(100)
+  email          String    @unique(map: "email") @db.VarChar(255)
+  hashedPassword String    @db.VarChar(255)
+  posts          post[]
+  feelings       feeling[]
+  likes          like[]
+  followedBy     follow[]  @relation("following")
+  following      follow[]  @relation("follower")
+}
+
+model follow {
+  follower    user @relation("follower", fields: [followerId], references: [id])
+  followerId  Int
+  following   user @relation("following", fields: [followingId], references: [id])
+  followingId Int
+
+  @@id([followerId, followingId])
+}

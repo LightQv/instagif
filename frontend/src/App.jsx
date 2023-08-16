@@ -6,6 +6,7 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import PostDetails from "./pages/PostDetails";
 import RequireAuth from "./components/routes/RequireAuth";
+import Search from "./pages/Search";
 import CreatePost from "./pages/CreatePost";
 import Profile from "./pages/Profile";
 import ProfileEdition from "./pages/ProfileEdition";
@@ -19,10 +20,11 @@ function App() {
         {/* Public Routes */}
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/post-details/:id" element={<PostDetails />} />
-        <Route path="/profile/:username" element={<Profile />} />
+        <Route path="/:username" element={<Profile />} />
+        <Route path="/:username/:id" element={<PostDetails />} />
         {/* Private Routes, Redirect to Login if no user Auth */}
         <Route element={<RequireAuth />}>
+          <Route path="/search" element={<Search />} />
           <Route path="/create" element={<CreatePost />} />
           <Route path="/my-profile" element={<Profile />} />
           <Route path="/my-profile/edit" element={<ProfileEdition />} />

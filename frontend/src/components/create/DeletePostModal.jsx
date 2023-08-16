@@ -7,7 +7,7 @@ export default function DeletePostModal({ post, setIsShow }) {
   const navigate = useNavigate();
   const handleDelete = async () => {
     try {
-      const res = await APIService.delete(`/posts/${post.post_id}`);
+      const res = await APIService.delete(`/posts/${post.id}`);
       if (res) {
         notifySuccess("Your post have been successfully deleted.");
         setIsShow({ modalDelete: false });
@@ -33,7 +33,7 @@ export default function DeletePostModal({ post, setIsShow }) {
             className="h-fit w-24 self-center rounded-md border-2 border-red-800 bg-red-800 py-2 text-sm font-semibold text-dust-0 shadow-lg transition-all hover:border-red-300 hover:bg-red-300 lg:mt-8"
             onClick={handleDelete}
           >
-            Yes
+            Delete
           </button>
           <button
             type="button"

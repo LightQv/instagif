@@ -1,20 +1,31 @@
 import PropTypes from "prop-types";
 import { useFormik } from "formik";
+import { useState } from "react";
 import { useUserContext } from "../../contexts/UserContext";
 import { useThemeContext } from "../../contexts/ThemeContext";
 import APIService from "../../services/APIService";
 import { registerSchema } from "../../services/validators";
-import notifySuccess, { notifyError } from "../../services/toasts";
+import notifySuccess, {
+  notifyDuplicate,
+  notifyError,
+} from "../../services/toasts";
+import SightSvg from "../svg/SightSvg";
+import UnsightSvg from "../svg/UnsightSvg";
 
 export default function RegisterForm({ setForm }) {
   const { login } = useUserContext();
   const { theme } = useThemeContext();
+  const [showPassword, setShowPassword] = useState({
+    password: false,
+    confirmPassword: false,
+  });
 
   const formik = useFormik({
     initialValues: {
       username: "",
       email: "",
       password: "",
+      confirmPassword: "",
     },
     validationSchema: registerSchema,
 
@@ -23,18 +34,15 @@ export default function RegisterForm({ setForm }) {
         const res = await APIService.post(`/users`, values);
         if (res) {
           login(res.data);
-          notifySuccess("Account created, please Login");
+          notifySuccess("Account created.");
           setForm({ login: true, register: false });
         } else throw new Error();
       } catch (error) {
-        if (
-          error.request.status === 422 &&
-          error.response.data.validationErrors[0].context.key === "email"
-        ) {
-          notifyError("This email is already taken.");
+        if (error.request.status === 400) {
+          notifyDuplicate("Username or Email already taken.");
         }
         if (error.request.status === 500) {
-          notifyError("This username is already taken.");
+          notifyError("Error creating your account, please try again.");
         }
       }
     },
@@ -52,7 +60,7 @@ export default function RegisterForm({ setForm }) {
         <div className="flex flex-col">
           <label
             htmlFor="username"
-            className="mb-2 text-base"
+            className="mb-2 ml-1 text-sm"
             style={
               formik.touched.username && formik.errors.username
                 ? { color: "rgb(239, 3, 3)" }
@@ -78,7 +86,7 @@ export default function RegisterForm({ setForm }) {
         <div className="flex flex-col">
           <label
             htmlFor="email"
-            className="mb-2 text-base"
+            className="mb-2 ml-1 text-sm"
             style={
               formik.touched.email && formik.errors.email
                 ? { color: "rgb(239, 3, 3)" }
@@ -104,19 +112,34 @@ export default function RegisterForm({ setForm }) {
         <div className="flex flex-col">
           <label
             htmlFor="password"
-            className="mb-2 text-base"
-            style={
-              formik.touched.password && formik.errors.password
-                ? { color: "rgb(239, 3, 3)" }
-                : { color: theme === "dark" ? "#f1efe7" : "black" }
-            }
+            className="mb-2 ml-1 flex w-full items-center justify-between text-sm"
           >
-            {formik.touched.password && formik.errors.password
-              ? formik.errors.password
-              : "Password"}
+            <h3
+              style={
+                formik.touched.password && formik.errors.password
+                  ? { color: "rgb(239, 3, 3)" }
+                  : { color: theme === "dark" ? "#f1efe7" : "black" }
+              }
+            >
+              {formik.touched.password && formik.errors.password
+                ? formik.errors.password
+                : "Password"}
+            </h3>
+            <button
+              type="button"
+              className="mr-2"
+              onClick={() =>
+                setShowPassword({
+                  ...showPassword,
+                  password: !showPassword.password,
+                })
+              }
+            >
+              {showPassword.password ? <SightSvg /> : <UnsightSvg />}
+            </button>
           </label>
           <input
-            type="password"
+            type={showPassword.password ? "text" : "password"}
             name="password"
             id="password"
             placeholder="••••••••"
@@ -127,9 +150,50 @@ export default function RegisterForm({ setForm }) {
             className="rounded-md px-4 py-2 placeholder:italic placeholder:opacity-50 dark:bg-cobble-0 dark:text-sand-0"
           />
         </div>
+        <div className="flex flex-col">
+          <label
+            htmlFor="confirmPassword"
+            className="mb-2 ml-1 flex w-full items-center justify-between text-sm"
+          >
+            <h3
+              style={
+                formik.touched.confirmPassword && formik.errors.confirmPassword
+                  ? { color: "rgb(239, 3, 3)" }
+                  : { color: theme === "dark" ? "#f1efe7" : "black" }
+              }
+            >
+              {formik.touched.confirmPassword && formik.errors.confirmPassword
+                ? formik.errors.confirmPassword
+                : "Confirm Password"}
+            </h3>
+            <button
+              type="button"
+              className="mr-2"
+              onClick={() =>
+                setShowPassword({
+                  ...showPassword,
+                  confirmPassword: !showPassword.confirmPassword,
+                })
+              }
+            >
+              {showPassword.confirmPassword ? <SightSvg /> : <UnsightSvg />}
+            </button>
+          </label>
+          <input
+            type={showPassword.confirmPassword ? "text" : "password"}
+            name="confirmPassword"
+            id="confirmPassword"
+            placeholder="••••••••"
+            required=""
+            value={formik.values.confirmPassword}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            className="mb-2 rounded-md px-4 py-2 placeholder:italic placeholder:opacity-50 dark:bg-cobble-0 dark:text-sand-0"
+          />
+        </div>
         <button
           type="submit"
-          className="h-fit w-full rounded-md bg-dust-0 bg-red-800 px-4 py-2 text-base font-semibold text-white disabled:bg-gray-300 disabled:text-gray-800"
+          className="h-fit w-full rounded-md bg-dust-0 bg-red-800 px-4 py-2 text-base font-semibold text-dust-0 disabled:bg-gray-300 disabled:text-gray-800"
           onSubmit={formik.handleSubmit}
           disabled={!registerSchema.isValidSync(formik.values)}
         >

@@ -7,12 +7,18 @@
 :root {
   --font-inter: "Inter", sans-serif;
   --font-spartan: "League Spartan", sans-serif;
-  --dust: #f1efe7;
-  --dust-transparent: #f1efe7e5;
-  --sand: #e9e8e3;
+  --dust: #f7f5f5;
+  --dust-transparent: #f7f5f5e5;
+  --sand: #e7e7e7;
   --cobble: #171819;
   --cobble-transparent: #1e1f20e5;
   --cobble-light: #47494a;
 
   --toastify-color-success: #171819;
+}
+
+.EmojiPickerReact {
+  --epr-emoji-size: 30px;
+  --epr-preview-height: 60px;
+  --epr-header-padding: 10px var(--epr-horizontal-padding);
 }

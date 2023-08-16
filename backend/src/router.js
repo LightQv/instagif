@@ -5,7 +5,8 @@ const router = express.Router();
 const {
   validateUser,
   validateEditProfile,
-  validateEditUser,
+  validateEditUserMail,
+  validateEditUserPw,
 } = require("./services/validators");
 const { getUserByEmailMiddleware } = require("./controllers/authControllers");
 const {
@@ -18,36 +19,74 @@ const {
 const userControllers = require("./controllers/userControllers");
 const postControllers = require("./controllers/postControllers");
 const likeControllers = require("./controllers/likeControllers");
+const feelingControllers = require("./controllers/feelingControllers");
+const followControllers = require("./controllers/followControllers");
 
-// Public Routes (without Auth)
+// --- Public Routes (without Auth) --- //
+// Login & Register
 router.post("/login", getUserByEmailMiddleware, verifyPassword);
-
-router.get("/users", userControllers.browse);
-router.get("/users/:username", userControllers.readByUsername);
 router.post("/users", validateUser, hashPassword, userControllers.add);
+
+// Posts with Likes & Feelings
 router.get("/posts", postControllers.browse);
 router.get("/posts/:id", postControllers.readWithUser);
+router.get("/likes-post/:id", likeControllers.browseByPost);
+router.get("/feelings-post/:id", feelingControllers.browseByPost);
+
+// -> For User's Search-List
+router.get("/users", userControllers.browse);
+
+// Users's profiles
+router.get("/users/:username", userControllers.readByUsername);
 router.get("/posts-user/:id", postControllers.browseByUser);
 
-// Private Routes (Auth requiered)
+// Stats for each User
+router.get("/follows-stats/:id", followControllers.countFollowingByUser);
+router.get("/followed-stats/:id", followControllers.countFollowerByUser);
+router.get("/likes-stats/:id", likeControllers.countByUser);
+router.get("/feelings-stats/:id", feelingControllers.countByUser);
+
+// --- Private Routes (Auth requiered) --- //
 router.use(verifyToken);
+// Logout
 router.get("/logout", logout);
-router.put("/users/:id", validateEditUser, userControllers.editUser);
+
+// Edit User's Profile
+router.put("/users-ml/:id", validateEditUserMail, userControllers.editMail);
+router.put(
+  "/users-pw/:id",
+  validateEditUserPw,
+  hashPassword,
+  userControllers.editPw
+);
 router.put(
   "/users-profile/:id",
   validateEditProfile,
-  userControllers.editProfile
+  userControllers.editUsername
 );
 router.delete("/users/:id", userControllers.destroy);
 
+// Auth's User's Followed Posts
+router.get("/posts-followed/:id", postControllers.browseByFollow);
+
+// Handle Liked Posts
 router.get("/posts-liked/:id", postControllers.browseLikedByUser);
+
+// Posts's CRUD
 router.post("/posts", postControllers.add);
 router.put("/posts/:id", postControllers.edit);
 router.delete("/posts/:id", postControllers.destroy);
 
-router.get("/likes-stats/:id", likeControllers.countByUser);
-router.get("/likes-user/:id", likeControllers.browseByUser);
+// Likes's CD
 router.post("/likes", likeControllers.add);
 router.delete("/likes/:id", likeControllers.destroy);
+
+// Feelings's CD
+router.post("/feelings", feelingControllers.add);
+router.delete("/feelings/:id", feelingControllers.destroy);
+
+// Follow's CD
+router.post("/follows", followControllers.add);
+router.delete("/follows/:followerId&:followingId", followControllers.destroy);
 
 module.exports = router;

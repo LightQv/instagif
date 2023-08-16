@@ -4,10 +4,10 @@ import axios from "axios";
 import { useUserContext } from "../contexts/UserContext";
 import BackSvg from "../components/svg/navigation/BackSvg";
 import { notifyError } from "../services/toasts";
-import GifInsight from "../components/post/GifInsight";
+import GifInsight from "../components/create/GifInsight";
 import ActiveFireSvg from "../components/svg/ActiveFireSvg";
 import FireSvg from "../components/svg/FireSvg";
-import CreatePostModal from "../components/post/CreatePostModal";
+import CreatePostModal from "../components/create/CreatePostModal";
 
 const API_KEY = import.meta.env.VITE_GIPHY_API_KEY;
 
@@ -63,7 +63,7 @@ export default function CreatePost() {
   };
 
   return (
-    <main className="relative flex min-h-screen flex-col justify-start bg-dust-0 pb-12 font-inter dark:bg-cobble-0 lg:mb-0 lg:flex-row-reverse lg:pb-0 lg:pt-16">
+    <main className="relative flex min-h-screen flex-col justify-start bg-dust-0 pb-12 font-inter dark:bg-cobble-0 lg:mb-0 lg:flex-row-reverse lg:pb-0 lg:pl-60">
       <header className="flex h-12 w-full items-center justify-between bg-dust-0 px-6 dark:bg-cobble-0 lg:hidden">
         <div className="h-fit w-full">
           <button
@@ -78,7 +78,10 @@ export default function CreatePost() {
           </h3>
         </div>
       </header>
-      <div className="lg:m-auto lg:w-2/6">
+      <div className="pb-4 lg:m-auto lg:w-2/5 lg:py-4">
+        <h3 className="mr-6 hidden text-center font-spartan text-xl dark:text-dust-0 lg:block">
+          Hey, <span className="font-semibold">{user.username}</span>
+        </h3>
         <div className="mb-4 mt-2 flex w-full gap-2 px-6">
           <input
             type="search"

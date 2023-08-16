@@ -3,11 +3,11 @@ import { useNavigate, useParams } from "react-router-dom";
 import APIService from "../services/APIService";
 import BackSvg from "../components/svg/navigation/BackSvg";
 import NotificationSvg from "../components/svg/interactions/NotificationSvg";
-import PostBox from "../components/PostBox";
+import PostBox from "../components/post/PostBox";
 import { notifyError } from "../services/toasts";
 import { useUserContext } from "../contexts/UserContext";
-import EditPostModal from "../components/post/EditPostModal";
-import DeletePostModal from "../components/post/DeletePostModal";
+import EditPostModal from "../components/create/EditPostModal";
+import DeletePostModal from "../components/create/DeletePostModal";
 
 export default function PostDetails() {
   const { id } = useParams();
@@ -31,7 +31,7 @@ export default function PostDetails() {
   }, [isShow]);
 
   return (
-    <main className="flex min-h-screen flex-col justify-start bg-dust-0 pb-12 font-inter dark:bg-cobble-0 lg:justify-center lg:pb-0 lg:pt-16">
+    <main className="flex min-h-screen flex-col justify-start bg-dust-0 pb-12 font-inter dark:bg-cobble-0 lg:justify-center lg:pb-0 lg:pl-60">
       <header className="flex h-12 w-full items-center justify-between bg-dust-0 px-6 dark:bg-cobble-0 lg:hidden">
         <button type="button" onClick={() => navigate(-1)}>
           <BackSvg />
@@ -56,11 +56,11 @@ export default function PostDetails() {
           </button>
         </div>
       )}
-      <ul className="flex flex-col gap-4 lg:w-2/6 lg:self-center">
+      <ul className="flex flex-col gap-4 lg:w-3/5 lg:self-center">
         {post && (
           <PostBox
-            data={post}
-            key={post.post_id}
+            post={post}
+            key={post.id}
             loading={loading}
             setLoading={setLoading}
           />

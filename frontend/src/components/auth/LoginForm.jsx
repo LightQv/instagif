@@ -1,18 +1,21 @@
 import PropTypes from "prop-types";
 import { useFormik } from "formik";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useUserContext } from "../../contexts/UserContext";
 import APIService from "../../services/APIService";
 import { loginSchema } from "../../services/validators";
 import { notifyError } from "../../services/toasts";
 import { useThemeContext } from "../../contexts/ThemeContext";
+import SightSvg from "../svg/SightSvg";
+import UnsightSvg from "../svg/UnsightSvg";
 
 export default function LoginForm({ setForm }) {
   const { login } = useUserContext();
   const { theme } = useThemeContext();
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
+  const [showPassword, setShowPassword] = useState(false);
 
   const formik = useFormik({
     initialValues: {
@@ -59,7 +62,7 @@ export default function LoginForm({ setForm }) {
         <div className="flex flex-col">
           <label
             htmlFor="email"
-            className="mb-2 text-base"
+            className="mb-2 ml-1 text-sm"
             style={
               formik.touched.email && formik.errors.email
                 ? { color: "rgb(239, 3, 3)" }
@@ -85,19 +88,29 @@ export default function LoginForm({ setForm }) {
         <div className="flex flex-col">
           <label
             htmlFor="password"
-            className="mb-2 text-base"
-            style={
-              formik.touched.password && formik.errors.password
-                ? { color: "rgb(239, 3, 3)" }
-                : { color: theme === "dark" ? "#f1efe7" : "black" }
-            }
+            className="mb-2 ml-1 flex w-full items-center justify-between text-sm"
           >
-            {formik.touched.password && formik.errors.password
-              ? formik.errors.password
-              : "Password"}
+            <h3
+              style={
+                formik.touched.password && formik.errors.password
+                  ? { color: "rgb(239, 3, 3)" }
+                  : { color: theme === "dark" ? "#f1efe7" : "black" }
+              }
+            >
+              {formik.touched.password && formik.errors.password
+                ? formik.errors.password
+                : "Password"}
+            </h3>
+            <button
+              type="button"
+              className="mr-2"
+              onClick={() => setShowPassword(!showPassword)}
+            >
+              {showPassword ? <SightSvg /> : <UnsightSvg />}
+            </button>
           </label>
           <input
-            type="password"
+            type={showPassword ? "text" : "password"}
             name="password"
             id="password"
             placeholder="••••••••"
@@ -105,7 +118,7 @@ export default function LoginForm({ setForm }) {
             value={formik.values.password}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
-            className="rounded-md px-4 py-2 placeholder:italic placeholder:opacity-50 dark:bg-cobble-0 dark:text-sand-0"
+            className="mb-2 rounded-md px-4 py-2 placeholder:italic placeholder:opacity-50 dark:bg-cobble-0 dark:text-sand-0"
           />
         </div>
         <button

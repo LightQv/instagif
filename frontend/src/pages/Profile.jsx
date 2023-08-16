@@ -5,7 +5,11 @@ import SettingsSvg from "../components/svg/navigation/SettingsSvg";
 import PostInsight from "../components/profile/PostInsight";
 import APIService from "../services/APIService";
 import { notifyError } from "../services/toasts";
+import FollowedCount from "../components/profile/FollowedCount";
+import FollowingCount from "../components/profile/FollowingCount";
 import LikeCount from "../components/profile/LikeCount";
+import FeelingCount from "../components/profile/FeelingCount";
+import FollowAction from "../components/post/FollowAction";
 
 export default function Profile() {
   const { user } = useUserContext();
@@ -13,6 +17,7 @@ export default function Profile() {
   const { username } = useParams();
   const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [sendFollow, setSendFollow] = useState(false);
 
   function getUsername() {
     if (username) {
@@ -29,12 +34,13 @@ export default function Profile() {
       APIService.get(`/users/${username}`)
         .then((res) => {
           setProfile(res.data);
+          setSendFollow(false);
         })
         .catch((err) => notifyError(`${err} : Fetching user's data.`));
     } else {
       setProfile(user);
     }
-  }, []);
+  }, [sendFollow]);
 
   useEffect(() => {
     if (profile) {
@@ -52,7 +58,7 @@ export default function Profile() {
   }, [profile]);
 
   return (
-    <main className="flex min-h-screen flex-col justify-start bg-dust-0 pb-12 font-inter dark:bg-cobble-0 lg:mb-0 lg:flex-row-reverse lg:pb-0 lg:pt-16">
+    <main className="flex min-h-screen flex-col justify-start bg-dust-0 pb-12 font-inter dark:bg-cobble-0 lg:mb-0 lg:flex-row-reverse lg:pb-0 lg:pl-64 lg:pt-4">
       <div className="flex w-full flex-col gap-4 p-4 lg:w-1/3">
         <div className="flex w-full items-center justify-start gap-2">
           <div className="flex h-12 w-12 items-center justify-center self-start rounded-full bg-cobble-0 text-xl text-dust-0 dark:bg-sand-0 dark:text-cobble-0">
@@ -69,7 +75,14 @@ export default function Profile() {
                 {postList?.length > 1 && "s"}.
               </h3>
             </div>
-            {!username && (
+            {username ? (
+              <FollowAction
+                profile={profile}
+                setSendFollow={setSendFollow}
+                width="w-2/5"
+                textSize="text-sm"
+              />
+            ) : (
               <Link to="/my-profile/settings">
                 <button
                   type="button"
@@ -92,25 +105,23 @@ export default function Profile() {
           </Link>
         )}
         <div className="flex h-fit w-full justify-evenly">
+          <FollowedCount profile={profile} />
+          <FollowingCount profile={profile} />
           <LikeCount profile={profile} />
-          {/* FeelingCount Here */}
-          <div className="flex flex-col items-center justify-center dark:text-dust-0">
-            <h3 className="text-xl font-semibold">0</h3>
-            <p className="-mt-1 text-sm">Feelings</p>
-          </div>
+          <FeelingCount profile={profile} />
         </div>
       </div>
       <ul
         className={`grid w-full ${
           postList?.length > 0 ? "grid-cols-2" : "grid-cols-1"
-        } gap-[0.1rem] lg:w-2/3`}
+        } auto-rows-max gap-[0.1rem] lg:w-2/3`}
       >
         {postList && postList.length !== 0 ? (
           postList.map((post, index) => (
             <PostInsight
-              data={post}
+              post={post}
               index={index}
-              key={post.post_id}
+              key={post.id}
               loading={loading}
               setLoading={setLoading}
             />

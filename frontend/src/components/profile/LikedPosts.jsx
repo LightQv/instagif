@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import { useUserContext } from "../../contexts/UserContext";
 import DownSvg from "../svg/navigation/DownSvg";
 import APIService from "../../services/APIService";
@@ -11,13 +12,27 @@ export default function LikedPosts({ isShow, setIsShow }) {
   const [likedPosts, setLikedPosts] = useState(null);
   const [loading, setLoading] = useState(false);
 
+  const defaultSorting = "desc";
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [filter, setFilter] = useState(
+    searchParams.get("sort") || defaultSorting
+  );
+
   useEffect(() => {
-    APIService.get(`/posts-liked/${user.id}`)
+    setSearchParams((params) => {
+      searchParams.set("sort", filter);
+      if (filter === "desc") {
+        return undefined;
+      }
+      return params;
+    });
+
+    APIService.get(`/posts-liked/${user.id}?sort=${filter}`, filter)
       .then((res) => {
         setLikedPosts(res.data);
       })
       .catch(() => notifyError("Error fetching Liked posts."));
-  }, [isShow.likedPosts]);
+  }, [isShow.likedPosts, filter]);
 
   return (
     <>
@@ -44,25 +59,58 @@ export default function LikedPosts({ isShow, setIsShow }) {
         </button>
       </div>
       {isShow.likedPosts && (
-        <ul
-          className={`mt-2 grid w-full ${
-            likedPosts?.length > 0 ? "grid-cols-2" : "grid-cols-1"
-          } gap-[0.1rem]`}
-        >
-          {likedPosts && likedPosts.length !== 0 ? (
-            likedPosts.map((post, index) => (
-              <PostInsight
-                data={post}
-                index={index}
-                key={post.id}
-                loading={loading}
-                setLoading={setLoading}
-              />
-            ))
-          ) : (
-            <p className="m-auto text-sm">Haven't liked anything yet.</p>
-          )}
-        </ul>
+        <>
+          <div className="flex h-fit w-full justify-between gap-2 px-6">
+            <button
+              type="button"
+              onClick={() => setFilter("desc")}
+              className={`flex h-fit w-2/4 items-center justify-center rounded-md p-2 text-sm font-semibold transition-all
+                ${
+                  filter === "desc"
+                    ? "cursor-default bg-red-800 text-dust-0"
+                    : "bg-gray-300 text-cobble-0 hover:scale-[1.03] dark:bg-granite-0 dark:text-sand-0"
+                }
+              `}
+            >
+              Recent to oldest
+            </button>
+            <button
+              type="button"
+              onClick={() => setFilter("asc")}
+              className={`flex h-fit w-2/4 items-center justify-center rounded-md p-2 text-sm font-semibold transition-all
+                ${
+                  filter === "asc"
+                    ? " cursor-default bg-red-800 text-dust-0"
+                    : " bg-gray-300 p-2 text-sm text-cobble-0 hover:scale-[1.03] dark:bg-granite-0 dark:text-sand-0"
+                }
+              `}
+            >
+              Oldest to recent
+            </button>
+          </div>
+          <ul
+            className={`mt-2 grid w-full ${
+              likedPosts?.length > 0
+                ? "grid-cols-2 lg:grid-cols-4"
+                : "grid-cols-1"
+            } gap-[0.1rem]`}
+          >
+            {likedPosts && likedPosts.length !== 0 ? (
+              likedPosts.map((post, index) => (
+                <PostInsight
+                  post={post}
+                  index={index}
+                  key={post.id}
+                  loading={loading}
+                  setLoading={setLoading}
+                  likePage
+                />
+              ))
+            ) : (
+              <p className="m-auto text-sm">Haven't liked anything yet.</p>
+            )}
+          </ul>
+        </>
       )}
     </>
   );
