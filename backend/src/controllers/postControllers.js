@@ -43,13 +43,20 @@ const browseByFollow = async (req, res) => {
         created_at: "desc",
       },
       where: {
-        user: {
-          followedBy: {
-            some: {
-              followerId: parseInt(req.params.id, 10),
+        OR: [
+          {
+            user: {
+              followedBy: {
+                some: {
+                  followerId: parseInt(req.params.id, 10),
+                },
+              },
             },
           },
-        },
+          {
+            user_id: parseInt(req.params.id, 10),
+          },
+        ],
       },
     });
     res.send(posts);

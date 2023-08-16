@@ -2,15 +2,30 @@ const { PrismaClient } = require("@prisma/client");
 
 const prisma = new PrismaClient();
 
-// Fetch Like amount for a User
-const countByUser = async (req, res) => {
+// Fetch amount of account User's following
+const countFollowingByUser = async (req, res) => {
   try {
-    const followCount = await prisma.follow.count({
+    const followingCount = await prisma.follow.count({
       where: {
         followerId: parseInt(req.params.id, 10),
       },
     });
-    res.json({ count: followCount });
+    res.json({ count: followingCount });
+  } catch (err) {
+    console.error(err);
+    res.sendStatus(500);
+  }
+};
+
+// Fetch amount of account User's followed by
+const countFollowerByUser = async (req, res) => {
+  try {
+    const followedCount = await prisma.follow.count({
+      where: {
+        followingId: parseInt(req.params.id, 10),
+      },
+    });
+    res.json({ count: followedCount });
   } catch (err) {
     console.error(err);
     res.sendStatus(500);
@@ -56,7 +71,8 @@ const destroy = async (req, res) => {
 };
 
 module.exports = {
-  countByUser,
+  countFollowingByUser,
+  countFollowerByUser,
   add,
   destroy,
 };
