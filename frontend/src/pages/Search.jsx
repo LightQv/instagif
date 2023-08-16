@@ -72,11 +72,9 @@ export default function Search() {
         </div>
         <ul className="w-full">
           {users && users.length > 0 ? (
-            users
-              .filter((u) =>
-                u.username.toUpperCase().includes(query.toUpperCase())
-              )
-              .map((u) => <UserCard u={u} setSendFollow={setSendFollow} />)
+            users.map((u) => (
+              <UserCard key={u.id} u={u} setSendFollow={setSendFollow} />
+            ))
           ) : (
             <p className="mt-2 text-center text-sm italic">No user founded.</p>
           )}

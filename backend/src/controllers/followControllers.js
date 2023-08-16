@@ -2,6 +2,21 @@ const { PrismaClient } = require("@prisma/client");
 
 const prisma = new PrismaClient();
 
+// Fetch Like amount for a User
+const countByUser = async (req, res) => {
+  try {
+    const followCount = await prisma.follow.count({
+      where: {
+        followerId: parseInt(req.params.id, 10),
+      },
+    });
+    res.json({ count: followCount });
+  } catch (err) {
+    console.error(err);
+    res.sendStatus(500);
+  }
+};
+
 const add = async (req, res) => {
   try {
     const follow = await prisma.follow.create({
@@ -41,6 +56,7 @@ const destroy = async (req, res) => {
 };
 
 module.exports = {
+  countByUser,
   add,
   destroy,
 };
