@@ -38,7 +38,6 @@ router.get("/users", userControllers.browse);
 
 // Users's profiles
 router.get("/users/:username", userControllers.readByUsername);
-router.get("/posts-user/:id", postControllers.browseByUser);
 
 // Stats for each User
 router.get("/follows-stats/:id", followControllers.countFollowingByUser);
@@ -71,7 +70,7 @@ router.delete("/users/:id", userControllers.destroy);
 router.get("/posts-followed/:id", postControllers.browseByFollow);
 
 // Handle Liked Posts
-router.get("/posts-liked/:id", postControllers.browseLikedByUser);
+router.get("/posts-liked/:id", postControllers.browseByUserLikes);
 
 // Posts's CRUD
 router.post("/posts", postControllers.add);

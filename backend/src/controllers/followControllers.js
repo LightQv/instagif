@@ -25,7 +25,12 @@ const countFollowerByUser = async (req, res) => {
         followingId: parseInt(req.params.id, 10),
       },
     });
-    res.json({ count: followedCount });
+    const followedList = await prisma.follow.findMany({
+      where: {
+        followingId: parseInt(req.params.id, 10),
+      },
+    });
+    res.json({ count: followedCount, data: followedList });
   } catch (err) {
     console.error(err);
     res.sendStatus(500);

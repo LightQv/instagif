@@ -17,7 +17,6 @@ export default function PostDetails() {
     editModal: false,
     deleteModal: false,
   });
-  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
@@ -25,7 +24,6 @@ export default function PostDetails() {
     APIService.get(`/posts/${id}`)
       .then((res) => {
         setPost(res.data);
-        setLoading(true);
       })
       .catch((err) => notifyError(`${err}: fetching posts`));
   }, [isShow]);
@@ -57,14 +55,7 @@ export default function PostDetails() {
         </div>
       )}
       <ul className="flex flex-col gap-4 lg:w-3/5 lg:self-center">
-        {post && (
-          <PostBox
-            post={post}
-            key={post.id}
-            loading={loading}
-            setLoading={setLoading}
-          />
-        )}
+        {post && <PostBox post={post} key={post.id} />}
       </ul>
       <div
         className={

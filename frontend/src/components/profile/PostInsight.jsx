@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { RotatingLines } from "react-loader-spinner";
 
 export default function PostInsight({
+  username,
   post,
   index,
   loading,
@@ -29,10 +30,7 @@ export default function PostInsight({
         }`}
         style={{ display: loading ? "none" : "block" }}
       >
-        <Link
-          to={`/${post.user?.username}/${post.id}`}
-          className="h-full w-full"
-        >
+        <Link to={`/${username}/${post.id}`} className="h-full w-full">
           <img
             src={post.gif_url}
             onLoad={() => setLoading(false)}
@@ -46,6 +44,7 @@ export default function PostInsight({
 }
 
 PostInsight.propTypes = {
+  username: PropTypes.string.isRequired,
   post: PropTypes.shape().isRequired,
   index: PropTypes.number.isRequired,
   loading: PropTypes.bool.isRequired,

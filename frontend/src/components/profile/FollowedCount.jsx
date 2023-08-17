@@ -3,7 +3,12 @@ import { useEffect, useState } from "react";
 import APIService from "../../services/APIService";
 import { notifyError } from "../../services/toasts";
 
-export default function FollowedCount({ profile }) {
+export default function FollowedCount({
+  profile,
+  setFollowerList,
+  sendFollow,
+  setSendFollow,
+}) {
   const [followerCount, setFollowerCount] = useState(null);
 
   useEffect(() => {
@@ -11,14 +16,16 @@ export default function FollowedCount({ profile }) {
       APIService.get(`/followed-stats/${profile.id}`)
         .then((res) => {
           setFollowerCount(res.data);
+          setFollowerList(res.data.data);
+          setSendFollow(false);
         })
         .catch((err) => {
-          if (err.request.status === 500) {
+          if (err.request?.status === 500) {
             notifyError(`Error fetching likes's count.`);
           }
         });
     }
-  }, [profile]);
+  }, [profile, sendFollow]);
 
   return (
     <div className="flex flex-col items-center justify-center dark:text-dust-0">
@@ -32,4 +39,7 @@ export default function FollowedCount({ profile }) {
 
 FollowedCount.propTypes = {
   profile: PropTypes.shape().isRequired,
+  setFollowerList: PropTypes.func.isRequired,
+  sendFollow: PropTypes.bool.isRequired,
+  setSendFollow: PropTypes.func.isRequired,
 };

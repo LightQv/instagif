@@ -7,6 +7,7 @@ import UnfollowSvg from "../svg/interactions/UnfollowSvg";
 
 export default function FollowAction({
   profile,
+  followerList,
   setSendFollow,
   width,
   textSize,
@@ -15,9 +16,7 @@ export default function FollowAction({
 
   // --- Follow logic --- //
   // Determine if Selected User is Followed by User's Logged In
-  const userIsFollowed = profile?.followedBy.some(
-    (el) => el.followerId === user.id
-  );
+  const userIsFollowed = followerList?.some((el) => el.followerId === user.id);
 
   // Handle Follow
   // User is followed : unfollow
@@ -74,6 +73,7 @@ export default function FollowAction({
 
 FollowAction.propTypes = {
   profile: PropTypes.shape().isRequired,
+  followerList: PropTypes.shape().isRequired,
   setSendFollow: PropTypes.func.isRequired,
   width: PropTypes.string.isRequired,
   textSize: PropTypes.string.isRequired,
