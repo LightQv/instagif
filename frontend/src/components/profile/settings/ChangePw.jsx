@@ -1,14 +1,14 @@
 import PropTypes from "prop-types";
 import { useFormik } from "formik";
 import { useState } from "react";
-import { useUserContext } from "../../contexts/UserContext";
-import DownSvg from "../svg/navigation/DownSvg";
-import SightSvg from "../svg/SightSvg";
-import UnsightSvg from "../svg/UnsightSvg";
-import APIService from "../../services/APIService";
-import notifySuccess, { notifyError } from "../../services/toasts";
-import { editPwSchema } from "../../services/validators";
-import { useThemeContext } from "../../contexts/ThemeContext";
+import { useUserContext } from "../../../contexts/UserContext";
+import DownSvg from "../../svg/navigation/DownSvg";
+import SightSvg from "../../svg/SightSvg";
+import UnsightSvg from "../../svg/UnsightSvg";
+import APIService from "../../../services/APIService";
+import notifySuccess, { notifyError } from "../../../services/toasts";
+import { editPwSchema } from "../../../services/validators";
+import { useThemeContext } from "../../../contexts/ThemeContext";
 
 export default function ChangeMail({ isShow, setIsShow }) {
   const { user, logout } = useUserContext();

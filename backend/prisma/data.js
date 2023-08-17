@@ -4,24 +4,28 @@ const users = [
     email: "vivian@gmail.com",
     hashedPassword:
       "$argon2id$v=19$m=65536,t=5,p=1$+8QKgBU+Z7zr2EVICuFDOg$74Nu7DWmpa/+VW7543Xm28gd+ATVrhtCV2lAakJ4i+A",
+    avatar: null,
   },
   {
     username: "Tun4",
     email: "jim.halpert@gmail.com",
     hashedPassword:
       "$argon2id$v=19$m=65536,t=5,p=1$+8QKgBU+Z7zr2EVICuFDOg$74Nu7DWmpa/+VW7543Xm28gd+ATVrhtCV2lAakJ4i+A",
+    avatar: null,
   },
   {
     username: "TheB0ss",
     email: "michael.scott@gmail.com",
     hashedPassword:
       "$argon2id$v=19$m=65536,t=5,p=1$+8QKgBU+Z7zr2EVICuFDOg$74Nu7DWmpa/+VW7543Xm28gd+ATVrhtCV2lAakJ4i+A",
+    avatar: null,
   },
   {
     username: "AssistRegMng",
     email: "dwight.schultz@gmail.com",
     hashedPassword:
       "$argon2id$v=19$m=65536,t=5,p=1$+8QKgBU+Z7zr2EVICuFDOg$74Nu7DWmpa/+VW7543Xm28gd+ATVrhtCV2lAakJ4i+A",
+    avatar: null,
   },
 ];
 

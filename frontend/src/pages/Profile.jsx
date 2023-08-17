@@ -19,27 +19,16 @@ export default function Profile() {
   const [loading, setLoading] = useState(false);
   const [sendFollow, setSendFollow] = useState(false);
 
-  function getUsername() {
-    if (username) {
-      return username;
-    }
-    return user.username;
-  }
-
   // --- Profil logic --- //
   // If Username in Params : Fetch ID to Request Posts
   // If My-Profile : Request Posts with User's ID
   useEffect(() => {
-    if (username) {
-      APIService.get(`/users/${username}`)
-        .then((res) => {
-          setProfile(res.data);
-          setSendFollow(false);
-        })
-        .catch((err) => notifyError(`${err} : Fetching user's data.`));
-    } else {
-      setProfile(user);
-    }
+    APIService.get(`/users/${username || user.username}`)
+      .then((res) => {
+        setProfile(res.data);
+        setSendFollow(false);
+      })
+      .catch((err) => notifyError(`${err} : Fetching user's data.`));
   }, [sendFollow]);
 
   useEffect(() => {
@@ -51,7 +40,7 @@ export default function Profile() {
         })
         .catch((err) => {
           if (err.request?.status === 500) {
-            notifyError(`${err} : Fetching user's posts.`);
+            notifyError("Oops, something went wrong.");
           }
         });
     }
@@ -61,14 +50,17 @@ export default function Profile() {
     <main className="flex min-h-screen flex-col justify-start bg-dust-0 pb-12 font-inter dark:bg-cobble-0 lg:mb-0 lg:flex-row-reverse lg:pb-0 lg:pl-64 lg:pt-4">
       <div className="flex w-full flex-col gap-4 p-4 lg:w-1/3">
         <div className="flex w-full items-center justify-start gap-2">
-          <div className="flex h-12 w-12 items-center justify-center self-start rounded-full bg-cobble-0 text-xl text-dust-0 dark:bg-sand-0 dark:text-cobble-0">
-            {getUsername().slice(0, 1).toUpperCase()}
-          </div>
+          <img
+            src={profile?.avatar}
+            alt={profile?.username.slice(0, 1).toUpperCase()}
+            className={`flex h-12 w-12 items-center justify-center self-start rounded-full object-cover ${
+              !profile?.avatar &&
+              "bg-cobble-0 text-xl text-dust-0 dark:bg-sand-0 dark:text-cobble-0"
+            }`}
+          />
           <div className="flex w-[calc(100%-2.5rem)] items-center justify-between dark:text-dust-0">
             <div>
-              <h3 className="text-lg font-semibold">
-                {profile && profile.username}
-              </h3>
+              <h3 className="text-lg font-semibold">{profile?.username}</h3>
               <h3 className="text-xs italic">
                 Shared mood{" "}
                 <span className="font-semibold">{postList?.length}</span> time
@@ -105,8 +97,8 @@ export default function Profile() {
           </Link>
         )}
         <div className="flex h-fit w-full justify-evenly">
-          <FollowedCount profile={profile} />
           <FollowingCount profile={profile} />
+          <FollowedCount profile={profile} />
           <LikeCount profile={profile} />
           <FeelingCount profile={profile} />
         </div>

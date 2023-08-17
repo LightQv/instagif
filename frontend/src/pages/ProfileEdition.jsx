@@ -1,14 +1,29 @@
 import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
+import { useEffect, useState } from "react";
 import { useUserContext } from "../contexts/UserContext";
 import BackSvg from "../components/svg/navigation/BackSvg";
 import APIService from "../services/APIService";
 import { editProfileSchema } from "../services/validators";
 import { notifyError } from "../services/toasts";
+import ChangeAvatar from "../components/profile/edit/ChangeAvatar";
 
 export default function ProfileEdition() {
   const { user, logout } = useUserContext();
   const navigate = useNavigate();
+  const [profile, setProfile] = useState(null);
+
+  useEffect(() => {
+    APIService.get(`/users/${user.username}`)
+      .then((res) => {
+        setProfile(res.data);
+      })
+      .catch((err) => {
+        if (err.request?.status === 500) {
+          notifyError("Oops, something went wrong.");
+        }
+      });
+  }, []);
 
   const formik = useFormik({
     initialValues: {
@@ -32,7 +47,7 @@ export default function ProfileEdition() {
   });
 
   return (
-    <main className="flex min-h-screen flex-col justify-start bg-dust-0 pb-12 font-inter lg:mb-0 lg:pb-0 lg:pt-16">
+    <main className="flex min-h-screen flex-col justify-start bg-dust-0 pb-12 font-inter lg:mb-0 lg:pb-0 lg:pl-64 lg:pt-4">
       <header className="flex h-12 w-full items-center justify-between bg-dust-0 px-6 lg:hidden">
         <div className="h-fit w-full">
           <button
@@ -47,11 +62,9 @@ export default function ProfileEdition() {
           </h3>
         </div>
       </header>
-      <div className="flex flex-col gap-4 lg:w-2/6 lg:self-center">
-        <div className="flex w-full flex-col gap-4 pb-2 pt-4">
-          <div className="m-auto flex h-20 w-20 items-center justify-center self-start rounded-full bg-cobble-0 text-3xl text-dust-0">
-            {user.username.slice(0, 1).toUpperCase()}
-          </div>
+      <div className="flex flex-col lg:w-2/6 lg:self-center">
+        <div className="flex w-full flex-col gap-4 py-4">
+          <ChangeAvatar profile={profile} />
         </div>
         <form
           action="editUsername"

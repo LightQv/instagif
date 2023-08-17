@@ -135,9 +135,14 @@ export default function PostBox({ post }) {
       <div className="px-4 pb-8 pt-2 lg:pb-8" ref={headerRef}>
         <div className="flex w-full items-center justify-start gap-2">
           <Link to={getProfilLink()}>
-            <div className="flex h-8 w-8 items-center justify-center self-start rounded-full bg-cobble-0 text-dust-0 transition-all hover:scale-105 hover:bg-granite-0 dark:bg-sand-0 dark:text-cobble-0 dark:hover:bg-granite-0">
-              {post.user?.username.slice(0, 1)}
-            </div>
+            <img
+              src={post?.user.avatar}
+              alt={post?.user.username.slice(0, 1).toUpperCase()}
+              className={`flex h-10 w-10 items-center justify-center self-start rounded-full object-cover ${
+                !post?.user.avatar &&
+                "bg-cobble-0 text-lg text-dust-0 dark:bg-sand-0 dark:text-cobble-0"
+              }`}
+            />
           </Link>
           <div className="mt-1 w-[calc(100%-2.5rem)]">
             <div className="flex items-center justify-between">
