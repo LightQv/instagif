@@ -12,6 +12,7 @@ const browse = async (req, res) => {
           select: {
             id: true,
             username: true,
+            avatar: true,
           },
         },
       },
@@ -36,6 +37,7 @@ const browseByFollow = async (req, res) => {
           select: {
             id: true,
             username: true,
+            avatar: true,
           },
         },
       },
@@ -80,6 +82,7 @@ const browseByUser = async (req, res) => {
           select: {
             id: true,
             username: true,
+            avatar: true,
           },
         },
       },
@@ -143,6 +146,7 @@ const readWithUser = async (req, res) => {
           select: {
             id: true,
             username: true,
+            avatar: true,
           },
         },
       },

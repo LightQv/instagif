@@ -52,6 +52,7 @@ router.use(verifyToken);
 router.get("/logout", logout);
 
 // Edit User's Profile
+router.put("/users-avatar/:id", userControllers.editProfileAvatar);
 router.put("/users-ml/:id", validateEditUserMail, userControllers.editMail);
 router.put(
   "/users-pw/:id",

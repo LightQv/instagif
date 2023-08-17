@@ -1,11 +1,11 @@
 import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import { useUserContext } from "../../contexts/UserContext";
-import DownSvg from "../svg/navigation/DownSvg";
-import APIService from "../../services/APIService";
-import { notifyError } from "../../services/toasts";
-import PostInsight from "./PostInsight";
+import { useUserContext } from "../../../contexts/UserContext";
+import DownSvg from "../../svg/navigation/DownSvg";
+import APIService from "../../../services/APIService";
+import { notifyError } from "../../../services/toasts";
+import PostInsight from "../PostInsight";
 
 export default function LikedPosts({ isShow, setIsShow }) {
   const { user } = useUserContext();

@@ -1,14 +1,14 @@
 import PropTypes from "prop-types";
 import { useFormik } from "formik";
-import { useUserContext } from "../../contexts/UserContext";
-import DownSvg from "../svg/navigation/DownSvg";
-import APIService from "../../services/APIService";
+import { useUserContext } from "../../../contexts/UserContext";
+import DownSvg from "../../svg/navigation/DownSvg";
+import APIService from "../../../services/APIService";
 import notifySuccess, {
   notifyDuplicate,
   notifyError,
-} from "../../services/toasts";
-import { editMailSchema } from "../../services/validators";
-import { useThemeContext } from "../../contexts/ThemeContext";
+} from "../../../services/toasts";
+import { editMailSchema } from "../../../services/validators";
+import { useThemeContext } from "../../../contexts/ThemeContext";
 
 export default function ChangeMail({ isShow, setIsShow }) {
   const { user, logout } = useUserContext();

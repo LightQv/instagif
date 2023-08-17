@@ -2,11 +2,11 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useUserContext } from "../contexts/UserContext";
 import BackSvg from "../components/svg/navigation/BackSvg";
-import LikedPosts from "../components/profile/LikedPosts";
-import ThemeSwitcher from "../components/profile/ThemeSwitcher";
-import ChangeMail from "../components/profile/ChangeMail";
-import ChangePw from "../components/profile/ChangePw";
-import DeleteAccountModal from "../components/profile/DeleteAccountModal";
+import LikedPosts from "../components/profile/settings/LikedPosts";
+import ThemeSwitcher from "../components/profile/settings/ThemeSwitcher";
+import ChangeMail from "../components/profile/settings/ChangeMail";
+import ChangePw from "../components/profile/settings/ChangePw";
+import DeleteAccountModal from "../components/profile/settings/DeleteAccountModal";
 
 export default function ProfileSettings() {
   const { logout } = useUserContext();

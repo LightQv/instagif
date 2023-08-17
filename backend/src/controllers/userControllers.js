@@ -11,6 +11,7 @@ const browse = async (req, res) => {
       select: {
         id: true,
         username: true,
+        avatar: true,
         followedBy: true,
         _count: {
           select: {
@@ -25,10 +26,6 @@ const browse = async (req, res) => {
         },
       },
     });
-    for (let i = 0; i < users.length; i += 1) {
-      delete users[i].hashedPassword;
-    }
-    // users.forEach(({ user }) => delete user.hashedPassword);
     res.send(users);
   } catch (err) {
     console.error(err);
@@ -71,6 +68,29 @@ const editUsername = async (req, res) => {
       },
     });
     if (updateUsername) {
+      res.sendStatus(204);
+    } else {
+      res.status(404).send("User not found");
+    }
+  } catch (err) {
+    // Code for Duplicate data
+    if (err.code === "P2002") {
+      res.sendStatus(401);
+    } else res.sendStatus(500);
+  }
+};
+
+const editProfileAvatar = async (req, res) => {
+  try {
+    const updateAvatar = await prisma.user.update({
+      where: {
+        id: parseInt(req.params.id, 10),
+      },
+      data: {
+        avatar: req.body.avatarLink,
+      },
+    });
+    if (updateAvatar) {
       res.sendStatus(204);
     } else {
       res.status(404).send("User not found");
@@ -169,6 +189,7 @@ module.exports = {
   browse,
   readByUsername,
   editUsername,
+  editProfileAvatar,
   editMail,
   editPw,
   add,
