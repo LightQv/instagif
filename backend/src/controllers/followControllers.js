@@ -17,20 +17,20 @@ const countFollowingByUser = async (req, res) => {
   }
 };
 
-// Fetch amount of account User's followed by
+// Fetch amount of User's followers
 const countFollowerByUser = async (req, res) => {
   try {
-    const followedCount = await prisma.follow.count({
+    const followersCount = await prisma.follow.count({
       where: {
         followingId: parseInt(req.params.id, 10),
       },
     });
-    const followedList = await prisma.follow.findMany({
+    const followersList = await prisma.follow.findMany({
       where: {
         followingId: parseInt(req.params.id, 10),
       },
     });
-    res.json({ count: followedCount, data: followedList });
+    res.json({ count: followersCount, data: followersList });
   } catch (err) {
     console.error(err);
     res.sendStatus(500);
