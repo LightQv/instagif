@@ -96,6 +96,33 @@ const browseFollowersByUser = async (req, res) => {
   }
 };
 
+const browseFollowsByUser = async (req, res) => {
+  try {
+    const users = await prisma.user.findMany({
+      orderBy: {
+        username: "asc",
+      },
+      select: {
+        id: true,
+        username: true,
+        avatar: true,
+        followedBy: true,
+      },
+      where: {
+        followedBy: {
+          some: {
+            followerId: parseInt(req.params.id, 10),
+          },
+        },
+      },
+    });
+    res.send(users);
+  } catch (err) {
+    console.error(err);
+    res.sendStatus(500);
+  }
+};
+
 const readByUsername = async (req, res) => {
   try {
     const user = await prisma.user.findUnique({
@@ -256,6 +283,7 @@ module.exports = {
   browse,
   browseUnfollowedUser,
   browseFollowersByUser,
+  browseFollowsByUser,
   readByUsername,
   editUsername,
   editProfileAvatar,

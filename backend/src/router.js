@@ -40,11 +40,12 @@ router.get("/users", userControllers.browse);
 router.get("/users/:username", userControllers.readByUsername);
 
 // Stats for each User
-router.get("/follows-stats/:id", followControllers.countFollowingByUser);
 router.get("/followers-stats/:id", followControllers.countFollowerByUser);
+router.get("/follows-stats/:id", followControllers.countFollowsByUser);
 router.get("/likes-stats/:id", likeControllers.countByUser);
 router.get("/feelings-stats/:id", feelingControllers.countByUser);
 router.get("/followers-list/:id", userControllers.browseFollowersByUser);
+router.get("/follows-list/:id", userControllers.browseFollowsByUser);
 
 // --- Private Routes (Auth requiered) --- //
 router.use(verifyToken);
