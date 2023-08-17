@@ -21,8 +21,6 @@ export default function Profile() {
   const [isShow, setIsShow] = useState({ followers: false, follows: false });
 
   // --- Profil logic --- //
-  // If Username in Params : Fetch ID to Request Posts
-  // If My-Profile : Request Posts with User's ID
   const fetchProfileData = async () => {
     try {
       const getProfile = await APIService.get(
@@ -42,6 +40,12 @@ export default function Profile() {
   useEffect(() => {
     fetchProfileData();
   }, []);
+
+  const statsType = [
+    { id: 1, data: "follows", label: "Follow" },
+    { id: 2, data: "likes", label: "Like" },
+    { id: 3, data: "feelings", label: "Feeling" },
+  ];
 
   return (
     <main className="flex min-h-screen flex-col justify-start bg-dust-0 pb-12 font-inter dark:bg-cobble-0 lg:mb-0 lg:flex-row-reverse lg:pb-0 lg:pl-64 lg:pt-4">
@@ -102,27 +106,17 @@ export default function Profile() {
             setSendFollow={setSendFollow}
             setIsShow={setIsShow}
           />
-          <StatCount
-            profile={profile?.id}
-            data="follows"
-            label="Follow"
-            sendFollow={sendFollow}
-            setIsShow={setIsShow}
-          />
-          <StatCount
-            profile={profile?.id}
-            data="likes"
-            label="Like"
-            sendFollow={sendFollow}
-            setIsShow={setIsShow}
-          />
-          <StatCount
-            profile={profile?.id}
-            data="feelings"
-            label="Feeling"
-            sendFollow={sendFollow}
-            setIsShow={setIsShow}
-          />
+          {statsType &&
+            statsType.map((stat) => (
+              <StatCount
+                key={stat.id}
+                profile={profile?.id}
+                data={stat.data}
+                label={stat.label}
+                sendFollow={sendFollow}
+                setIsShow={setIsShow}
+              />
+            ))}
         </div>
       </div>
       <ul
@@ -156,12 +150,22 @@ export default function Profile() {
           <StatsModal
             profile={profile?.id}
             data="followers"
+            isShow={isShow}
             setIsShow={setIsShow}
             sendFollow={sendFollow}
             setSendFollow={setSendFollow}
           />
         )}
-        {isShow.follows && <StatsModal />}
+        {isShow.follows && (
+          <StatsModal
+            profile={profile?.id}
+            data="follows"
+            isShow={isShow}
+            setIsShow={setIsShow}
+            sendFollow={sendFollow}
+            setSendFollow={setSendFollow}
+          />
+        )}
       </div>
     </main>
   );

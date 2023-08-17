@@ -30,10 +30,12 @@ export default function StatsModal({
   }, [profile, sendFollow]);
 
   return (
-    <ul className="m-4 w-full rounded-lg bg-dust-0">
+    <ul className="m-4 w-full rounded-lg bg-dust-0 lg:w-2/5">
       <div className="flex w-full justify-between px-4 pt-4">
-        <h3 className="font-bold">Followers</h3>
-        <button type="button" onClick={() => setIsShow({ followers: false })}>
+        <h3 className="font-bold">
+          {data.charAt(0).toUpperCase() + data.slice(1)}
+        </h3>
+        <button type="button" onClick={() => setIsShow(false)}>
           <ExitSvg />
         </button>
       </div>
@@ -69,7 +71,7 @@ export default function StatsModal({
 }
 
 StatsModal.propTypes = {
-  profile: PropTypes.shape().isRequired,
+  profile: PropTypes.number.isRequired,
   data: PropTypes.string.isRequired,
   sendFollow: PropTypes.bool.isRequired,
   setSendFollow: PropTypes.func.isRequired,

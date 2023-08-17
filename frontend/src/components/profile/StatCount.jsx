@@ -8,7 +8,7 @@ export default function StatCount({
   data,
   label,
   sendFollow,
-  // setIsShow,
+  setIsShow,
 }) {
   const [count, setCount] = useState(null);
 
@@ -26,13 +26,26 @@ export default function StatCount({
     }
   }, [profile, sendFollow]);
 
+  const handleModal = () => {
+    if (data === "follows") {
+      setIsShow({ follows: true });
+    }
+  };
   return (
-    <div className="flex flex-col items-center justify-center dark:text-dust-0">
+    <button
+      type="button"
+      className={`flex flex-col items-center justify-center dark:text-dust-0 ${
+        data === "followers" || data === "follows"
+          ? "cursor-pointer"
+          : "cursor-default"
+      }`}
+      onClick={() => handleModal()}
+    >
       <h3 className="text-xl font-semibold">{count?.count}</h3>
       <p className="-mt-1 text-sm">{`${label}${
         count?.count > 1 ? "s" : ""
       }`}</p>
-    </div>
+    </button>
   );
 }
 
@@ -41,5 +54,5 @@ StatCount.propTypes = {
   data: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
   sendFollow: PropTypes.bool.isRequired,
-  // setIsShow: PropTypes.func.isRequired,
+  setIsShow: PropTypes.func.isRequired,
 };
