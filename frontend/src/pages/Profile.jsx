@@ -21,8 +21,6 @@ export default function Profile() {
   const [isShow, setIsShow] = useState({ followers: false, follows: false });
 
   // --- Profil logic --- //
-  // If Username in Params : Fetch ID to Request Posts
-  // If My-Profile : Request Posts with User's ID
   const fetchProfileData = async () => {
     try {
       const getProfile = await APIService.get(
