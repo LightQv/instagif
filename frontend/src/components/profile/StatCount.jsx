@@ -8,7 +8,7 @@ export default function StatCount({
   data,
   label,
   sendFollow,
-  setIsShow,
+  // setIsShow,
 }) {
   const [count, setCount] = useState(null);
 
@@ -41,5 +41,5 @@ StatCount.propTypes = {
   data: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
   sendFollow: PropTypes.bool.isRequired,
-  setIsShow: PropTypes.func.isRequired,
+  // setIsShow: PropTypes.func.isRequired,
 };
