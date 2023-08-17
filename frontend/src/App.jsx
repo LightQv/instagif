@@ -20,11 +20,11 @@ function App() {
         {/* Public Routes */}
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/search" element={<Search />} />
         <Route path="/:username" element={<Profile />} />
         <Route path="/:username/:id" element={<PostDetails />} />
         {/* Private Routes, Redirect to Login if no user Auth */}
         <Route element={<RequireAuth />}>
-          <Route path="/search" element={<Search />} />
           <Route path="/create" element={<CreatePost />} />
           <Route path="/my-profile" element={<Profile />} />
           <Route path="/my-profile/edit" element={<ProfileEdition />} />

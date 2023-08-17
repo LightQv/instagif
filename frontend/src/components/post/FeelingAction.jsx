@@ -76,7 +76,7 @@ export default function FeelingAction({
         <p className="text-xs font-medium">+</p>
       </button>
       {showEmojis && (
-        <div className="fixed bottom-0 left-0 z-30 text-xs lg:left-64 lg:top-4 lg:w-fit">
+        <div className="fixed bottom-0 left-0 z-30 text-xs lg:left-auto lg:right-2 lg:top-4 lg:w-fit">
           <EmojiPicker
             autoFocusSearch={false}
             emojiStyle="twitter"
