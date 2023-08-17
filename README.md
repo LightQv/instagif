@@ -52,8 +52,6 @@ Create `.env` files in /frontend and /backend following `.env.sample` examples.
 
 ### Next Updates
 
-- _Users_ : Follower/Following system
-- _Profile_ : Add Profile's Picture feature
 - _Notification_ : In App and Browser Notification for Likes/Reaction/New Post
 - _Message_ : Private message between users
 - _Moderation_ : Add Moderator status to delete offensive content

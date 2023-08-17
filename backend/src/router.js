@@ -68,6 +68,7 @@ router.delete("/users/:id", userControllers.destroy);
 
 // Auth's User's Followed Posts
 router.get("/posts-followed/:id", postControllers.browseByFollow);
+router.get("/users-unfollowed/:id", userControllers.browseUnfollowedUser);
 
 // Handle Liked Posts
 router.get("/posts-liked/:id", postControllers.browseByUserLikes);
