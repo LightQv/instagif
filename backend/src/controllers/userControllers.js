@@ -40,9 +40,13 @@ const readByUsername = async (req, res) => {
         username: req.params.username,
       },
       include: {
-        likes: true,
         followedBy: true,
         following: true,
+        posts: {
+          orderBy: {
+            created_at: "desc",
+          },
+        },
       },
     });
     if (user) {

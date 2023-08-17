@@ -5,7 +5,7 @@ import { useUserContext } from "../contexts/UserContext";
 import BackSvg from "../components/svg/navigation/BackSvg";
 import APIService from "../services/APIService";
 import { editProfileSchema } from "../services/validators";
-import { notifyError } from "../services/toasts";
+import { notifyDuplicate, notifyError } from "../services/toasts";
 import ChangeAvatar from "../components/profile/edit/ChangeAvatar";
 
 export default function ProfileEdition() {
@@ -40,14 +40,14 @@ export default function ProfileEdition() {
         } else throw new Error();
       } catch (error) {
         if (error.request.status === 401) {
-          notifyError("Username already taken.");
+          notifyDuplicate("Username already taken.");
         }
       }
     },
   });
 
   return (
-    <main className="flex min-h-screen flex-col justify-start bg-dust-0 pb-12 font-inter lg:mb-0 lg:pb-0 lg:pl-64 lg:pt-4">
+    <main className="flex min-h-screen flex-col justify-start bg-dust-0 pb-12 font-inter lg:mb-0 lg:pb-0 lg:pl-60">
       <header className="flex h-12 w-full items-center justify-between bg-dust-0 px-6 lg:hidden">
         <div className="h-fit w-full">
           <button
@@ -62,7 +62,7 @@ export default function ProfileEdition() {
           </h3>
         </div>
       </header>
-      <div className="flex flex-col lg:w-2/6 lg:self-center">
+      <div className="flex flex-col lg:w-2/5 lg:self-center">
         <div className="flex w-full flex-col gap-4 py-4">
           <ChangeAvatar profile={profile} />
         </div>

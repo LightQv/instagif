@@ -27,12 +27,12 @@ export default function ChangeAvatar({ profile }) {
   }, []);
 
   const { getRootProps, getInputProps } = useDropzone({
-    maxFiles: 1,
-    onDrop: handleDrop,
     accept: {
       "image/jpeg": [],
       "image/png": [],
     },
+    maxFiles: 1,
+    onDrop: handleDrop,
   });
 
   // --- Upload Logic --- //
@@ -48,10 +48,18 @@ export default function ChangeAvatar({ profile }) {
   }, []);
 
   const handleUpload = async () => {
+    // Won't accept Size over 1Mb
+    if (newAvatar.size > 1000000) {
+      notifyError(
+        "Your file is too heavy, please upload a file lighter than 1Mb."
+      );
+      setNewAvatar(null);
+      return;
+    }
     if (newAvatar === null) return;
 
     // If User's already have an Avatar, delete it from Firebase then Upload new one
-    if (profile?.avatar) {
+    if (profile?.avatar && newAvatar) {
       const [firebaseAvatar] = firebaseList.filter((img) =>
         img._location.path_.includes(profile.username)
       );
@@ -85,7 +93,7 @@ export default function ChangeAvatar({ profile }) {
 
   // Now that our Avatar is uploaded on Firebase, let's store the link in our DB
   useEffect(() => {
-    if (firebaseUpdated) {
+    if (firebaseUpdated && newAvatar) {
       APIService.put(`/users-avatar/${profile.id}`, { avatarLink })
         .then(() => {
           navigate("/my-profile");
@@ -125,7 +133,7 @@ export default function ChangeAvatar({ profile }) {
       <div
         // eslint-disable-next-line react/jsx-props-no-spreading
         {...getRootProps({
-          className: `mx-auto flex h-28 w-28 items-center justify-center self-start rounded-full cursor-pointer ${
+          className: `mx-auto flex h-28 w-28 lg:h-40 lg:w-40 items-center justify-center self-start rounded-full cursor-pointer ${
             profile?.avatar
               ? `bg-[url(${profile?.avatar})]`
               : "bg-cobble-0 text-5xl text-dust-0"

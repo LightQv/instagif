@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { useUserContext } from "../../contexts/UserContext";
-import FollowAction from "../post/FollowAction";
+import FollowAction from "../profile/FollowAction";
 
 export default function UserCard({ u, setSendFollow }) {
   const { user } = useUserContext();
@@ -39,6 +39,7 @@ export default function UserCard({ u, setSendFollow }) {
       {u.id !== user.id && (
         <FollowAction
           profile={u}
+          followerList={u.followedBy}
           setSendFollow={setSendFollow}
           width="w-[28%]"
           textSize="text-xs"

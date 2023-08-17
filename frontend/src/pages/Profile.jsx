@@ -6,10 +6,8 @@ import PostInsight from "../components/profile/PostInsight";
 import APIService from "../services/APIService";
 import { notifyError } from "../services/toasts";
 import FollowedCount from "../components/profile/FollowedCount";
-import FollowingCount from "../components/profile/FollowingCount";
-import LikeCount from "../components/profile/LikeCount";
-import FeelingCount from "../components/profile/FeelingCount";
-import FollowAction from "../components/post/FollowAction";
+import StatCount from "../components/profile/StatCount";
+import FollowAction from "../components/profile/FollowAction";
 
 export default function Profile() {
   const { user } = useUserContext();
@@ -17,34 +15,31 @@ export default function Profile() {
   const { username } = useParams();
   const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [followerList, setFollowerList] = useState(null);
   const [sendFollow, setSendFollow] = useState(false);
 
   // --- Profil logic --- //
   // If Username in Params : Fetch ID to Request Posts
   // If My-Profile : Request Posts with User's ID
-  useEffect(() => {
-    APIService.get(`/users/${username || user.username}`)
-      .then((res) => {
-        setProfile(res.data);
-        setSendFollow(false);
-      })
-      .catch((err) => notifyError(`${err} : Fetching user's data.`));
-  }, [sendFollow]);
+  const fetchProfileData = async () => {
+    try {
+      const getProfile = await APIService.get(
+        `/users/${username || user.username}`
+      );
+      if (getProfile) {
+        setProfile(getProfile.data);
+        setPostList(getProfile.data.posts);
+      }
+    } catch (err) {
+      if (err.request?.status === 500) {
+        notifyError("Oops, something went wrong.");
+      }
+    }
+  };
 
   useEffect(() => {
-    if (profile) {
-      APIService.get(`/posts-user/${profile.id}`)
-        .then((res) => {
-          setPostList(res.data);
-          setLoading(true);
-        })
-        .catch((err) => {
-          if (err.request?.status === 500) {
-            notifyError("Oops, something went wrong.");
-          }
-        });
-    }
-  }, [profile]);
+    fetchProfileData();
+  }, []);
 
   return (
     <main className="flex min-h-screen flex-col justify-start bg-dust-0 pb-12 font-inter dark:bg-cobble-0 lg:mb-0 lg:flex-row-reverse lg:pb-0 lg:pl-64 lg:pt-4">
@@ -70,6 +65,7 @@ export default function Profile() {
             {username ? (
               <FollowAction
                 profile={profile}
+                followerList={followerList}
                 setSendFollow={setSendFollow}
                 width="w-2/5"
                 textSize="text-sm"
@@ -97,10 +93,15 @@ export default function Profile() {
           </Link>
         )}
         <div className="flex h-fit w-full justify-evenly">
-          <FollowingCount profile={profile} />
-          <FollowedCount profile={profile} />
-          <LikeCount profile={profile} />
-          <FeelingCount profile={profile} />
+          <FollowedCount
+            profile={profile}
+            setFollowerList={setFollowerList}
+            sendFollow={sendFollow}
+            setSendFollow={setSendFollow}
+          />
+          <StatCount profile={profile?.id} data="follows" label="Follow" />
+          <StatCount profile={profile?.id} data="likes" label="Like" />
+          <StatCount profile={profile?.id} data="feelings" label="Feeling" />
         </div>
       </div>
       <ul
@@ -111,6 +112,7 @@ export default function Profile() {
         {postList && postList.length !== 0 ? (
           postList.map((post, index) => (
             <PostInsight
+              username={profile?.username}
               post={post}
               index={index}
               key={post.id}
