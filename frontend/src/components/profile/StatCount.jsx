@@ -3,7 +3,13 @@ import { useEffect, useState } from "react";
 import APIService from "../../services/APIService";
 import { notifyError } from "../../services/toasts";
 
-export default function StatCount({ profile, data, label }) {
+export default function StatCount({
+  profile,
+  data,
+  label,
+  sendFollow,
+  setIsShow,
+}) {
   const [count, setCount] = useState(null);
 
   useEffect(() => {
@@ -18,7 +24,7 @@ export default function StatCount({ profile, data, label }) {
           }
         });
     }
-  }, [profile]);
+  }, [profile, sendFollow]);
 
   return (
     <div className="flex flex-col items-center justify-center dark:text-dust-0">
@@ -34,4 +40,6 @@ StatCount.propTypes = {
   profile: PropTypes.number.isRequired,
   data: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
+  sendFollow: PropTypes.bool.isRequired,
+  setIsShow: PropTypes.func.isRequired,
 };

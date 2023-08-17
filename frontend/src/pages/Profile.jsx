@@ -5,9 +5,10 @@ import SettingsSvg from "../components/svg/navigation/SettingsSvg";
 import PostInsight from "../components/profile/PostInsight";
 import APIService from "../services/APIService";
 import { notifyError } from "../services/toasts";
-import FollowedCount from "../components/profile/FollowedCount";
+import FollowersCount from "../components/profile/FollowersCount";
 import StatCount from "../components/profile/StatCount";
 import FollowAction from "../components/profile/FollowAction";
+import StatsModal from "../components/profile/StatsModal";
 
 export default function Profile() {
   const { user } = useUserContext();
@@ -17,6 +18,7 @@ export default function Profile() {
   const [loading, setLoading] = useState(false);
   const [followerList, setFollowerList] = useState(null);
   const [sendFollow, setSendFollow] = useState(false);
+  const [isShow, setIsShow] = useState({ followers: false, follows: false });
 
   // --- Profil logic --- //
   // If Username in Params : Fetch ID to Request Posts
@@ -93,15 +95,34 @@ export default function Profile() {
           </Link>
         )}
         <div className="flex h-fit w-full justify-evenly">
-          <FollowedCount
+          <FollowersCount
             profile={profile}
             setFollowerList={setFollowerList}
             sendFollow={sendFollow}
             setSendFollow={setSendFollow}
+            setIsShow={setIsShow}
           />
-          <StatCount profile={profile?.id} data="follows" label="Follow" />
-          <StatCount profile={profile?.id} data="likes" label="Like" />
-          <StatCount profile={profile?.id} data="feelings" label="Feeling" />
+          <StatCount
+            profile={profile?.id}
+            data="follows"
+            label="Follow"
+            sendFollow={sendFollow}
+            setIsShow={setIsShow}
+          />
+          <StatCount
+            profile={profile?.id}
+            data="likes"
+            label="Like"
+            sendFollow={sendFollow}
+            setIsShow={setIsShow}
+          />
+          <StatCount
+            profile={profile?.id}
+            data="feelings"
+            label="Feeling"
+            sendFollow={sendFollow}
+            setIsShow={setIsShow}
+          />
         </div>
       </div>
       <ul
@@ -124,6 +145,24 @@ export default function Profile() {
           <p className="m-auto text-sm">Haven't posted anything yet.</p>
         )}
       </ul>
+      <div
+        className={
+          isShow.followers || isShow.follows
+            ? "fixed left-0 top-0 z-20 flex min-h-screen min-w-full items-center justify-center bg-black/90"
+            : "hidden"
+        }
+      >
+        {isShow.followers && (
+          <StatsModal
+            profile={profile?.id}
+            data="followers"
+            setIsShow={setIsShow}
+            sendFollow={sendFollow}
+            setSendFollow={setSendFollow}
+          />
+        )}
+        {isShow.follows && <StatsModal />}
+      </div>
     </main>
   );
 }

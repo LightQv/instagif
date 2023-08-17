@@ -41,9 +41,10 @@ router.get("/users/:username", userControllers.readByUsername);
 
 // Stats for each User
 router.get("/follows-stats/:id", followControllers.countFollowingByUser);
-router.get("/followed-stats/:id", followControllers.countFollowerByUser);
+router.get("/followers-stats/:id", followControllers.countFollowerByUser);
 router.get("/likes-stats/:id", likeControllers.countByUser);
 router.get("/feelings-stats/:id", feelingControllers.countByUser);
+router.get("/followers-list/:id", userControllers.browseFollowersByUser);
 
 // --- Private Routes (Auth requiered) --- //
 router.use(verifyToken);
