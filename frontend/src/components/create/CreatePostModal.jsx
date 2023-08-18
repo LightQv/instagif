@@ -36,8 +36,8 @@ export default function CreatePostModal({ selectedGif, setIsShow }) {
           setShowProgress(true);
         } else throw new Error();
       } catch (error) {
-        if (error.request?.status === 401) {
-          notifyError("rror.");
+        if (error.request?.status === 500) {
+          notifyError("Oops, something went wrong.");
         }
       }
     },

@@ -1,38 +1,39 @@
-import PropTypes from "prop-types";
 import { useFormik } from "formik";
 import { useState } from "react";
-import { useUserContext } from "../../../contexts/UserContext";
-import DownSvg from "../../svg/navigation/DownSvg";
-import SightSvg from "../../svg/SightSvg";
-import UnsightSvg from "../../svg/UnsightSvg";
-import APIService from "../../../services/APIService";
-import notifySuccess, { notifyError } from "../../../services/toasts";
-import { editPwSchema } from "../../../services/validators";
+import { useNavigate, useParams } from "react-router-dom";
+import APIService from "../services/APIService";
+import { resetSchema } from "../services/validators";
+import notifySuccess, { notifyError } from "../services/toasts";
+import SightSvg from "../components/svg/SightSvg";
+import UnsightSvg from "../components/svg/UnsightSvg";
 
-export default function ChangeMail({ isShow, setIsShow }) {
-  const { user, logout } = useUserContext();
+export default function ResetPassword() {
+  const { token } = useParams();
   const [showPassword, setShowPassword] = useState({
     password: false,
     confirmPassword: false,
   });
 
+  const navigate = useNavigate();
+
   const formik = useFormik({
     initialValues: {
+      email: "",
       password: "",
       confirmPassword: "",
+      passwordToken: token,
     },
-
-    validationSchema: editPwSchema,
+    validationSchema: resetSchema,
 
     onSubmit: async (values) => {
       try {
-        const res = await APIService.put(`/users-pw/${user.id}`, values);
+        const res = await APIService.post(`/reset-password`, values);
         if (res) {
           notifySuccess("Password modified.");
-          logout();
+          navigate("/login");
         } else throw new Error();
-      } catch (err) {
-        if (err.request?.status === 404 || err.request?.status === 500) {
+      } catch (error) {
+        if (error.request.status === 500) {
           notifyError("Oops, something went wrong.");
         }
       }
@@ -40,39 +41,47 @@ export default function ChangeMail({ isShow, setIsShow }) {
   });
 
   return (
-    <>
-      <div className="flex w-full items-center justify-between px-6 py-1">
-        <button
-          type="button"
-          onClick={() => setIsShow({ changePw: !isShow.changePw })}
-          className="h-fit w-full"
-        >
-          <h3 className="text-left text-sm font-semibold text-cobble-0 dark:text-dust-0">
-            Change Password
-          </h3>
-        </button>
-        <button
-          type="button"
-          onClick={() => setIsShow({ changePw: !isShow.changePw })}
-          className={
-            isShow.changePw
-              ? "h-6 w-6 rotate-180 transition-all dark:text-dust-0"
-              : "h-6 w-6 transition-all dark:text-dust-0"
-          }
-        >
-          <DownSvg isShow={isShow} />
-        </button>
-      </div>
-      {isShow.changePw && (
+    <main className="flex h-[calc(100dvh-3rem)] w-screen flex-col justify-center bg-dust-0 font-inter dark:bg-cobble-0 lg:h-screen lg:items-center lg:pb-0 lg:pl-60">
+      <div className="flex flex-col justify-center p-6 lg:w-2/6 lg:rounded-md lg:bg-sand-0 lg:p-8 dark:lg:bg-granite-0">
         <form
-          action="editMail"
+          action="register"
           onSubmit={formik.handleSubmit}
-          className="flex flex-col gap-4 px-6 pb-4 lg:gap-5"
+          className="flex flex-col gap-4 lg:gap-5"
         >
+          <h3 className="font-spartan text-2xl font-semibold dark:text-dust-0">
+            Reset password
+          </h3>
+          <div className="flex flex-col">
+            <label
+              htmlFor="email"
+              className="mb-2 ml-1 text-sm dark:text-dust-0"
+            >
+              Email{" "}
+              {formik.touched.email && formik.errors.email && (
+                <span className="text-sm text-red-600">*</span>
+              )}
+            </label>
+            <input
+              type="email"
+              name="email"
+              id="email"
+              placeholder="example@mail.com"
+              required=""
+              value={formik.values.email}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              className="rounded-md px-4 py-2 placeholder:italic placeholder:opacity-50 dark:bg-cobble-0 dark:text-sand-0"
+            />
+            {formik.touched.email && formik.errors.email && (
+              <p className="ml-1 mt-2 text-sm text-red-600 transition-all">
+                {formik.errors.email}
+              </p>
+            )}
+          </div>
           <div className="flex flex-col">
             <label
               htmlFor="password"
-              className="mb-2 flex w-full items-center justify-between text-xs dark:text-dust-0 lg:text-sm"
+              className="mb-2 ml-1 flex w-full items-center justify-between text-sm dark:text-dust-0"
             >
               <h3>
                 Password{" "}
@@ -82,7 +91,7 @@ export default function ChangeMail({ isShow, setIsShow }) {
               </h3>
               <button
                 type="button"
-                className="mr-1"
+                className="mr-2"
                 onClick={() =>
                   setShowPassword({
                     ...showPassword,
@@ -109,9 +118,11 @@ export default function ChangeMail({ isShow, setIsShow }) {
                 {formik.errors.password}
               </p>
             )}
+          </div>
+          <div className="flex flex-col">
             <label
               htmlFor="confirmPassword"
-              className="mb-2 mt-4 flex w-full items-center justify-between text-xs dark:text-dust-0 lg:text-sm"
+              className="mb-2 ml-1 flex w-full items-center justify-between text-sm dark:text-dust-0"
             >
               <h3>
                 Confirm Password{" "}
@@ -122,7 +133,7 @@ export default function ChangeMail({ isShow, setIsShow }) {
               </h3>
               <button
                 type="button"
-                className="mr-1"
+                className="mr-2"
                 onClick={() =>
                   setShowPassword({
                     ...showPassword,
@@ -150,26 +161,26 @@ export default function ChangeMail({ isShow, setIsShow }) {
                   {formik.errors.confirmPassword}
                 </p>
               )}
-            <p className="mt-2 text-center text-xs italic dark:text-dust-0">
-              Please note that if you change your Password, you'll be
-              disconnected.
-            </p>
           </div>
           <button
             type="submit"
+            className="mt-2 h-fit w-full rounded-md bg-dust-0 bg-red-800 px-4 py-2 text-base font-semibold text-dust-0 disabled:bg-gray-300 disabled:text-gray-800"
             onSubmit={formik.handleSubmit}
-            disabled={!editPwSchema.isValidSync(formik.values)}
-            className="h-fit w-full rounded-md bg-dust-0 bg-red-800 px-4 py-2 text-sm font-semibold text-white disabled:bg-gray-300 disabled:text-gray-800"
+            disabled={!resetSchema.isValidSync(formik.values)}
           >
-            Change Password
+            Reset
           </button>
         </form>
-      )}
-    </>
+        <div className="mt-4 flex w-full items-center justify-between">
+          <button
+            type="button"
+            className="font-spartan text-sm underline underline-offset-8 dark:text-dust-0"
+            onClick={() => navigate("/login")}
+          >
+            Remember it? Login
+          </button>
+        </div>
+      </div>
+    </main>
   );
 }
-
-ChangeMail.propTypes = {
-  isShow: PropTypes.shape().isRequired,
-  setIsShow: PropTypes.func.isRequired,
-};

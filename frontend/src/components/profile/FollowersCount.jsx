@@ -22,7 +22,7 @@ export default function FollowersCount({
         })
         .catch((err) => {
           if (err.request?.status === 500) {
-            notifyError(`Error fetching likes's count.`);
+            notifyError("Oops, something went wrong.");
           }
         });
     }

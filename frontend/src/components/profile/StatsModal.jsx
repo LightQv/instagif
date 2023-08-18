@@ -5,6 +5,7 @@ import APIService from "../../services/APIService";
 import { notifyError } from "../../services/toasts";
 import FollowAction from "./FollowAction";
 import ExitSvg from "../svg/navigation/ExitSvg";
+import { useUserContext } from "../../contexts/UserContext";
 
 export default function StatsModal({
   profile,
@@ -13,6 +14,7 @@ export default function StatsModal({
   sendFollow,
   setSendFollow,
 }) {
+  const { user } = useUserContext();
   const [users, setUsers] = useState(null);
 
   useEffect(() => {
@@ -23,7 +25,7 @@ export default function StatsModal({
         })
         .catch((err) => {
           if (err.request?.status === 500) {
-            notifyError(`Error fetching ${data}'s count.`);
+            notifyError("Oops, something went wrong.");
           }
         });
     }
@@ -57,13 +59,15 @@ export default function StatsModal({
                 </div>
               </section>
             </Link>
-            <FollowAction
-              profile={u}
-              followerList={u.followedBy}
-              setSendFollow={setSendFollow}
-              width="w-[30%]"
-              textSize="text-xs"
-            />
+            {u.id !== user.id && (
+              <FollowAction
+                profile={u}
+                followerList={u.followedBy}
+                setSendFollow={setSendFollow}
+                width="w-[30%]"
+                textSize="text-xs"
+              />
+            )}
           </li>
         ))}
     </ul>

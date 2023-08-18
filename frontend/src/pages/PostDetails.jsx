@@ -25,7 +25,11 @@ export default function PostDetails() {
       .then((res) => {
         setPost(res.data);
       })
-      .catch((err) => notifyError(`${err}: fetching posts`));
+      .catch((err) => {
+        if (err.request?.status === 500) {
+          notifyError("Oops, something went wrong.");
+        }
+      });
   }, [isShow]);
 
   return (

@@ -74,19 +74,15 @@ export default function ProfileEdition() {
           <div className="flex flex-col">
             <label
               htmlFor="username"
-              className="mb-2 text-base"
-              style={
-                formik.touched.username && formik.errors.username
-                  ? { color: "rgb(239, 3, 3)" }
-                  : { color: "black" }
-              }
+              className="mb-2 ml-1 text-sm dark:text-dust-0"
             >
-              {formik.touched.username && formik.errors.username
-                ? formik.errors.username
-                : "Username"}
+              Username{" "}
+              {formik.touched.username && formik.errors.username && (
+                <span className="text-sm text-red-600">*</span>
+              )}
             </label>
             <input
-              type="text"
+              type="username"
               name="username"
               id="username"
               placeholder="Username"
@@ -94,11 +90,16 @@ export default function ProfileEdition() {
               value={formik.values.username}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              className="w-full rounded-md px-4 py-2 font-semibold placeholder:text-sm placeholder:font-normal placeholder:italic placeholder:text-black/50 dark:bg-granite-0 dark:text-sand-0"
+              className="rounded-md px-4 py-2 placeholder:italic placeholder:opacity-50 dark:bg-cobble-0 dark:text-sand-0"
             />
-            <p className="mt-1 text-center text-xs italic">
+            {formik.touched.username && formik.errors.username && (
+              <p className="ml-1 mt-2 text-sm text-red-600 transition-all">
+                {formik.errors.username}
+              </p>
+            )}
+            <p className="mt-2 text-center text-xs italic dark:text-dust-0">
               Please note that if you change your Username, you'll be
-              disconnected and gonna need to Login back again.
+              disconnected.
             </p>
           </div>
           <button

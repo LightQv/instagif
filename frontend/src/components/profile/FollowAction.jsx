@@ -26,8 +26,8 @@ export default function FollowAction({
       APIService.delete(`/follows/${user.id}&${profile.id}`)
         .then(() => setSendFollow(true))
         .catch((err) => {
-          if (err.request.status === 404 || err.request.status === 500) {
-            notifyError("Error, please try later.");
+          if (err.request?.status === 404 || err.request?.status === 500) {
+            notifyError("Oops, something went wrong.");
           }
         });
     } else {
@@ -37,8 +37,8 @@ export default function FollowAction({
       })
         .then(() => setSendFollow(true))
         .catch((err) => {
-          if (err.request.status === 404 || err.request.status === 500) {
-            notifyError("Error, please try later.");
+          if (err.request?.status === 404 || err.request?.status === 500) {
+            notifyError("Oops, something went wrong.");
           }
         });
     }
