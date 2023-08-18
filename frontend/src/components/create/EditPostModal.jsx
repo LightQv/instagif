@@ -25,12 +25,12 @@ export default function EditPostModal({ post, setIsShow }) {
       try {
         const res = await APIService.put(`/posts/${post.id}`, values);
         if (res) {
-          notifySuccess("Your post have been successfully modified.");
+          notifySuccess("Post modified.");
           setIsShow(false);
         } else throw new Error();
-      } catch (error) {
-        if (error.request?.status === 401) {
-          notifyError("Error modifying your post.");
+      } catch (err) {
+        if (err.request?.status === 404 || err.request?.status === 500) {
+          notifyError("Oops, something went wrong.");
         }
       }
     },

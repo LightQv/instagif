@@ -6,7 +6,7 @@ import PostInsight from "../components/profile/PostInsight";
 import APIService from "../services/APIService";
 import { notifyError } from "../services/toasts";
 import FollowersCount from "../components/profile/FollowersCount";
-import StatCount from "../components/profile/StatCount";
+import StatsCount from "../components/profile/StatsCount";
 import FollowAction from "../components/profile/FollowAction";
 import StatsModal from "../components/profile/StatsModal";
 
@@ -108,7 +108,7 @@ export default function Profile() {
           />
           {statsType &&
             statsType.map((stat) => (
-              <StatCount
+              <StatsCount
                 key={stat.id}
                 profile={profile?.id}
                 data={stat.data}

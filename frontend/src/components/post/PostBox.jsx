@@ -31,7 +31,7 @@ export default function PostBox({ post }) {
     if (user?.id === post.user.id) {
       return "/my-profile";
     }
-    return `/${post.user.username}`;
+    return `/profile/${post.user.username}`;
   }
 
   // --- Likes logic --- //
@@ -45,7 +45,7 @@ export default function PostBox({ post }) {
         })
         .catch((err) => {
           if (err.request?.status === 500) {
-            notifyError("Error, please try later.");
+            notifyError("Oops, something went wrong.");
           }
         });
     }
@@ -62,7 +62,7 @@ export default function PostBox({ post }) {
         })
         .catch((err) => {
           if (err.request?.status === 500) {
-            notifyError("Error, please try later.");
+            notifyError("Oops, something went wrong.");
           }
         });
     }
@@ -84,8 +84,8 @@ export default function PostBox({ post }) {
       APIService.delete(`/feelings/${selectedFeeling[0]?.id}`)
         .then(() => setSendFeeling(true))
         .catch((err) => {
-          if (err.request?.status === 500) {
-            notifyError("Error, please try later.");
+          if (err.request?.status === 404 || err.request?.status === 500) {
+            notifyError("Oops, something went wrong.");
           }
         });
     } else {
@@ -98,7 +98,7 @@ export default function PostBox({ post }) {
         .then(() => setSendFeeling(true))
         .catch((err) => {
           if (err.request?.status === 404 || err.request?.status === 500) {
-            notifyError("Error, please try later.");
+            notifyError("Oops, something went wrong.");
           }
         });
     }
@@ -124,7 +124,7 @@ export default function PostBox({ post }) {
 
   return (
     <li className="w-full border-b-[1px] border-sand-0 text-cobble-0 last:border-b-0 dark:border-granite-0 lg:pt-4">
-      <Link to={`/${post.user?.username}/${post.id}`}>
+      <Link to={`/profile/${post.user?.username}/${post.id}`}>
         <img
           src={post.gif_url}
           alt="mood_gif"

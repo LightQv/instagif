@@ -50,9 +50,7 @@ export default function ChangeAvatar({ profile }) {
   const handleUpload = async () => {
     // Won't accept Size over 1Mb
     if (newAvatar.size > 1000000) {
-      notifyError(
-        "Your file is too heavy, please upload a file lighter than 1Mb."
-      );
+      notifyError("File too heavy, must be lighter than 1Mb.");
       setNewAvatar(null);
       return;
     }
@@ -99,7 +97,7 @@ export default function ChangeAvatar({ profile }) {
           navigate("/my-profile");
         })
         .catch((err) => {
-          if (err.request?.status === 500) {
+          if (err.request?.status === 404 || err.request?.status === 500) {
             notifyError("Oops, something went wrong.");
           }
         });
@@ -123,7 +121,7 @@ export default function ChangeAvatar({ profile }) {
           navigate("/my-profile");
         } else throw new Error();
       } else throw new Error();
-    } catch (error) {
+    } catch (err) {
       notifyError("Oops, something went wrong.");
     }
   };

@@ -30,7 +30,7 @@ export default function PostInsight({
         }`}
         style={{ display: loading ? "none" : "block" }}
       >
-        <Link to={`/${username}/${post.id}`} className="h-full w-full">
+        <Link to={`/profile/${username}/${post.id}`} className="h-full w-full">
           <img
             src={post.gif_url}
             onLoad={() => setLoading(false)}

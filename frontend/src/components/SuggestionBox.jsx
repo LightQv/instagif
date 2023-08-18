@@ -16,7 +16,11 @@ export default function SuggestionBox({ sendFollow, setSendFollow }) {
         setUnfollowedUser(res.data);
         setSendFollow(false);
       })
-      .catch(() => notifyError("Oops, something went wrong."));
+      .catch((err) => {
+        if (err.request?.status === 500) {
+          notifyError("Oops, something went wrong.");
+        }
+      });
   }, [sendFollow]);
 
   return (
@@ -32,7 +36,10 @@ export default function SuggestionBox({ sendFollow, setSendFollow }) {
       </h3>
       {unfollowedUser &&
         unfollowedUser.map((u) => (
-          <li className="flex h-fit w-full items-center justify-between border-b-[1px] border-sand-0 p-4 dark:border-granite-0 dark:text-dust-0">
+          <li
+            key={u.id}
+            className="flex h-fit w-full items-center justify-between border-b-[1px] border-sand-0 p-4 dark:border-granite-0 dark:text-dust-0"
+          >
             <Link to={`/${u.username}`} className="">
               <section className="flex items-center gap-2">
                 <img

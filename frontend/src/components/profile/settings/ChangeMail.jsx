@@ -8,11 +8,9 @@ import notifySuccess, {
   notifyError,
 } from "../../../services/toasts";
 import { editMailSchema } from "../../../services/validators";
-import { useThemeContext } from "../../../contexts/ThemeContext";
 
 export default function ChangeMail({ isShow, setIsShow }) {
   const { user, logout } = useUserContext();
-  const { theme } = useThemeContext();
 
   const formik = useFormik({
     initialValues: {
@@ -48,7 +46,7 @@ export default function ChangeMail({ isShow, setIsShow }) {
           className="h-fit w-full"
         >
           <h3 className="text-left text-sm font-semibold text-cobble-0 dark:text-dust-0">
-            Change email
+            Change Email
           </h3>
         </button>
         <button
@@ -67,24 +65,20 @@ export default function ChangeMail({ isShow, setIsShow }) {
         <form
           action="editMail"
           onSubmit={formik.handleSubmit}
-          className="gap-4 space-y-4 px-6 pb-4 lg:gap-6 lg:space-y-6"
+          className="flex flex-col gap-4 px-6 pb-4 lg:gap-5"
         >
           <div className="flex flex-col">
             <label
               htmlFor="email"
-              className="mb-2 ml-1 text-xs lg:text-sm"
-              style={
-                formik.touched.email && formik.errors.email
-                  ? { color: "rgb(239, 3, 3)" }
-                  : { color: theme === "dark" ? "#f1efe7" : "black" }
-              }
+              className="mb-2 ml-1 text-sm dark:text-dust-0 lg:text-sm"
             >
-              {formik.touched.email && formik.errors.email
-                ? formik.errors.email
-                : "Email"}
+              Email{" "}
+              {formik.touched.email && formik.errors.email && (
+                <span className="text-sm text-red-600">*</span>
+              )}
             </label>
             <input
-              type="text"
+              type="email"
               name="email"
               id="email"
               placeholder="example@mail.com"
@@ -94,9 +88,13 @@ export default function ChangeMail({ isShow, setIsShow }) {
               onBlur={formik.handleBlur}
               className="w-full rounded-md px-4 py-2 font-semibold placeholder:text-sm placeholder:font-normal placeholder:italic placeholder:text-black/50 dark:bg-granite-0 dark:text-sand-0"
             />
-            <p className="mt-1 text-center text-xs italic dark:text-dust-0">
-              Please note that if you change your Email, you'll be disconnected
-              and gonna need to Login back again.
+            {formik.touched.email && formik.errors.email && (
+              <p className="ml-1 mt-2 text-sm text-red-600 transition-all">
+                {formik.errors.email}
+              </p>
+            )}
+            <p className="mt-2 text-center text-xs italic dark:text-dust-0">
+              Please note that if you change your Email, you'll be disconnected.
             </p>
           </div>
           <button
@@ -104,12 +102,11 @@ export default function ChangeMail({ isShow, setIsShow }) {
             onSubmit={formik.handleSubmit}
             disabled={
               !editMailSchema.isValidSync(formik.values) ||
-              formik.values.email.localeCompare(user.email) === 0 ||
-              formik.values.email === ""
+              formik.values.email.localeCompare(user.email) === 0
             }
             className="h-fit w-full rounded-md bg-dust-0 bg-red-800 px-4 py-2 text-sm font-semibold text-white disabled:bg-gray-300 disabled:text-gray-800"
           >
-            Modify
+            Change Email
           </button>
         </form>
       )}

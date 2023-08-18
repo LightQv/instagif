@@ -30,7 +30,7 @@ export default function CreatePost() {
         `https://api.giphy.com/v1/gifs/trending?api_key=${API_KEY}&limit=20&offset=0&rating=pg&bundle=messaging_non_clips`
       )
       .then((res) => setTrending(res.data.data))
-      .catch(() => notifyError(`Error with Giphy API.`));
+      .catch(() => notifyError(`Oops, error with Giphy API.`));
   }, []);
 
   // Fetch Search Query
@@ -50,7 +50,7 @@ export default function CreatePost() {
         setResult(res.data.data);
         setLoading(true);
       })
-      .catch(() => notifyError(`Error with Giphy API.`));
+      .catch(() => notifyError(`Oops, error with Giphy API.`));
   }, [query]);
 
   const handleSearch = (e) => {

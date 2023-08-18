@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import APIService from "../../services/APIService";
 import { notifyError } from "../../services/toasts";
 
-export default function StatCount({
+export default function StatsCount({
   profile,
   data,
   label,
@@ -20,7 +20,7 @@ export default function StatCount({
         })
         .catch((err) => {
           if (err.request?.status === 500) {
-            notifyError(`Error fetching ${data}'s count.`);
+            notifyError("Oops, something went wrong.");
           }
         });
     }
@@ -49,7 +49,7 @@ export default function StatCount({
   );
 }
 
-StatCount.propTypes = {
+StatsCount.propTypes = {
   profile: PropTypes.number.isRequired,
   data: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,

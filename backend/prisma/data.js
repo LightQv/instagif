@@ -1,17 +1,19 @@
 const users = [
   {
     username: "LightQv",
-    email: "vivian@gmail.com",
+    email: "QVivian23@gmail.com",
     hashedPassword:
       "$argon2id$v=19$m=65536,t=5,p=1$+8QKgBU+Z7zr2EVICuFDOg$74Nu7DWmpa/+VW7543Xm28gd+ATVrhtCV2lAakJ4i+A",
+    passwordToken: null,
     avatar:
-      "https://firebasestorage.googleapis.com/v0/b/instagif-8d24a.appspot.com/o/avatars%2Fdd5165f5-941a-46bb-abd1-02ebe09e89d6LightQv?alt=media&token=53d894fa-2d2b-4e55-8781-bfd7489cfa2a",
+      "https://firebasestorage.googleapis.com/v0/b/instagif-8d24a.appspot.com/o/avatars%2Fcf9ede7c-f475-4f2e-92be-ba1149d69436LightQv?alt=media&token=b0083c63-6fea-48d7-80ba-d70ce101477b",
   },
   {
-    username: "Tun4",
+    username: "BigTun4",
     email: "jim.halpert@gmail.com",
     hashedPassword:
       "$argon2id$v=19$m=65536,t=5,p=1$+8QKgBU+Z7zr2EVICuFDOg$74Nu7DWmpa/+VW7543Xm28gd+ATVrhtCV2lAakJ4i+A",
+    passwordToken: null,
     avatar: null,
   },
   {
@@ -19,6 +21,7 @@ const users = [
     email: "michael.scott@gmail.com",
     hashedPassword:
       "$argon2id$v=19$m=65536,t=5,p=1$+8QKgBU+Z7zr2EVICuFDOg$74Nu7DWmpa/+VW7543Xm28gd+ATVrhtCV2lAakJ4i+A",
+    passwordToken: null,
     avatar:
       "https://firebasestorage.googleapis.com/v0/b/instagif-8d24a.appspot.com/o/avatars%2Fc86ae64d-7682-44a4-be5e-d7ec04f8f8c0TheB0ss?alt=media&token=ad05c4ed-dae8-483c-8af9-b71dfc658a39",
   },
@@ -27,6 +30,7 @@ const users = [
     email: "dwight.schultz@gmail.com",
     hashedPassword:
       "$argon2id$v=19$m=65536,t=5,p=1$+8QKgBU+Z7zr2EVICuFDOg$74Nu7DWmpa/+VW7543Xm28gd+ATVrhtCV2lAakJ4i+A",
+    passwordToken: null,
     avatar: null,
   },
 ];

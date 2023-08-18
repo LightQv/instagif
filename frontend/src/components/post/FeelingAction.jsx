@@ -42,7 +42,7 @@ export default function FeelingAction({
       })
       .catch((err) => {
         if (err.request?.status === 404 || err.request?.status === 500) {
-          notifyError("Error, please try later.");
+          notifyError("Oops, something went wrong.");
         }
       });
     return null;

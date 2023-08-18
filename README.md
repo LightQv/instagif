@@ -35,6 +35,7 @@ Create `.env` files in /frontend and /backend following `.env.sample` examples.
 
 - `migrate` : Run the database migration script
 - `dev` : Starts both servers (frontend + backend) in one terminal
+- `view` : Open a new tab with a Prisma Interface to manage the database
 - `dev-front` : Starts the React frontend server
 - `dev-back` : Starts the Express backend server
 - `lint` : Runs validation tools, and refuses unclean code (will be executed on every _commit_)

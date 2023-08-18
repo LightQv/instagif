@@ -174,7 +174,7 @@ const editUsername = async (req, res) => {
   }
 };
 
-const editProfileAvatar = async (req, res) => {
+const editAvatar = async (req, res) => {
   try {
     const updateAvatar = await prisma.user.update({
       where: {
@@ -220,13 +220,16 @@ const editMail = async (req, res) => {
 };
 
 const editPw = async (req, res) => {
+  req.body.passwordToken = null;
+
   try {
     const updatePw = await prisma.user.update({
       where: {
-        id: parseInt(req.params.id, 10),
+        id: parseInt(req.params.id, 10) || parseInt(req.user.id, 10),
       },
       data: {
         hashedPassword: req.body.hashedPassword,
+        passwordToken: req.body.passwordToken,
       },
     });
     if (updatePw) {
@@ -286,7 +289,7 @@ module.exports = {
   browseFollowsByUser,
   readByUsername,
   editUsername,
-  editProfileAvatar,
+  editAvatar,
   editMail,
   editPw,
   add,

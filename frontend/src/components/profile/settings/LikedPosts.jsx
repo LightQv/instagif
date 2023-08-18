@@ -31,7 +31,11 @@ export default function LikedPosts({ isShow, setIsShow }) {
       .then((res) => {
         setLikedPosts(res.data);
       })
-      .catch(() => notifyError("Error fetching Liked posts."));
+      .catch((err) => {
+        if (err.request?.status === 500) {
+          notifyError("Oops, something went wrong.");
+        }
+      });
   }, [isShow.likedPosts, filter]);
 
   return (

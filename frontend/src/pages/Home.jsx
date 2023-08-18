@@ -33,7 +33,9 @@ export default function Home() {
         } else throw new Error();
       }
     } catch (err) {
-      notifyError(`${err}: fetching posts`);
+      if (err.request?.status === 500) {
+        notifyError("Oops, something went wrong.");
+      }
     }
   };
 
@@ -43,7 +45,11 @@ export default function Home() {
 
   return (
     <main className="flex min-h-screen flex-col justify-start scroll-smooth bg-dust-0 pb-12 font-inter dark:bg-cobble-0 lg:pb-0 lg:pl-60">
-      <header className="flex h-12 w-full items-center justify-between bg-dust-0 px-6 dark:bg-cobble-0 lg:mx-auto lg:w-fit lg:self-center lg:px-0 lg:pt-4">
+      <header
+        className={`flex h-12 w-full items-center justify-between bg-dust-0 px-6 dark:bg-cobble-0 lg:mx-auto lg:w-fit lg:self-center lg:px-0 lg:pt-4 ${
+          !user.id && "lg:hidden"
+        }`}
+      >
         {!user.id && (
           <img
             src={theme === "dark" ? logoDark : logo}
@@ -79,7 +85,12 @@ export default function Home() {
             }`}</p>
           )}
         </ul>
-        <SuggestionBox sendFollow={sendFollow} setSendFollow={setSendFollow} />
+        {user.id && (
+          <SuggestionBox
+            sendFollow={sendFollow}
+            setSendFollow={setSendFollow}
+          />
+        )}
       </div>
     </main>
   );

@@ -30,7 +30,7 @@ export default function Search() {
       })
       .catch((err) => {
         if (err.request?.status === 500) {
-          notifyError(`${err} : Fetching user's posts.`);
+          notifyError("Oops, something went wrong.");
         }
       });
   }, [sendFollow, query]);

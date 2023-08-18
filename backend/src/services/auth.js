@@ -18,7 +18,6 @@ const hashPassword = (req, res, next) => {
       req.body.hashedPassword = hashedPassword;
       delete req.body.password;
       delete req.body?.confirmPassword;
-
       next();
     })
     .catch((err) => {
@@ -45,6 +44,8 @@ const verifyPassword = (req, res) => {
 
         delete req.body.password;
         delete req.user.hashedPassword;
+        delete req.user.passwordToken;
+        delete req.user.avatar;
 
         // Put token in cookie and send user
         res

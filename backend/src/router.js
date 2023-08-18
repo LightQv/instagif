@@ -8,13 +8,18 @@ const {
   validateEditUserMail,
   validateEditUserPw,
 } = require("./services/validators");
-const { getUserByEmailMiddleware } = require("./controllers/authControllers");
+const {
+  getUserByEmailMiddleware,
+  generatePasswordToken,
+  verifyPasswordToken,
+} = require("./controllers/authControllers");
 const {
   hashPassword,
   verifyPassword,
   verifyToken,
   logout,
 } = require("./services/auth");
+const { sendForgottenPassword } = require("./services/nodemailer");
 
 const userControllers = require("./controllers/userControllers");
 const postControllers = require("./controllers/postControllers");
@@ -25,7 +30,20 @@ const followControllers = require("./controllers/followControllers");
 // --- Public Routes (without Auth) --- //
 // Login & Register
 router.post("/login", getUserByEmailMiddleware, verifyPassword);
-router.post("/users", validateUser, hashPassword, userControllers.add);
+router.post("/register", validateUser, hashPassword, userControllers.add);
+router.post(
+  "/forgotten-password",
+  getUserByEmailMiddleware,
+  generatePasswordToken,
+  sendForgottenPassword
+);
+router.post(
+  "/reset-password",
+  verifyPasswordToken,
+  validateEditUserPw,
+  hashPassword,
+  userControllers.editPw
+);
 
 // Posts with Likes & Feelings
 router.get("/posts", postControllers.browse);
@@ -53,7 +71,7 @@ router.use(verifyToken);
 router.get("/logout", logout);
 
 // Edit User's Profile
-router.put("/users-avatar/:id", userControllers.editProfileAvatar);
+router.put("/users-avatar/:id", userControllers.editAvatar);
 router.put("/users-ml/:id", validateEditUserMail, userControllers.editMail);
 router.put(
   "/users-pw/:id",
