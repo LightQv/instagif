@@ -10,7 +10,7 @@ import { useUserContext } from "../../contexts/UserContext";
 import LikeAction from "./LikeAction";
 import FeelingAction from "./FeelingAction";
 import APIService from "../../services/APIService";
-import { notifyError } from "../../services/toasts";
+import { notifyError } from "../toasts/CustomToasts";
 
 export default function PostBox({ post }) {
   const { user } = useUserContext();

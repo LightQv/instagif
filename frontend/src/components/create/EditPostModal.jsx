@@ -3,7 +3,7 @@ import { useFormik } from "formik";
 import { useState } from "react";
 import ExitSvg from "../svg/navigation/ExitSvg";
 import LightSvg from "../svg/LightSvg";
-import notifySuccess, { notifyError } from "../../services/toasts";
+import { notifySuccess, notifyError } from "../toasts/CustomToasts";
 import { addPostSchema } from "../../services/validators";
 import APIService from "../../services/APIService";
 import { useUserContext } from "../../contexts/UserContext";

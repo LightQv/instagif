@@ -3,10 +3,11 @@ import { useFormik } from "formik";
 import { useUserContext } from "../../../contexts/UserContext";
 import DownSvg from "../../svg/navigation/DownSvg";
 import APIService from "../../../services/APIService";
-import notifySuccess, {
+import {
+  notifySuccess,
   notifyDuplicate,
   notifyError,
-} from "../../../services/toasts";
+} from "../../toasts/CustomToasts";
 import { editMailSchema } from "../../../services/validators";
 
 export default function ChangeMail({ isShow, setIsShow }) {
@@ -39,7 +40,7 @@ export default function ChangeMail({ isShow, setIsShow }) {
 
   return (
     <>
-      <div className="flex w-full items-center justify-between px-6 py-1">
+      <div className="flex w-full items-center justify-between px-6 py-1 dark:text-dust-0">
         <button
           type="button"
           onClick={() => setIsShow({ changeMail: !isShow.changeMail })}
@@ -54,8 +55,8 @@ export default function ChangeMail({ isShow, setIsShow }) {
           onClick={() => setIsShow({ changeMail: !isShow.changeMail })}
           className={
             isShow.changeMail
-              ? "h-6 w-6 rotate-180 transition-all dark:text-dust-0"
-              : "h-6 w-6 transition-all dark:text-dust-0"
+              ? "h-6 w-6 rotate-180 transition-all"
+              : "h-6 w-6 transition-all"
           }
         >
           <DownSvg isShow={isShow} />
@@ -65,13 +66,10 @@ export default function ChangeMail({ isShow, setIsShow }) {
         <form
           action="editMail"
           onSubmit={formik.handleSubmit}
-          className="flex flex-col gap-4 px-6 pb-4 lg:gap-5"
+          className="flex flex-col gap-4 px-6 pb-4 dark:text-dust-0 lg:gap-5"
         >
           <div className="flex flex-col">
-            <label
-              htmlFor="email"
-              className="mb-2 ml-1 text-sm dark:text-dust-0 lg:text-sm"
-            >
+            <label htmlFor="email" className="mb-2 ml-1 text-sm lg:text-sm">
               Email{" "}
               {formik.touched.email && formik.errors.email && (
                 <span className="text-sm text-red-600">*</span>

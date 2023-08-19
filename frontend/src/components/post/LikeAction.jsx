@@ -3,7 +3,7 @@ import { useUserContext } from "../../contexts/UserContext";
 import LikeSvg from "../svg/interactions/LikeSvg";
 import ActiveLikeSvg from "../svg/interactions/ActiveLikeSvg";
 import APIService from "../../services/APIService";
-import { notifyError } from "../../services/toasts";
+import { notifyError } from "../toasts/CustomToasts";
 
 export default function LikeAction({ post, likes, setSendLike }) {
   const { user } = useUserContext();

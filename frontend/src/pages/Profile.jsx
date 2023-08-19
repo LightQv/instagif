@@ -4,7 +4,7 @@ import { useUserContext } from "../contexts/UserContext";
 import SettingsSvg from "../components/svg/navigation/SettingsSvg";
 import PostInsight from "../components/profile/PostInsight";
 import APIService from "../services/APIService";
-import { notifyError } from "../services/toasts";
+import { notifyError } from "../components/toasts/CustomToasts";
 import FollowersCount from "../components/profile/FollowersCount";
 import StatsCount from "../components/profile/StatsCount";
 import FollowAction from "../components/profile/FollowAction";
@@ -92,7 +92,7 @@ export default function Profile() {
           <Link to="/my-profile/edit">
             <button
               type="button"
-              className="h-10 w-full rounded-md bg-cobble-0 py-1 text-sm font-semibold text-dust-0 transition-all hover:scale-[1.03] hover:bg-granite-0 dark:bg-granite-0 dark:text-sand-0"
+              className="h-10 w-full rounded-md bg-cobble-0 py-1 text-sm font-semibold text-dust-0 transition-all hover:scale-[1.01] hover:bg-granite-0 dark:bg-granite-0 dark:text-sand-0"
             >
               Edit profile
             </button>

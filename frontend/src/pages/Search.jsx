@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import APIService from "../services/APIService";
-import { notifyError } from "../services/toasts";
+import { notifyError } from "../components/toasts/CustomToasts";
 import { useUserContext } from "../contexts/UserContext";
 import BackSvg from "../components/svg/navigation/BackSvg";
 import UserCard from "../components/search/UserCard";

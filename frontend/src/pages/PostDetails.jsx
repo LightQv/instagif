@@ -4,7 +4,7 @@ import APIService from "../services/APIService";
 import BackSvg from "../components/svg/navigation/BackSvg";
 import NotificationSvg from "../components/svg/interactions/NotificationSvg";
 import PostBox from "../components/post/PostBox";
-import { notifyError } from "../services/toasts";
+import { notifyError } from "../components/toasts/CustomToasts";
 import { useUserContext } from "../contexts/UserContext";
 import EditPostModal from "../components/create/EditPostModal";
 import DeletePostModal from "../components/create/DeletePostModal";

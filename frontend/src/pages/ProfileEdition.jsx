@@ -5,13 +5,19 @@ import { useUserContext } from "../contexts/UserContext";
 import BackSvg from "../components/svg/navigation/BackSvg";
 import APIService from "../services/APIService";
 import { editProfileSchema } from "../services/validators";
-import { notifyDuplicate, notifyError } from "../services/toasts";
+import {
+  notifyDuplicate,
+  notifyError,
+} from "../components/toasts/CustomToasts";
 import ChangeAvatar from "../components/profile/edit/ChangeAvatar";
+import AvatarPreview from "../components/profile/edit/AvatarPreview";
 
 export default function ProfileEdition() {
   const { user, logout } = useUserContext();
   const navigate = useNavigate();
   const [profile, setProfile] = useState(null);
+  const [newAvatar, setNewAvatar] = useState(null);
+  const [send, setSend] = useState(false);
 
   useEffect(() => {
     APIService.get(`/users/${user.username}`)
@@ -47,8 +53,8 @@ export default function ProfileEdition() {
   });
 
   return (
-    <main className="flex min-h-screen flex-col justify-start bg-dust-0 pb-12 font-inter lg:mb-0 lg:pb-0 lg:pl-60">
-      <header className="flex h-12 w-full items-center justify-between bg-dust-0 px-6 lg:hidden">
+    <main className="flex min-h-screen flex-col justify-start bg-dust-0 pb-12 font-inter dark:bg-cobble-0 lg:mb-0 lg:pb-0 lg:pl-60">
+      <header className="flex h-12 w-full items-center justify-between px-6 dark:text-dust-0 lg:hidden">
         <div className="h-fit w-full">
           <button
             type="button"
@@ -63,8 +69,14 @@ export default function ProfileEdition() {
         </div>
       </header>
       <div className="flex flex-col lg:w-2/5 lg:self-center">
-        <div className="flex w-full flex-col gap-4 py-4">
-          <ChangeAvatar profile={profile} />
+        <div className="flex w-full flex-col gap-4 py-4 dark:text-dust-0">
+          <ChangeAvatar
+            profile={profile}
+            newAvatar={newAvatar}
+            setNewAvatar={setNewAvatar}
+            send={send}
+            setSend={setSend}
+          />
         </div>
         <form
           action="editUsername"
@@ -90,7 +102,7 @@ export default function ProfileEdition() {
               value={formik.values.username}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              className="rounded-md px-4 py-2 placeholder:italic placeholder:opacity-50 dark:bg-cobble-0 dark:text-sand-0"
+              className="rounded-md px-4 py-2 placeholder:italic placeholder:opacity-50 dark:bg-granite-0 dark:text-sand-0"
             />
             {formik.touched.username && formik.errors.username && (
               <p className="ml-1 mt-2 text-sm text-red-600 transition-all">
@@ -111,9 +123,24 @@ export default function ProfileEdition() {
             }
             className="h-fit w-full rounded-md bg-dust-0 bg-red-800 px-4 py-2 text-sm font-semibold text-white disabled:bg-gray-300 disabled:text-gray-800"
           >
-            Change username
+            Change Username
           </button>
         </form>
+      </div>
+      <div
+        className={
+          newAvatar
+            ? "fixed left-0 top-0 z-20 flex min-h-screen min-w-full items-center justify-center bg-black/90"
+            : "hidden"
+        }
+      >
+        {newAvatar && (
+          <AvatarPreview
+            newAvatar={newAvatar}
+            setNewAvatar={setNewAvatar}
+            setSend={setSend}
+          />
+        )}
       </div>
     </main>
   );

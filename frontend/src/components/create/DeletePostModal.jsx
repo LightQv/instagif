@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
-import notifySuccess, { notifyError } from "../../services/toasts";
+import { notifySuccess, notifyError } from "../toasts/CustomToasts";
 import APIService from "../../services/APIService";
 
 export default function DeletePostModal({ post, setIsShow }) {

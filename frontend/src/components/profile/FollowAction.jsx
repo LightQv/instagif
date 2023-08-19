@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import { useUserContext } from "../../contexts/UserContext";
 import APIService from "../../services/APIService";
-import { notifyError } from "../../services/toasts";
+import { notifyError } from "../toasts/CustomToasts";
 import FollowSvg from "../svg/interactions/FollowSvg";
 import UnfollowSvg from "../svg/interactions/UnfollowSvg";
 

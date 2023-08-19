@@ -6,7 +6,7 @@ import DownSvg from "../../svg/navigation/DownSvg";
 import SightSvg from "../../svg/SightSvg";
 import UnsightSvg from "../../svg/UnsightSvg";
 import APIService from "../../../services/APIService";
-import notifySuccess, { notifyError } from "../../../services/toasts";
+import { notifySuccess, notifyError } from "../../toasts/CustomToasts";
 import { editPwSchema } from "../../../services/validators";
 
 export default function ChangeMail({ isShow, setIsShow }) {
@@ -41,7 +41,7 @@ export default function ChangeMail({ isShow, setIsShow }) {
 
   return (
     <>
-      <div className="flex w-full items-center justify-between px-6 py-1">
+      <div className="flex w-full items-center justify-between px-6 py-1 dark:text-dust-0">
         <button
           type="button"
           onClick={() => setIsShow({ changePw: !isShow.changePw })}
@@ -56,8 +56,8 @@ export default function ChangeMail({ isShow, setIsShow }) {
           onClick={() => setIsShow({ changePw: !isShow.changePw })}
           className={
             isShow.changePw
-              ? "h-6 w-6 rotate-180 transition-all dark:text-dust-0"
-              : "h-6 w-6 transition-all dark:text-dust-0"
+              ? "h-6 w-6 rotate-180 transition-all"
+              : "h-6 w-6 transition-all"
           }
         >
           <DownSvg isShow={isShow} />
@@ -67,12 +67,12 @@ export default function ChangeMail({ isShow, setIsShow }) {
         <form
           action="editMail"
           onSubmit={formik.handleSubmit}
-          className="flex flex-col gap-4 px-6 pb-4 lg:gap-5"
+          className="flex flex-col gap-4 px-6 pb-4 dark:text-dust-0 lg:gap-5"
         >
           <div className="flex flex-col">
             <label
               htmlFor="password"
-              className="mb-2 flex w-full items-center justify-between text-xs dark:text-dust-0 lg:text-sm"
+              className="mb-2 flex w-full items-center justify-between text-xs lg:text-sm"
             >
               <h3>
                 Password{" "}
@@ -102,7 +102,7 @@ export default function ChangeMail({ isShow, setIsShow }) {
               value={formik.values.password}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              className="rounded-md px-4 py-2 placeholder:italic placeholder:opacity-50 dark:bg-cobble-0 dark:text-sand-0"
+              className="rounded-md px-4 py-2 placeholder:italic placeholder:opacity-50 dark:bg-granite-0 dark:text-sand-0"
             />
             {formik.touched.password && formik.errors.password && (
               <p className="ml-1 mt-2 text-sm text-red-600 transition-all">
@@ -111,7 +111,7 @@ export default function ChangeMail({ isShow, setIsShow }) {
             )}
             <label
               htmlFor="confirmPassword"
-              className="mb-2 mt-4 flex w-full items-center justify-between text-xs dark:text-dust-0 lg:text-sm"
+              className="mb-2 mt-4 flex w-full items-center justify-between text-xs lg:text-sm"
             >
               <h3>
                 Confirm Password{" "}
@@ -142,7 +142,7 @@ export default function ChangeMail({ isShow, setIsShow }) {
               value={formik.values.confirmPassword}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              className="rounded-md px-4 py-2 placeholder:italic placeholder:opacity-50 dark:bg-cobble-0 dark:text-sand-0"
+              className="rounded-md px-4 py-2 placeholder:italic placeholder:opacity-50 dark:bg-granite-0 dark:text-sand-0"
             />
             {formik.touched.confirmPassword &&
               formik.errors.confirmPassword && (
@@ -150,7 +150,7 @@ export default function ChangeMail({ isShow, setIsShow }) {
                   {formik.errors.confirmPassword}
                 </p>
               )}
-            <p className="mt-2 text-center text-xs italic dark:text-dust-0">
+            <p className="mt-2 text-center text-xs italic">
               Please note that if you change your Password, you'll be
               disconnected.
             </p>

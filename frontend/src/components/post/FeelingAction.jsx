@@ -5,7 +5,7 @@ import ActiveFeelingSvg from "../svg/interactions/ActiveFeelingSvg";
 import FeelingSvg from "../svg/interactions/FeelingSvg";
 import { useThemeContext } from "../../contexts/ThemeContext";
 import APIService from "../../services/APIService";
-import { notifyError } from "../../services/toasts";
+import { notifyError } from "../toasts/CustomToasts";
 import { useUserContext } from "../../contexts/UserContext";
 
 export default function FeelingAction({

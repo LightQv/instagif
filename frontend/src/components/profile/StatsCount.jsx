@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 import APIService from "../../services/APIService";
-import { notifyError } from "../../services/toasts";
+import { notifyError } from "../toasts/CustomToasts";
 
 export default function StatsCount({
   profile,
@@ -36,7 +36,7 @@ export default function StatsCount({
       type="button"
       className={`flex flex-col items-center justify-center dark:text-dust-0 ${
         data === "followers" || data === "follows"
-          ? "cursor-pointer"
+          ? "cursor-pointer hover:text-granite-0"
           : "cursor-default"
       }`}
       onClick={() => handleModal()}
