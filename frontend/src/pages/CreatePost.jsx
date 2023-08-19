@@ -3,7 +3,7 @@ import { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import { useUserContext } from "../contexts/UserContext";
 import BackSvg from "../components/svg/navigation/BackSvg";
-import { notifyError } from "../services/toasts";
+import { notifyError } from "../components/toasts/CustomToasts";
 import GifInsight from "../components/create/GifInsight";
 import ActiveFireSvg from "../components/svg/ActiveFireSvg";
 import FireSvg from "../components/svg/FireSvg";

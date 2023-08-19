@@ -44,7 +44,7 @@ export default function ProfileSettings() {
           <button
             type="button"
             onClick={logout}
-            className="h-10 w-full rounded-md bg-cobble-0 py-1 text-sm font-semibold text-dust-0 transition-all hover:scale-[1.03] hover:bg-granite-0 dark:bg-granite-0 dark:text-sand-0"
+            className="h-10 w-full rounded-md bg-cobble-0 py-1 text-sm font-semibold text-dust-0 transition-all hover:scale-[1.01] hover:bg-granite-0 dark:bg-granite-0 dark:text-sand-0"
           >
             Log out
           </button>
@@ -53,7 +53,7 @@ export default function ProfileSettings() {
           <button
             type="button"
             onClick={() => setIsShow({ deleteModal: true })}
-            className="h-10 w-full rounded-md bg-red-800 py-1 text-sm font-semibold text-dust-0 transition-all hover:scale-[1.03] hover:bg-red-600"
+            className="h-10 w-full rounded-md bg-red-800 py-1 text-sm font-semibold text-dust-0 transition-all hover:scale-[1.01] hover:bg-red-600"
           >
             Delete account
           </button>

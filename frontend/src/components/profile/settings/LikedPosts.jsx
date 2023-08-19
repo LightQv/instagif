@@ -4,7 +4,7 @@ import { useSearchParams } from "react-router-dom";
 import { useUserContext } from "../../../contexts/UserContext";
 import DownSvg from "../../svg/navigation/DownSvg";
 import APIService from "../../../services/APIService";
-import { notifyError } from "../../../services/toasts";
+import { notifyError } from "../../toasts/CustomToasts";
 import PostInsight from "../PostInsight";
 
 export default function LikedPosts({ isShow, setIsShow }) {

@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 import APIService from "../../services/APIService";
-import { notifyError } from "../../services/toasts";
+import { notifyError } from "../toasts/CustomToasts";
 
 export default function FollowersCount({
   profile,
@@ -31,7 +31,7 @@ export default function FollowersCount({
   return (
     <button
       type="button"
-      className="flex flex-col items-center justify-center dark:text-dust-0"
+      className="flex flex-col items-center justify-center hover:text-granite-0 dark:text-dust-0"
       onClick={() => setIsShow({ followers: true })}
     >
       <h3 className="text-xl font-semibold">

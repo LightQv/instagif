@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import APIService from "../services/APIService";
 import NotificationSvg from "../components/svg/interactions/NotificationSvg";
 import PostBox from "../components/post/PostBox";
-import { notifyError } from "../services/toasts";
+import { notifyError } from "../components/toasts/CustomToasts";
 import { useUserContext } from "../contexts/UserContext";
 import { useThemeContext } from "../contexts/ThemeContext";
 import logoDark from "../assets/images/logo-dark.png";

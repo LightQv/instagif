@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { useUserContext } from "../contexts/UserContext";
 import FollowAction from "./profile/FollowAction";
 import APIService from "../services/APIService";
-import { notifyError } from "../services/toasts";
+import { notifyError } from "./toasts/CustomToasts";
 
 export default function SuggestionBox({ sendFollow, setSendFollow }) {
   const { user } = useUserContext();

@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import APIService from "../../services/APIService";
-import { notifyError } from "../../services/toasts";
+import { notifyError } from "../toasts/CustomToasts";
 import FollowAction from "./FollowAction";
 import ExitSvg from "../svg/navigation/ExitSvg";
 import { useUserContext } from "../../contexts/UserContext";

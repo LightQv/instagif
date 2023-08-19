@@ -1,6 +1,4 @@
 import { Routes, Route } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import NavBar from "./components/NavBar";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
@@ -12,6 +10,7 @@ import CreatePost from "./pages/CreatePost";
 import Profile from "./pages/Profile";
 import ProfileEdition from "./pages/ProfileEdition";
 import ProfileSettings from "./pages/ProfileSettings";
+import CustomToasts from "./components/toasts/CustomToasts";
 
 function App() {
   return (
@@ -33,7 +32,7 @@ function App() {
           <Route path="/my-profile/settings" element={<ProfileSettings />} />
         </Route>
       </Routes>
-      <ToastContainer limit={1} />
+      <CustomToasts />
     </>
   );
 }

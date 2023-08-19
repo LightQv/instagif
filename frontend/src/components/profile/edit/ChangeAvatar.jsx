@@ -11,12 +11,17 @@ import {
   deleteObject,
 } from "firebase/storage";
 import storage from "../../../services/firebase";
-import { notifyError } from "../../../services/toasts";
+import { notifyPromise, notifyError } from "../../toasts/CustomToasts";
 import APIService from "../../../services/APIService";
 
-export default function ChangeAvatar({ profile }) {
+export default function ChangeAvatar({
+  profile,
+  newAvatar,
+  setNewAvatar,
+  send,
+  setSend,
+}) {
   const [firebaseList, setFirebaseList] = useState(null);
-  const [newAvatar, setNewAvatar] = useState(null);
   const [avatarLink, setAvatarLink] = useState(null);
   const [firebaseUpdated, setFirebaseUpdated] = useState(false);
   const navigate = useNavigate();
@@ -84,16 +89,17 @@ export default function ChangeAvatar({ profile }) {
   };
 
   useEffect(() => {
-    if (newAvatar) {
-      handleUpload();
+    if (newAvatar && send) {
+      notifyPromise(handleUpload());
     }
-  }, [newAvatar]);
+  }, [newAvatar, send]);
 
   // Now that our Avatar is uploaded on Firebase, let's store the link in our DB
   useEffect(() => {
     if (firebaseUpdated && newAvatar) {
       APIService.put(`/users-avatar/${profile.id}`, { avatarLink })
         .then(() => {
+          setSend(false);
           navigate("/my-profile");
         })
         .catch((err) => {
@@ -169,4 +175,8 @@ export default function ChangeAvatar({ profile }) {
 
 ChangeAvatar.propTypes = {
   profile: PropTypes.shape().isRequired,
+  newAvatar: PropTypes.shape().isRequired,
+  setNewAvatar: PropTypes.func.isRequired,
+  send: PropTypes.bool.isRequired,
+  setSend: PropTypes.func.isRequired,
 };

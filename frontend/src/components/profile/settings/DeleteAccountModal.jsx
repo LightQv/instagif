@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
 import { useUserContext } from "../../../contexts/UserContext";
-import notifySuccess, { notifyError } from "../../../services/toasts";
+import { notifySuccess, notifyError } from "../../toasts/CustomToasts";
 import APIService from "../../../services/APIService";
 
 export default function DeleteAccountModal({ setIsShow }) {
