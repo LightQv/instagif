@@ -15,6 +15,7 @@ export default function Home() {
   const [posts, setPosts] = useState(null);
   const [feedValue, setFeedValue] = useState(user.id ? "follow" : "all");
   const [sendFollow, setSendFollow] = useState(false);
+  const [showEmojis, setShowEmojis] = useState(false);
 
   // Fetch every posts if nobody's logged in
   // Fetch automatically users's followed posts when logged in
@@ -44,7 +45,11 @@ export default function Home() {
   }, [feedValue, sendFollow]);
 
   return (
-    <main className="flex min-h-screen flex-col justify-start scroll-smooth bg-dust-0 pb-12 font-inter dark:bg-cobble-0 lg:pb-0 lg:pl-60">
+    <main
+      className={`flex min-h-screen flex-col justify-start scroll-smooth bg-dust-0 pb-12 font-inter dark:bg-cobble-0 lg:pb-0 lg:pl-60 ${
+        showEmojis ? "mb-[74dvh] lg:mb-0" : ""
+      }`}
+    >
       <header
         className={`flex h-12 w-full items-center justify-between bg-dust-0 px-6 dark:bg-cobble-0 lg:mx-auto lg:w-fit lg:self-center lg:px-0 lg:pt-4 ${
           !user.id && "lg:hidden"
@@ -76,7 +81,14 @@ export default function Home() {
       <div className="w-full gap-8 lg:flex lg:justify-center">
         <ul className="flex flex-col lg:w-2/5 lg:gap-4 lg:self-center">
           {posts && posts.length > 0 ? (
-            posts.map((post) => <PostBox post={post} key={post.id} />)
+            posts.map((post) => (
+              <PostBox
+                post={post}
+                key={post.id}
+                showEmojis={showEmojis}
+                setShowEmojis={setShowEmojis}
+              />
+            ))
           ) : (
             <p className="my-auto px-6 text-center text-sm italic">{`${
               feedValue === "all"

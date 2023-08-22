@@ -12,7 +12,7 @@ import FeelingAction from "./FeelingAction";
 import APIService from "../../services/APIService";
 import { notifyError } from "../toasts/CustomToasts";
 
-export default function PostBox({ post }) {
+export default function PostBox({ post, showEmojis, setShowEmojis }) {
   const { user } = useUserContext();
 
   TimeAgo.addLocale(fr);
@@ -210,6 +210,8 @@ export default function PostBox({ post }) {
               post={post}
               feelings={feelings}
               setSendFeeling={setSendFeeling}
+              showEmojis={showEmojis}
+              setShowEmojis={setShowEmojis}
               gifRef={gifRef}
               headerRef={headerRef}
             />
@@ -223,4 +225,6 @@ export default function PostBox({ post }) {
 
 PostBox.propTypes = {
   post: PropTypes.shape().isRequired,
+  showEmojis: PropTypes.bool.isRequired,
+  setShowEmojis: PropTypes.func.isRequired,
 };
