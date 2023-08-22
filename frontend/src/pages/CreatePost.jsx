@@ -78,11 +78,11 @@ export default function CreatePost() {
           </h3>
         </div>
       </header>
-      <div className="pb-4 lg:m-auto lg:w-2/5 lg:py-4">
+      <div className="pb-4 lg:m-auto lg:w-4/5 lg:py-4">
         <h3 className="mr-6 hidden text-center font-spartan text-xl dark:text-dust-0 lg:block">
           Hey, <span className="font-semibold">{user.username}</span>
         </h3>
-        <div className="mb-4 mt-2 flex w-full gap-2 px-6">
+        <div className="mb-4 mt-2 flex w-full gap-2 px-6 lg:mx-auto lg:w-3/5">
           <input
             type="search"
             name="search"
@@ -101,7 +101,7 @@ export default function CreatePost() {
             {result?.length === 0 ? <ActiveFireSvg /> : <FireSvg />}
           </button>
         </div>
-        <ul className="grid grid-cols-2 gap-[0.1rem]">
+        <ul className="grid grid-cols-2 gap-[0.1rem] lg:grid-cols-4">
           {result && result.length !== 0
             ? result &&
               result.map((gif) => (

@@ -38,6 +38,13 @@ export default function LikedPosts({ isShow, setIsShow }) {
       });
   }, [isShow.likedPosts, filter]);
 
+  const likedGrid = (length) => {
+    if (length > 0 && length < 4) {
+      return `grid-cols-2 lg:grid-cols-${length}`;
+    }
+    return "grid-cols-2 lg:grid-cols-4";
+  };
+
   return (
     <>
       <div className="flex w-full items-center justify-between px-6 py-1 ">
@@ -95,7 +102,7 @@ export default function LikedPosts({ isShow, setIsShow }) {
           <ul
             className={`mt-2 grid w-full ${
               likedPosts?.length > 0
-                ? "grid-cols-2 lg:grid-cols-4"
+                ? likedGrid(likedPosts?.length)
                 : "grid-cols-1"
             } gap-[0.1rem]`}
           >
