@@ -10,9 +10,9 @@ import { useUserContext } from "../../contexts/UserContext";
 import LikeAction from "./LikeAction";
 import FeelingAction from "./FeelingAction";
 import APIService from "../../services/APIService";
-import { notifyError } from "../../services/toasts";
+import { notifyError } from "../toasts/CustomToasts";
 
-export default function PostBox({ post }) {
+export default function PostBox({ post, showEmojis, setShowEmojis }) {
   const { user } = useUserContext();
 
   TimeAgo.addLocale(fr);
@@ -31,7 +31,7 @@ export default function PostBox({ post }) {
     if (user?.id === post.user.id) {
       return "/my-profile";
     }
-    return `/${post.user.username}`;
+    return `/profile/${post.user.username}`;
   }
 
   // --- Likes logic --- //
@@ -45,7 +45,7 @@ export default function PostBox({ post }) {
         })
         .catch((err) => {
           if (err.request?.status === 500) {
-            notifyError("Error, please try later.");
+            notifyError("Oops, something went wrong.");
           }
         });
     }
@@ -62,7 +62,7 @@ export default function PostBox({ post }) {
         })
         .catch((err) => {
           if (err.request?.status === 500) {
-            notifyError("Error, please try later.");
+            notifyError("Oops, something went wrong.");
           }
         });
     }
@@ -84,8 +84,8 @@ export default function PostBox({ post }) {
       APIService.delete(`/feelings/${selectedFeeling[0]?.id}`)
         .then(() => setSendFeeling(true))
         .catch((err) => {
-          if (err.request?.status === 500) {
-            notifyError("Error, please try later.");
+          if (err.request?.status === 404 || err.request?.status === 500) {
+            notifyError("Oops, something went wrong.");
           }
         });
     } else {
@@ -98,7 +98,7 @@ export default function PostBox({ post }) {
         .then(() => setSendFeeling(true))
         .catch((err) => {
           if (err.request?.status === 404 || err.request?.status === 500) {
-            notifyError("Error, please try later.");
+            notifyError("Oops, something went wrong.");
           }
         });
     }
@@ -124,7 +124,7 @@ export default function PostBox({ post }) {
 
   return (
     <li className="w-full border-b-[1px] border-sand-0 text-cobble-0 last:border-b-0 dark:border-granite-0 lg:pt-4">
-      <Link to={`/${post.user?.username}/${post.id}`}>
+      <Link to={`/profile/${post.user?.username}/${post.id}`}>
         <img
           src={post.gif_url}
           alt="mood_gif"
@@ -135,9 +135,14 @@ export default function PostBox({ post }) {
       <div className="px-4 pb-8 pt-2 lg:pb-8" ref={headerRef}>
         <div className="flex w-full items-center justify-start gap-2">
           <Link to={getProfilLink()}>
-            <div className="flex h-8 w-8 items-center justify-center self-start rounded-full bg-cobble-0 text-dust-0 transition-all hover:scale-105 hover:bg-granite-0 dark:bg-sand-0 dark:text-cobble-0 dark:hover:bg-granite-0">
-              {post.user?.username.slice(0, 1)}
-            </div>
+            <img
+              src={post?.user.avatar}
+              alt={post?.user.username.slice(0, 1).toUpperCase()}
+              className={`flex h-10 w-10 items-center justify-center self-start rounded-full object-cover ${
+                !post?.user.avatar &&
+                "bg-cobble-0 text-lg text-dust-0 dark:bg-sand-0 dark:text-cobble-0"
+              }`}
+            />
           </Link>
           <div className="mt-1 w-[calc(100%-2.5rem)]">
             <div className="flex items-center justify-between">
@@ -205,6 +210,8 @@ export default function PostBox({ post }) {
               post={post}
               feelings={feelings}
               setSendFeeling={setSendFeeling}
+              showEmojis={showEmojis}
+              setShowEmojis={setShowEmojis}
               gifRef={gifRef}
               headerRef={headerRef}
             />
@@ -218,4 +225,6 @@ export default function PostBox({ post }) {
 
 PostBox.propTypes = {
   post: PropTypes.shape().isRequired,
+  showEmojis: PropTypes.bool.isRequired,
+  setShowEmojis: PropTypes.func.isRequired,
 };

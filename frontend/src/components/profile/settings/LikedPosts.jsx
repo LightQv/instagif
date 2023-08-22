@@ -1,11 +1,11 @@
 import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import { useUserContext } from "../../contexts/UserContext";
-import DownSvg from "../svg/navigation/DownSvg";
-import APIService from "../../services/APIService";
-import { notifyError } from "../../services/toasts";
-import PostInsight from "./PostInsight";
+import { useUserContext } from "../../../contexts/UserContext";
+import DownSvg from "../../svg/navigation/DownSvg";
+import APIService from "../../../services/APIService";
+import { notifyError } from "../../toasts/CustomToasts";
+import PostInsight from "../PostInsight";
 
 export default function LikedPosts({ isShow, setIsShow }) {
   const { user } = useUserContext();
@@ -31,8 +31,19 @@ export default function LikedPosts({ isShow, setIsShow }) {
       .then((res) => {
         setLikedPosts(res.data);
       })
-      .catch(() => notifyError("Error fetching Liked posts."));
+      .catch((err) => {
+        if (err.request?.status === 500) {
+          notifyError("Oops, something went wrong.");
+        }
+      });
   }, [isShow.likedPosts, filter]);
+
+  const likedGrid = (length) => {
+    if (length > 0 && length < 4) {
+      return `grid-cols-2 lg:grid-cols-${length}`;
+    }
+    return "grid-cols-2 lg:grid-cols-4";
+  };
 
   return (
     <>
@@ -91,7 +102,7 @@ export default function LikedPosts({ isShow, setIsShow }) {
           <ul
             className={`mt-2 grid w-full ${
               likedPosts?.length > 0
-                ? "grid-cols-2 lg:grid-cols-4"
+                ? likedGrid(likedPosts?.length)
                 : "grid-cols-1"
             } gap-[0.1rem]`}
           >

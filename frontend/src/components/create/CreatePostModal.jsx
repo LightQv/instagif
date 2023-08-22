@@ -5,7 +5,7 @@ import { useFormik } from "formik";
 import LoadingBar from "react-top-loading-bar";
 import ExitSvg from "../svg/navigation/ExitSvg";
 import BeforeSvg from "../svg/navigation/BeforeSvg";
-import { notifyError } from "../../services/toasts";
+import { notifyError } from "../toasts/CustomToasts";
 import { addPostSchema } from "../../services/validators";
 import APIService from "../../services/APIService";
 import { useUserContext } from "../../contexts/UserContext";
@@ -36,8 +36,8 @@ export default function CreatePostModal({ selectedGif, setIsShow }) {
           setShowProgress(true);
         } else throw new Error();
       } catch (error) {
-        if (error.request?.status === 401) {
-          notifyError("rror.");
+        if (error.request?.status === 500) {
+          notifyError("Oops, something went wrong.");
         }
       }
     },

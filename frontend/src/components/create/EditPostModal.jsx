@@ -3,7 +3,7 @@ import { useFormik } from "formik";
 import { useState } from "react";
 import ExitSvg from "../svg/navigation/ExitSvg";
 import LightSvg from "../svg/LightSvg";
-import notifySuccess, { notifyError } from "../../services/toasts";
+import { notifySuccess, notifyError } from "../toasts/CustomToasts";
 import { addPostSchema } from "../../services/validators";
 import APIService from "../../services/APIService";
 import { useUserContext } from "../../contexts/UserContext";
@@ -25,12 +25,12 @@ export default function EditPostModal({ post, setIsShow }) {
       try {
         const res = await APIService.put(`/posts/${post.id}`, values);
         if (res) {
-          notifySuccess("Your post have been successfully modified.");
+          notifySuccess("Post modified.");
           setIsShow(false);
         } else throw new Error();
-      } catch (error) {
-        if (error.request?.status === 401) {
-          notifyError("Error modifying your post.");
+      } catch (err) {
+        if (err.request?.status === 404 || err.request?.status === 500) {
+          notifyError("Oops, something went wrong.");
         }
       }
     },

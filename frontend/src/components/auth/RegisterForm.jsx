@@ -1,20 +1,17 @@
 import PropTypes from "prop-types";
 import { useFormik } from "formik";
 import { useState } from "react";
-import { useUserContext } from "../../contexts/UserContext";
-import { useThemeContext } from "../../contexts/ThemeContext";
 import APIService from "../../services/APIService";
 import { registerSchema } from "../../services/validators";
-import notifySuccess, {
+import {
+  notifySuccess,
   notifyDuplicate,
   notifyError,
-} from "../../services/toasts";
+} from "../toasts/CustomToasts";
 import SightSvg from "../svg/SightSvg";
 import UnsightSvg from "../svg/UnsightSvg";
 
 export default function RegisterForm({ setForm }) {
-  const { login } = useUserContext();
-  const { theme } = useThemeContext();
   const [showPassword, setShowPassword] = useState({
     password: false,
     confirmPassword: false,
@@ -31,48 +28,38 @@ export default function RegisterForm({ setForm }) {
 
     onSubmit: async (values) => {
       try {
-        const res = await APIService.post(`/users`, values);
+        const res = await APIService.post(`/register`, values);
         if (res) {
-          login(res.data);
           notifySuccess("Account created.");
           setForm({ login: true, register: false });
         } else throw new Error();
-      } catch (error) {
-        if (error.request.status === 400) {
+      } catch (err) {
+        if (err.request.status === 400) {
           notifyDuplicate("Username or Email already taken.");
         }
-        if (error.request.status === 500) {
-          notifyError("Error creating your account, please try again.");
+        if (err.request.status === 500) {
+          notifyError("Oops, something went wrong.");
         }
       }
     },
   });
   return (
-    <div className="flex flex-col justify-center p-6 lg:w-2/6 lg:rounded-md lg:bg-sand-0 lg:p-8 dark:lg:bg-granite-0">
+    <div className="flex flex-col justify-center p-6 dark:text-dust-0 lg:w-2/6 lg:rounded-md lg:bg-sand-0 lg:p-8 dark:lg:bg-granite-0">
       <form
         action="register"
         onSubmit={formik.handleSubmit}
-        className="gap-4 space-y-4 lg:gap-6 lg:space-y-6"
+        className="flex flex-col gap-4 lg:gap-5"
       >
-        <h3 className="font-spartan text-2xl font-semibold dark:text-dust-0">
-          Register
-        </h3>
+        <h3 className="font-spartan text-2xl font-semibold">Register</h3>
         <div className="flex flex-col">
-          <label
-            htmlFor="username"
-            className="mb-2 ml-1 text-sm"
-            style={
-              formik.touched.username && formik.errors.username
-                ? { color: "rgb(239, 3, 3)" }
-                : { color: theme === "dark" ? "#f1efe7" : "black" }
-            }
-          >
-            {formik.touched.username && formik.errors.username
-              ? formik.errors.username
-              : "Username"}
+          <label htmlFor="username" className="mb-2 ml-1 text-sm">
+            Username{" "}
+            {formik.touched.username && formik.errors.username && (
+              <span className="text-sm text-red-600">*</span>
+            )}
           </label>
           <input
-            type="text"
+            type="username"
             name="username"
             id="username"
             placeholder="Username"
@@ -80,22 +67,20 @@ export default function RegisterForm({ setForm }) {
             value={formik.values.username}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
-            className="rounded-md px-4 py-2 placeholder:italic placeholder:opacity-50 dark:bg-cobble-0 dark:text-sand-0"
+            className="rounded-md px-4 py-2 placeholder:italic placeholder:opacity-50 dark:bg-granite-0 dark:text-sand-0 lg:dark:bg-cobble-0"
           />
+          {formik.touched.username && formik.errors.username && (
+            <p className="ml-1 mt-2 text-sm text-red-600 transition-all">
+              {formik.errors.username}
+            </p>
+          )}
         </div>
         <div className="flex flex-col">
-          <label
-            htmlFor="email"
-            className="mb-2 ml-1 text-sm"
-            style={
-              formik.touched.email && formik.errors.email
-                ? { color: "rgb(239, 3, 3)" }
-                : { color: theme === "dark" ? "#f1efe7" : "black" }
-            }
-          >
-            {formik.touched.email && formik.errors.email
-              ? formik.errors.email
-              : "Email"}
+          <label htmlFor="email" className="mb-2 ml-1 text-sm">
+            Email{" "}
+            {formik.touched.email && formik.errors.email && (
+              <span className="text-sm text-red-600">*</span>
+            )}
           </label>
           <input
             type="email"
@@ -106,24 +91,24 @@ export default function RegisterForm({ setForm }) {
             value={formik.values.email}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
-            className="rounded-md px-4 py-2 placeholder:italic placeholder:opacity-50 dark:bg-cobble-0 dark:text-sand-0"
+            className="rounded-md px-4 py-2 placeholder:italic placeholder:opacity-50 dark:bg-granite-0 dark:text-sand-0 lg:dark:bg-cobble-0"
           />
+          {formik.touched.email && formik.errors.email && (
+            <p className="ml-1 mt-2 text-sm text-red-600 transition-all">
+              {formik.errors.email}
+            </p>
+          )}
         </div>
         <div className="flex flex-col">
           <label
             htmlFor="password"
             className="mb-2 ml-1 flex w-full items-center justify-between text-sm"
           >
-            <h3
-              style={
-                formik.touched.password && formik.errors.password
-                  ? { color: "rgb(239, 3, 3)" }
-                  : { color: theme === "dark" ? "#f1efe7" : "black" }
-              }
-            >
-              {formik.touched.password && formik.errors.password
-                ? formik.errors.password
-                : "Password"}
+            <h3>
+              Password{" "}
+              {formik.touched.password && formik.errors.password && (
+                <span className="text-sm text-red-600">*</span>
+              )}
             </h3>
             <button
               type="button"
@@ -147,24 +132,25 @@ export default function RegisterForm({ setForm }) {
             value={formik.values.password}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
-            className="rounded-md px-4 py-2 placeholder:italic placeholder:opacity-50 dark:bg-cobble-0 dark:text-sand-0"
+            className="rounded-md px-4 py-2 placeholder:italic placeholder:opacity-50 dark:bg-granite-0 dark:text-sand-0 lg:dark:bg-cobble-0"
           />
+          {formik.touched.password && formik.errors.password && (
+            <p className="ml-1 mt-2 text-sm text-red-600 transition-all">
+              {formik.errors.password}
+            </p>
+          )}
         </div>
         <div className="flex flex-col">
           <label
             htmlFor="confirmPassword"
             className="mb-2 ml-1 flex w-full items-center justify-between text-sm"
           >
-            <h3
-              style={
-                formik.touched.confirmPassword && formik.errors.confirmPassword
-                  ? { color: "rgb(239, 3, 3)" }
-                  : { color: theme === "dark" ? "#f1efe7" : "black" }
-              }
-            >
-              {formik.touched.confirmPassword && formik.errors.confirmPassword
-                ? formik.errors.confirmPassword
-                : "Confirm Password"}
+            <h3>
+              Confirm Password{" "}
+              {formik.touched.confirmPassword &&
+                formik.errors.confirmPassword && (
+                  <span className="text-sm text-red-600">*</span>
+                )}
             </h3>
             <button
               type="button"
@@ -188,29 +174,34 @@ export default function RegisterForm({ setForm }) {
             value={formik.values.confirmPassword}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
-            className="mb-2 rounded-md px-4 py-2 placeholder:italic placeholder:opacity-50 dark:bg-cobble-0 dark:text-sand-0"
+            className="rounded-md px-4 py-2 placeholder:italic placeholder:opacity-50 dark:bg-granite-0 dark:text-sand-0 lg:dark:bg-cobble-0"
           />
+          {formik.touched.confirmPassword && formik.errors.confirmPassword && (
+            <p className="ml-1 mt-2 text-sm text-red-600 transition-all">
+              {formik.errors.confirmPassword}
+            </p>
+          )}
         </div>
         <button
           type="submit"
-          className="h-fit w-full rounded-md bg-dust-0 bg-red-800 px-4 py-2 text-base font-semibold text-dust-0 disabled:bg-gray-300 disabled:text-gray-800"
+          className="mt-2 h-fit w-full rounded-md bg-dust-0 bg-red-800 px-4 py-2 text-base font-semibold text-dust-0 disabled:bg-gray-300 disabled:text-gray-800"
           onSubmit={formik.handleSubmit}
           disabled={!registerSchema.isValidSync(formik.values)}
         >
           Register
         </button>
       </form>
-      <h4 className="mt-6 self-center font-spartan text-sm italic dark:text-dust-0">
-        You already have an account,{" "}
+      <div className="mt-4 flex w-full items-center justify-between">
         <button
           type="button"
-          className="font-semibold text-red-800"
-          onClick={() => setForm({ login: true, register: false })}
+          className="font-spartan text-sm underline underline-offset-8"
+          onClick={() =>
+            setForm({ login: true, register: false, forgotten: false })
+          }
         >
-          Login here
+          Already an account? Login
         </button>
-        .
-      </h4>
+      </div>
     </div>
   );
 }

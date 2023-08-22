@@ -1,9 +1,8 @@
 import { Routes, Route } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import NavBar from "./components/NavBar";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
+import ResetPassword from "./pages/ResetPassword";
 import PostDetails from "./pages/PostDetails";
 import RequireAuth from "./components/routes/RequireAuth";
 import Search from "./pages/Search";
@@ -11,6 +10,7 @@ import CreatePost from "./pages/CreatePost";
 import Profile from "./pages/Profile";
 import ProfileEdition from "./pages/ProfileEdition";
 import ProfileSettings from "./pages/ProfileSettings";
+import CustomToasts from "./components/toasts/CustomToasts";
 
 function App() {
   return (
@@ -20,8 +20,9 @@ function App() {
         {/* Public Routes */}
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/:username" element={<Profile />} />
-        <Route path="/:username/:id" element={<PostDetails />} />
+        <Route path="/reset-password/:token" element={<ResetPassword />} />
+        <Route path="/profile/:username" element={<Profile />} />
+        <Route path="/profile/:username/:id" element={<PostDetails />} />
         {/* Private Routes, Redirect to Login if no user Auth */}
         <Route element={<RequireAuth />}>
           <Route path="/search" element={<Search />} />
@@ -31,7 +32,7 @@ function App() {
           <Route path="/my-profile/settings" element={<ProfileSettings />} />
         </Route>
       </Routes>
-      <ToastContainer limit={1} />
+      <CustomToasts />
     </>
   );
 }

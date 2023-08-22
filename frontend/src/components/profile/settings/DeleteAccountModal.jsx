@@ -1,8 +1,8 @@
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
-import { useUserContext } from "../../contexts/UserContext";
-import notifySuccess, { notifyError } from "../../services/toasts";
-import APIService from "../../services/APIService";
+import { useUserContext } from "../../../contexts/UserContext";
+import { notifySuccess, notifyError } from "../../toasts/CustomToasts";
+import APIService from "../../../services/APIService";
 
 export default function DeleteAccountModal({ setIsShow }) {
   const { user, logout } = useUserContext();
@@ -11,15 +11,15 @@ export default function DeleteAccountModal({ setIsShow }) {
     try {
       const res = await APIService.delete(`/users/${user.id}`);
       if (res) {
-        notifySuccess("Your account have been successfully deleted.");
+        notifySuccess("Account deleted.");
         setIsShow(false);
         navigate("/");
         logout();
       }
       throw new Error();
     } catch (err) {
-      if (err.request?.status === 500) {
-        notifyError("Error deleting your account.");
+      if (err.request?.status === 404 || err.request?.status === 500) {
+        notifyError("Oops, something went wrong.");
       }
     }
   };

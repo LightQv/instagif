@@ -2,30 +2,35 @@ const { PrismaClient } = require("@prisma/client");
 
 const prisma = new PrismaClient();
 
-// Fetch amount of account User's following
-const countFollowingByUser = async (req, res) => {
+// Fetch amount of User's followers
+const countFollowerByUser = async (req, res) => {
   try {
-    const followingCount = await prisma.follow.count({
+    const followersCount = await prisma.follow.count({
       where: {
-        followerId: parseInt(req.params.id, 10),
+        followingId: parseInt(req.params.id, 10),
       },
     });
-    res.json({ count: followingCount });
+    const followersList = await prisma.follow.findMany({
+      where: {
+        followingId: parseInt(req.params.id, 10),
+      },
+    });
+    res.json({ count: followersCount, data: followersList });
   } catch (err) {
     console.error(err);
     res.sendStatus(500);
   }
 };
 
-// Fetch amount of account User's followed by
-const countFollowerByUser = async (req, res) => {
+// Fetch amount of account User's following
+const countFollowsByUser = async (req, res) => {
   try {
-    const followedCount = await prisma.follow.count({
+    const followsCount = await prisma.follow.count({
       where: {
-        followingId: parseInt(req.params.id, 10),
+        followerId: parseInt(req.params.id, 10),
       },
     });
-    res.json({ count: followedCount });
+    res.json({ count: followsCount });
   } catch (err) {
     console.error(err);
     res.sendStatus(500);
@@ -71,8 +76,8 @@ const destroy = async (req, res) => {
 };
 
 module.exports = {
-  countFollowingByUser,
   countFollowerByUser,
+  countFollowsByUser,
   add,
   destroy,
 };

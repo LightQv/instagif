@@ -12,6 +12,7 @@ const browse = async (req, res) => {
           select: {
             id: true,
             username: true,
+            avatar: true,
           },
         },
       },
@@ -36,6 +37,7 @@ const browseByFollow = async (req, res) => {
           select: {
             id: true,
             username: true,
+            avatar: true,
           },
         },
       },
@@ -66,36 +68,8 @@ const browseByFollow = async (req, res) => {
   }
 };
 
-// Fetch All Posts for a User
-const browseByUser = async (req, res) => {
-  try {
-    const posts = await prisma.post.findMany({
-      where: {
-        user: { id: parseInt(req.params.id, 10) },
-      },
-      include: {
-        likes: true,
-        feelings: true,
-        user: {
-          select: {
-            id: true,
-            username: true,
-          },
-        },
-      },
-      orderBy: {
-        created_at: "desc",
-      },
-    });
-    res.send(posts);
-  } catch (err) {
-    console.error(err);
-    res.sendStatus(500);
-  }
-};
-
 // Fetch All Liked Posts for a User
-const browseLikedByUser = async (req, res) => {
+const browseByUserLikes = async (req, res) => {
   try {
     const userLikes = await prisma.post.findMany({
       where: {
@@ -143,6 +117,7 @@ const readWithUser = async (req, res) => {
           select: {
             id: true,
             username: true,
+            avatar: true,
           },
         },
       },
@@ -214,8 +189,7 @@ const destroy = async (req, res) => {
 module.exports = {
   browse,
   browseByFollow,
-  browseByUser,
-  browseLikedByUser,
+  browseByUserLikes,
   readWithUser,
   edit,
   add,

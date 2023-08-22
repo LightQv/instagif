@@ -1,12 +1,12 @@
 import PropTypes from "prop-types";
-import { useThemeContext } from "../../contexts/ThemeContext";
-import DownSvg from "../svg/navigation/DownSvg";
-import ActiveSunSvg from "../svg/theme/ActiveSunSvg";
-import SunSvg from "../svg/theme/SunSvg";
-import ActiveMoonSvg from "../svg/theme/ActiveMoonSvg";
-import MoonSvg from "../svg/theme/MoonSvg";
-import ActiveSystemSvg from "../svg/theme/ActiveSystemSvg";
-import SystemSvg from "../svg/theme/SystemSvg";
+import { useThemeContext } from "../../../contexts/ThemeContext";
+import DownSvg from "../../svg/navigation/DownSvg";
+import ActiveSunSvg from "../../svg/theme/ActiveSunSvg";
+import SunSvg from "../../svg/theme/SunSvg";
+import ActiveMoonSvg from "../../svg/theme/ActiveMoonSvg";
+import MoonSvg from "../../svg/theme/MoonSvg";
+import ActiveSystemSvg from "../../svg/theme/ActiveSystemSvg";
+import SystemSvg from "../../svg/theme/SystemSvg";
 
 export default function ThemeSwitcher({ isShow, setIsShow }) {
   const { theme, setTheme } = useThemeContext();

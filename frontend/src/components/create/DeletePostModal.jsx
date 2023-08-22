@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
-import notifySuccess, { notifyError } from "../../services/toasts";
+import { notifySuccess, notifyError } from "../toasts/CustomToasts";
 import APIService from "../../services/APIService";
 
 export default function DeletePostModal({ post, setIsShow }) {
@@ -9,14 +9,14 @@ export default function DeletePostModal({ post, setIsShow }) {
     try {
       const res = await APIService.delete(`/posts/${post.id}`);
       if (res) {
-        notifySuccess("Your post have been successfully deleted.");
+        notifySuccess("Post deleted.");
         setIsShow({ modalDelete: false });
         navigate("/");
       }
       throw new Error();
     } catch (err) {
-      if (err.request?.status === 500) {
-        notifyError("Error deleting your post.");
+      if (err.request?.status === 404 || err.request?.status === 500) {
+        notifyError("Oops, something went wrong.");
       }
     }
   };

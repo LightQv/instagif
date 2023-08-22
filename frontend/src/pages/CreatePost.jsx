@@ -3,7 +3,7 @@ import { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import { useUserContext } from "../contexts/UserContext";
 import BackSvg from "../components/svg/navigation/BackSvg";
-import { notifyError } from "../services/toasts";
+import { notifyError } from "../components/toasts/CustomToasts";
 import GifInsight from "../components/create/GifInsight";
 import ActiveFireSvg from "../components/svg/ActiveFireSvg";
 import FireSvg from "../components/svg/FireSvg";
@@ -30,7 +30,7 @@ export default function CreatePost() {
         `https://api.giphy.com/v1/gifs/trending?api_key=${API_KEY}&limit=20&offset=0&rating=pg&bundle=messaging_non_clips`
       )
       .then((res) => setTrending(res.data.data))
-      .catch(() => notifyError(`Error with Giphy API.`));
+      .catch(() => notifyError(`Oops, error with Giphy API.`));
   }, []);
 
   // Fetch Search Query
@@ -50,7 +50,7 @@ export default function CreatePost() {
         setResult(res.data.data);
         setLoading(true);
       })
-      .catch(() => notifyError(`Error with Giphy API.`));
+      .catch(() => notifyError(`Oops, error with Giphy API.`));
   }, [query]);
 
   const handleSearch = (e) => {
@@ -78,11 +78,11 @@ export default function CreatePost() {
           </h3>
         </div>
       </header>
-      <div className="pb-4 lg:m-auto lg:w-2/5 lg:py-4">
+      <div className="pb-4 lg:m-auto lg:w-4/5 lg:py-4">
         <h3 className="mr-6 hidden text-center font-spartan text-xl dark:text-dust-0 lg:block">
           Hey, <span className="font-semibold">{user.username}</span>
         </h3>
-        <div className="mb-4 mt-2 flex w-full gap-2 px-6">
+        <div className="mb-4 mt-2 flex w-full gap-2 px-6 lg:mx-auto lg:w-3/5">
           <input
             type="search"
             name="search"
@@ -101,13 +101,12 @@ export default function CreatePost() {
             {result?.length === 0 ? <ActiveFireSvg /> : <FireSvg />}
           </button>
         </div>
-        <ul className="grid grid-cols-2 gap-[0.1rem]">
+        <ul className="grid grid-cols-2 gap-[0.1rem] lg:grid-cols-4">
           {result && result.length !== 0
             ? result &&
               result.map((gif) => (
                 <GifInsight
                   data={gif}
-                  key={gif.id}
                   loading={loading}
                   setLoading={setLoading}
                   setIsShow={setIsShow}
@@ -118,7 +117,6 @@ export default function CreatePost() {
               trending.map((gif) => (
                 <GifInsight
                   data={gif}
-                  key={gif.id}
                   loading={loading}
                   setLoading={setLoading}
                   setIsShow={setIsShow}

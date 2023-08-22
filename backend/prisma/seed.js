@@ -2,7 +2,7 @@ const { PrismaClient } = require("@prisma/client");
 
 const prisma = new PrismaClient();
 
-const { users, posts, likes, feelings } = require("./data");
+const { users, posts, likes, feelings, follows } = require("./data");
 
 async function main() {
   await prisma.user.createMany({
@@ -16,6 +16,9 @@ async function main() {
   });
   await prisma.feeling.createMany({
     data: feelings,
+  });
+  await prisma.follow.createMany({
+    data: follows,
   });
 }
 

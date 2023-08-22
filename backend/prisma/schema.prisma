@@ -49,6 +49,8 @@ model user {
   username       String    @unique(map: "username") @db.VarChar(100)
   email          String    @unique(map: "email") @db.VarChar(255)
   hashedPassword String    @db.VarChar(255)
+  passwordToken  String?
+  avatar         String?
   posts          post[]
   feelings       feeling[]
   likes          like[]

@@ -11,6 +11,7 @@ const browse = async (req, res) => {
       select: {
         id: true,
         username: true,
+        avatar: true,
         followedBy: true,
         _count: {
           select: {
@@ -25,10 +26,96 @@ const browse = async (req, res) => {
         },
       },
     });
-    for (let i = 0; i < users.length; i += 1) {
-      delete users[i].hashedPassword;
-    }
-    // users.forEach(({ user }) => delete user.hashedPassword);
+    res.send(users);
+  } catch (err) {
+    console.error(err);
+    res.sendStatus(500);
+  }
+};
+
+const browseUnfollowedUser = async (req, res) => {
+  try {
+    const users = await prisma.user.findMany({
+      orderBy: {
+        username: "asc",
+      },
+      select: {
+        id: true,
+        username: true,
+        avatar: true,
+        followedBy: true,
+        _count: {
+          select: {
+            followedBy: true,
+            following: true,
+          },
+        },
+      },
+      where: {
+        AND: [
+          { id: { not: parseInt(req.params.id, 10) } },
+          {
+            followedBy: {
+              every: { followerId: { not: parseInt(req.params.id, 10) } },
+            },
+          },
+        ],
+      },
+    });
+    res.send(users);
+  } catch (err) {
+    console.error(err);
+    res.sendStatus(500);
+  }
+};
+
+const browseFollowersByUser = async (req, res) => {
+  try {
+    const users = await prisma.user.findMany({
+      orderBy: {
+        username: "asc",
+      },
+      select: {
+        id: true,
+        username: true,
+        avatar: true,
+        followedBy: true,
+      },
+      where: {
+        following: {
+          some: {
+            followingId: parseInt(req.params.id, 10),
+          },
+        },
+      },
+    });
+    res.send(users);
+  } catch (err) {
+    console.error(err);
+    res.sendStatus(500);
+  }
+};
+
+const browseFollowsByUser = async (req, res) => {
+  try {
+    const users = await prisma.user.findMany({
+      orderBy: {
+        username: "asc",
+      },
+      select: {
+        id: true,
+        username: true,
+        avatar: true,
+        followedBy: true,
+      },
+      where: {
+        followedBy: {
+          some: {
+            followerId: parseInt(req.params.id, 10),
+          },
+        },
+      },
+    });
     res.send(users);
   } catch (err) {
     console.error(err);
@@ -43,9 +130,13 @@ const readByUsername = async (req, res) => {
         username: req.params.username,
       },
       include: {
-        likes: true,
         followedBy: true,
         following: true,
+        posts: {
+          orderBy: {
+            created_at: "desc",
+          },
+        },
       },
     });
     if (user) {
@@ -71,6 +162,29 @@ const editUsername = async (req, res) => {
       },
     });
     if (updateUsername) {
+      res.sendStatus(204);
+    } else {
+      res.status(404).send("User not found");
+    }
+  } catch (err) {
+    // Code for Duplicate data
+    if (err.code === "P2002") {
+      res.sendStatus(401);
+    } else res.sendStatus(500);
+  }
+};
+
+const editAvatar = async (req, res) => {
+  try {
+    const updateAvatar = await prisma.user.update({
+      where: {
+        id: parseInt(req.params.id, 10),
+      },
+      data: {
+        avatar: req.body.avatarLink,
+      },
+    });
+    if (updateAvatar) {
       res.sendStatus(204);
     } else {
       res.status(404).send("User not found");
@@ -106,13 +220,16 @@ const editMail = async (req, res) => {
 };
 
 const editPw = async (req, res) => {
+  req.body.passwordToken = null;
+
   try {
     const updatePw = await prisma.user.update({
       where: {
-        id: parseInt(req.params.id, 10),
+        id: parseInt(req.params.id, 10) || parseInt(req.user.id, 10),
       },
       data: {
         hashedPassword: req.body.hashedPassword,
+        passwordToken: req.body.passwordToken,
       },
     });
     if (updatePw) {
@@ -167,8 +284,12 @@ const destroy = async (req, res) => {
 
 module.exports = {
   browse,
+  browseUnfollowedUser,
+  browseFollowersByUser,
+  browseFollowsByUser,
   readByUsername,
   editUsername,
+  editAvatar,
   editMail,
   editPw,
   add,

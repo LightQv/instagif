@@ -3,7 +3,7 @@ import { useUserContext } from "../../contexts/UserContext";
 import LikeSvg from "../svg/interactions/LikeSvg";
 import ActiveLikeSvg from "../svg/interactions/ActiveLikeSvg";
 import APIService from "../../services/APIService";
-import { notifyError } from "../../services/toasts";
+import { notifyError } from "../toasts/CustomToasts";
 
 export default function LikeAction({ post, likes, setSendLike }) {
   const { user } = useUserContext();
@@ -27,8 +27,8 @@ export default function LikeAction({ post, likes, setSendLike }) {
       APIService.delete(`/likes/${likeObject?.id}`)
         .then(() => setSendLike(true))
         .catch((err) => {
-          if (err.request.status === 404 || err.request.status === 500) {
-            notifyError("Error, please try later.");
+          if (err.request?.status === 404 || err.request?.status === 500) {
+            notifyError("Oops, something went wrong.");
           }
         });
     } else {
@@ -38,8 +38,8 @@ export default function LikeAction({ post, likes, setSendLike }) {
       })
         .then(() => setSendLike(true))
         .catch((err) => {
-          if (err.request.status === 404 || err.request.status === 500) {
-            notifyError("Error, please try later.");
+          if (err.request?.status === 404 || err.request?.status === 500) {
+            notifyError("Oops, something went wrong.");
           }
         });
     }

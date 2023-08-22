@@ -8,13 +8,18 @@ const {
   validateEditUserMail,
   validateEditUserPw,
 } = require("./services/validators");
-const { getUserByEmailMiddleware } = require("./controllers/authControllers");
+const {
+  getUserByEmailMiddleware,
+  generatePasswordToken,
+  verifyPasswordToken,
+} = require("./controllers/authControllers");
 const {
   hashPassword,
   verifyPassword,
   verifyToken,
   logout,
 } = require("./services/auth");
+const { sendForgottenPassword } = require("./services/nodemailer");
 
 const userControllers = require("./controllers/userControllers");
 const postControllers = require("./controllers/postControllers");
@@ -25,7 +30,20 @@ const followControllers = require("./controllers/followControllers");
 // --- Public Routes (without Auth) --- //
 // Login & Register
 router.post("/login", getUserByEmailMiddleware, verifyPassword);
-router.post("/users", validateUser, hashPassword, userControllers.add);
+router.post("/register", validateUser, hashPassword, userControllers.add);
+router.post(
+  "/forgotten-password",
+  getUserByEmailMiddleware,
+  generatePasswordToken,
+  sendForgottenPassword
+);
+router.post(
+  "/reset-password",
+  verifyPasswordToken,
+  validateEditUserPw,
+  hashPassword,
+  userControllers.editPw
+);
 
 // Posts with Likes & Feelings
 router.get("/posts", postControllers.browse);
@@ -38,13 +56,14 @@ router.get("/users", userControllers.browse);
 
 // Users's profiles
 router.get("/users/:username", userControllers.readByUsername);
-router.get("/posts-user/:id", postControllers.browseByUser);
 
 // Stats for each User
-router.get("/follows-stats/:id", followControllers.countFollowingByUser);
-router.get("/followed-stats/:id", followControllers.countFollowerByUser);
+router.get("/followers-stats/:id", followControllers.countFollowerByUser);
+router.get("/follows-stats/:id", followControllers.countFollowsByUser);
 router.get("/likes-stats/:id", likeControllers.countByUser);
 router.get("/feelings-stats/:id", feelingControllers.countByUser);
+router.get("/followers-list/:id", userControllers.browseFollowersByUser);
+router.get("/follows-list/:id", userControllers.browseFollowsByUser);
 
 // --- Private Routes (Auth requiered) --- //
 router.use(verifyToken);
@@ -52,6 +71,7 @@ router.use(verifyToken);
 router.get("/logout", logout);
 
 // Edit User's Profile
+router.put("/users-avatar/:id", userControllers.editAvatar);
 router.put("/users-ml/:id", validateEditUserMail, userControllers.editMail);
 router.put(
   "/users-pw/:id",
@@ -68,9 +88,10 @@ router.delete("/users/:id", userControllers.destroy);
 
 // Auth's User's Followed Posts
 router.get("/posts-followed/:id", postControllers.browseByFollow);
+router.get("/users-unfollowed/:id", userControllers.browseUnfollowedUser);
 
 // Handle Liked Posts
-router.get("/posts-liked/:id", postControllers.browseLikedByUser);
+router.get("/posts-liked/:id", postControllers.browseByUserLikes);
 
 // Posts's CRUD
 router.post("/posts", postControllers.add);

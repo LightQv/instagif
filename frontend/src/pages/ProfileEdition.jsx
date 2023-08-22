@@ -1,14 +1,35 @@
 import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
+import { useEffect, useState } from "react";
 import { useUserContext } from "../contexts/UserContext";
 import BackSvg from "../components/svg/navigation/BackSvg";
 import APIService from "../services/APIService";
 import { editProfileSchema } from "../services/validators";
-import { notifyError } from "../services/toasts";
+import {
+  notifyDuplicate,
+  notifyError,
+} from "../components/toasts/CustomToasts";
+import ChangeAvatar from "../components/profile/edit/ChangeAvatar";
+import AvatarPreview from "../components/profile/edit/AvatarPreview";
 
 export default function ProfileEdition() {
   const { user, logout } = useUserContext();
   const navigate = useNavigate();
+  const [profile, setProfile] = useState(null);
+  const [newAvatar, setNewAvatar] = useState(null);
+  const [send, setSend] = useState(false);
+
+  useEffect(() => {
+    APIService.get(`/users/${user.username}`)
+      .then((res) => {
+        setProfile(res.data);
+      })
+      .catch((err) => {
+        if (err.request?.status === 500) {
+          notifyError("Oops, something went wrong.");
+        }
+      });
+  }, []);
 
   const formik = useFormik({
     initialValues: {
@@ -25,15 +46,15 @@ export default function ProfileEdition() {
         } else throw new Error();
       } catch (error) {
         if (error.request.status === 401) {
-          notifyError("Username already taken.");
+          notifyDuplicate("Username already taken.");
         }
       }
     },
   });
 
   return (
-    <main className="flex min-h-screen flex-col justify-start bg-dust-0 pb-12 font-inter lg:mb-0 lg:pb-0 lg:pt-16">
-      <header className="flex h-12 w-full items-center justify-between bg-dust-0 px-6 lg:hidden">
+    <main className="flex min-h-screen flex-col justify-start bg-dust-0 pb-12 font-inter dark:bg-cobble-0 lg:mb-0 lg:pb-0 lg:pl-60">
+      <header className="flex h-12 w-full items-center justify-between px-6 dark:text-dust-0 lg:hidden">
         <div className="h-fit w-full">
           <button
             type="button"
@@ -47,11 +68,15 @@ export default function ProfileEdition() {
           </h3>
         </div>
       </header>
-      <div className="flex flex-col gap-4 lg:w-2/6 lg:self-center">
-        <div className="flex w-full flex-col gap-4 pb-2 pt-4">
-          <div className="m-auto flex h-20 w-20 items-center justify-center self-start rounded-full bg-cobble-0 text-3xl text-dust-0">
-            {user.username.slice(0, 1).toUpperCase()}
-          </div>
+      <div className="flex flex-col lg:w-2/5 lg:self-center">
+        <div className="flex w-full flex-col gap-4 py-4 dark:text-dust-0">
+          <ChangeAvatar
+            profile={profile}
+            newAvatar={newAvatar}
+            setNewAvatar={setNewAvatar}
+            send={send}
+            setSend={setSend}
+          />
         </div>
         <form
           action="editUsername"
@@ -61,19 +86,15 @@ export default function ProfileEdition() {
           <div className="flex flex-col">
             <label
               htmlFor="username"
-              className="mb-2 text-base"
-              style={
-                formik.touched.username && formik.errors.username
-                  ? { color: "rgb(239, 3, 3)" }
-                  : { color: "black" }
-              }
+              className="mb-2 ml-1 text-sm dark:text-dust-0"
             >
-              {formik.touched.username && formik.errors.username
-                ? formik.errors.username
-                : "Username"}
+              Username{" "}
+              {formik.touched.username && formik.errors.username && (
+                <span className="text-sm text-red-600">*</span>
+              )}
             </label>
             <input
-              type="text"
+              type="username"
               name="username"
               id="username"
               placeholder="Username"
@@ -81,11 +102,16 @@ export default function ProfileEdition() {
               value={formik.values.username}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              className="w-full rounded-md px-4 py-2 font-semibold placeholder:text-sm placeholder:font-normal placeholder:italic placeholder:text-black/50 dark:bg-granite-0 dark:text-sand-0"
+              className="rounded-md px-4 py-2 placeholder:italic placeholder:opacity-50 dark:bg-granite-0 dark:text-sand-0"
             />
-            <p className="mt-1 text-center text-xs italic">
+            {formik.touched.username && formik.errors.username && (
+              <p className="ml-1 mt-2 text-sm text-red-600 transition-all">
+                {formik.errors.username}
+              </p>
+            )}
+            <p className="mt-2 text-center text-xs italic dark:text-dust-0">
               Please note that if you change your Username, you'll be
-              disconnected and gonna need to Login back again.
+              disconnected.
             </p>
           </div>
           <button
@@ -97,9 +123,24 @@ export default function ProfileEdition() {
             }
             className="h-fit w-full rounded-md bg-dust-0 bg-red-800 px-4 py-2 text-sm font-semibold text-white disabled:bg-gray-300 disabled:text-gray-800"
           >
-            Modify
+            Change Username
           </button>
         </form>
+      </div>
+      <div
+        className={
+          newAvatar
+            ? "fixed left-0 top-0 z-20 flex min-h-screen min-w-full items-center justify-center bg-black/90"
+            : "hidden"
+        }
+      >
+        {newAvatar && (
+          <AvatarPreview
+            newAvatar={newAvatar}
+            setNewAvatar={setNewAvatar}
+            setSend={setSend}
+          />
+        )}
       </div>
     </main>
   );

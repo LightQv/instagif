@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { useUserContext } from "../../contexts/UserContext";
-import FollowAction from "../post/FollowAction";
+import FollowAction from "../profile/FollowAction";
 
 export default function UserCard({ u, setSendFollow }) {
   const { user } = useUserContext();
@@ -18,9 +18,14 @@ export default function UserCard({ u, setSendFollow }) {
     <li className="flex h-fit w-full items-center justify-between border-b-[1px] border-sand-0 p-4 dark:border-granite-0 dark:text-dust-0">
       <Link to={getProfilLink(u)} className="">
         <section className="flex items-center gap-2">
-          <div className="flex h-12 w-12 items-center justify-center self-start rounded-full bg-cobble-0 text-xl text-dust-0 dark:bg-sand-0 dark:text-cobble-0">
-            {u.username.slice(0, 1).toUpperCase()}
-          </div>
+          <img
+            src={u?.avatar}
+            alt={u?.username.slice(0, 1).toUpperCase()}
+            className={`flex h-12 w-12 items-center justify-center self-start rounded-full object-cover ${
+              !u?.avatar &&
+              "bg-cobble-0 text-xl text-dust-0 dark:bg-sand-0 dark:text-cobble-0"
+            }`}
+          />
           <div className="flex h-full flex-col justify-center">
             <h3 className="text-base font-semibold">{u.username}</h3>
             <section className="flex gap-3">
@@ -39,6 +44,7 @@ export default function UserCard({ u, setSendFollow }) {
       {u.id !== user.id && (
         <FollowAction
           profile={u}
+          followerList={u.followedBy}
           setSendFollow={setSendFollow}
           width="w-[28%]"
           textSize="text-xs"

@@ -2,11 +2,11 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useUserContext } from "../contexts/UserContext";
 import BackSvg from "../components/svg/navigation/BackSvg";
-import LikedPosts from "../components/profile/LikedPosts";
-import ThemeSwitcher from "../components/profile/ThemeSwitcher";
-import ChangeMail from "../components/profile/ChangeMail";
-import ChangePw from "../components/profile/ChangePw";
-import DeleteAccountModal from "../components/profile/DeleteAccountModal";
+import LikedPosts from "../components/profile/settings/LikedPosts";
+import ThemeSwitcher from "../components/profile/settings/ThemeSwitcher";
+import ChangeMail from "../components/profile/settings/ChangeMail";
+import ChangePw from "../components/profile/settings/ChangePw";
+import DeleteAccountModal from "../components/profile/settings/DeleteAccountModal";
 
 export default function ProfileSettings() {
   const { logout } = useUserContext();
@@ -44,7 +44,7 @@ export default function ProfileSettings() {
           <button
             type="button"
             onClick={logout}
-            className="h-10 w-full rounded-md bg-cobble-0 py-1 text-sm font-semibold text-dust-0 transition-all hover:scale-[1.03] hover:bg-granite-0 dark:bg-granite-0 dark:text-sand-0"
+            className="h-10 w-full rounded-md bg-cobble-0 py-1 text-sm font-semibold text-dust-0 transition-all hover:scale-[1.01] hover:bg-granite-0 dark:bg-granite-0 dark:text-sand-0"
           >
             Log out
           </button>
@@ -53,7 +53,7 @@ export default function ProfileSettings() {
           <button
             type="button"
             onClick={() => setIsShow({ deleteModal: true })}
-            className="h-10 w-full rounded-md bg-red-800 py-1 text-sm font-semibold text-dust-0 transition-all hover:scale-[1.03] hover:bg-red-600"
+            className="h-10 w-full rounded-md bg-red-800 py-1 text-sm font-semibold text-dust-0 transition-all hover:scale-[1.01] hover:bg-red-600"
           >
             Delete account
           </button>

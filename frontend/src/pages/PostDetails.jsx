@@ -4,7 +4,7 @@ import APIService from "../services/APIService";
 import BackSvg from "../components/svg/navigation/BackSvg";
 import NotificationSvg from "../components/svg/interactions/NotificationSvg";
 import PostBox from "../components/post/PostBox";
-import { notifyError } from "../services/toasts";
+import { notifyError } from "../components/toasts/CustomToasts";
 import { useUserContext } from "../contexts/UserContext";
 import EditPostModal from "../components/create/EditPostModal";
 import DeletePostModal from "../components/create/DeletePostModal";
@@ -17,7 +17,7 @@ export default function PostDetails() {
     editModal: false,
     deleteModal: false,
   });
-  const [loading, setLoading] = useState(false);
+  const [showEmojis, setShowEmojis] = useState(false);
 
   const navigate = useNavigate();
 
@@ -25,13 +25,20 @@ export default function PostDetails() {
     APIService.get(`/posts/${id}`)
       .then((res) => {
         setPost(res.data);
-        setLoading(true);
       })
-      .catch((err) => notifyError(`${err}: fetching posts`));
+      .catch((err) => {
+        if (err.request?.status === 500) {
+          notifyError("Oops, something went wrong.");
+        }
+      });
   }, [isShow]);
 
   return (
-    <main className="flex min-h-screen flex-col justify-start bg-dust-0 pb-12 font-inter dark:bg-cobble-0 lg:justify-center lg:pb-0 lg:pl-60">
+    <main
+      className={`flex min-h-screen flex-col justify-start bg-dust-0 pb-12 font-inter dark:bg-cobble-0 lg:justify-center lg:pb-0 lg:pl-60 ${
+        showEmojis ? "mb-[60dvh] lg:mb-0" : ""
+      }`}
+    >
       <header className="flex h-12 w-full items-center justify-between bg-dust-0 px-6 dark:bg-cobble-0 lg:hidden">
         <button type="button" onClick={() => navigate(-1)}>
           <BackSvg />
@@ -61,8 +68,8 @@ export default function PostDetails() {
           <PostBox
             post={post}
             key={post.id}
-            loading={loading}
-            setLoading={setLoading}
+            showEmojis={showEmojis}
+            setShowEmojis={setShowEmojis}
           />
         )}
       </ul>
