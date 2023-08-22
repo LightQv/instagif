@@ -1,5 +1,4 @@
 import PropTypes from "prop-types";
-import { useState } from "react";
 import EmojiPicker from "emoji-picker-react";
 import ActiveFeelingSvg from "../svg/interactions/ActiveFeelingSvg";
 import FeelingSvg from "../svg/interactions/FeelingSvg";
@@ -12,12 +11,13 @@ export default function FeelingAction({
   post,
   feelings,
   setSendFeeling,
+  showEmojis,
+  setShowEmojis,
   gifRef,
   headerRef,
 }) {
   const { user } = useUserContext();
   const { theme } = useThemeContext();
-  const [showEmojis, setShowEmojis] = useState(false);
 
   // If This emoji is already used by user, nothing happened
   // Else POST a new Feeling
@@ -91,7 +91,7 @@ export default function FeelingAction({
             skinTonesDisabled
             suggestedEmojisMode="recent"
             theme={theme === "dark" ? "dark" : "light"}
-            height={`${window.innerWidth < 785 ? "70dvh" : "95dvh"}`}
+            height={`${window.innerWidth < 785 ? "82dvh" : "95dvh"}`}
             width={`${window.innerWidth < 785 ? "100dvw" : "23dvw"}`}
           />
         </div>
@@ -104,6 +104,8 @@ FeelingAction.propTypes = {
   post: PropTypes.shape().isRequired,
   feelings: PropTypes.arrayOf(PropTypes.shape()).isRequired,
   setSendFeeling: PropTypes.func.isRequired,
+  showEmojis: PropTypes.bool.isRequired,
+  setShowEmojis: PropTypes.func.isRequired,
   gifRef: PropTypes.shape().isRequired,
   headerRef: PropTypes.shape().isRequired,
 };

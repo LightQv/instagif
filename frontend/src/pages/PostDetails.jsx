@@ -17,6 +17,7 @@ export default function PostDetails() {
     editModal: false,
     deleteModal: false,
   });
+  const [showEmojis, setShowEmojis] = useState(false);
 
   const navigate = useNavigate();
 
@@ -33,7 +34,11 @@ export default function PostDetails() {
   }, [isShow]);
 
   return (
-    <main className="flex min-h-screen flex-col justify-start bg-dust-0 pb-12 font-inter dark:bg-cobble-0 lg:justify-center lg:pb-0 lg:pl-60">
+    <main
+      className={`flex min-h-screen flex-col justify-start bg-dust-0 pb-12 font-inter dark:bg-cobble-0 lg:justify-center lg:pb-0 lg:pl-60 ${
+        showEmojis ? "mb-[60dvh] lg:mb-0" : ""
+      }`}
+    >
       <header className="flex h-12 w-full items-center justify-between bg-dust-0 px-6 dark:bg-cobble-0 lg:hidden">
         <button type="button" onClick={() => navigate(-1)}>
           <BackSvg />
@@ -59,7 +64,14 @@ export default function PostDetails() {
         </div>
       )}
       <ul className="flex flex-col gap-4 lg:w-3/5 lg:self-center">
-        {post && <PostBox post={post} key={post.id} />}
+        {post && (
+          <PostBox
+            post={post}
+            key={post.id}
+            showEmojis={showEmojis}
+            setShowEmojis={setShowEmojis}
+          />
+        )}
       </ul>
       <div
         className={
