@@ -75,7 +75,8 @@ _Search for a User_
 
 _Share a Feeling_
 
-![Alt text](https://i.imgur.com/MdNObZW.png "Share Page")
+![Alt text](https://i.imgur.com/yZiqmIc.png "Share Page")
+![Alt text](https://i.imgur.com/MWrEpUd.png "Share Page")
 
 _My Profile Page_
 
@@ -89,3 +90,7 @@ _Edit Page_
 _Settings Page_
 
 ![Alt text](https://i.imgur.com/yi1kw8Y.png "Settings")
+
+_Forgot Password Page_
+
+![Alt text](https://i.imgur.com/5R4Qi5C.png "Forgot Password")
