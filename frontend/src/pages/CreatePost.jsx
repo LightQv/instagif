@@ -107,7 +107,6 @@ export default function CreatePost() {
               result.map((gif) => (
                 <GifInsight
                   data={gif}
-                  key={gif.id}
                   loading={loading}
                   setLoading={setLoading}
                   setIsShow={setIsShow}
@@ -118,7 +117,6 @@ export default function CreatePost() {
               trending.map((gif) => (
                 <GifInsight
                   data={gif}
-                  key={gif.id}
                   loading={loading}
                   setLoading={setLoading}
                   setIsShow={setIsShow}
