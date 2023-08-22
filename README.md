@@ -66,7 +66,12 @@ Work in progress. Here's some screenshot while it's done.
 
 _Landing Page with User's posts_
 
-![Alt text](https://i.imgur.com/nDN3ASk.png "Landing Page")
+![Alt text](https://i.imgur.com/TlgmcPZ.png "Landing Page")
+![Alt text](https://i.imgur.com/Va5zW7G.png "Landing Page")
+
+_Search for a User_
+
+![Alt text](https://i.imgur.com/9ztDp9T.png "Search Page")
 
 _Share a Feeling_
 
@@ -74,8 +79,13 @@ _Share a Feeling_
 
 _My Profile Page_
 
-![Alt text](https://i.imgur.com/xJJo0jK.png "My Profile")
+![Alt text](https://i.imgur.com/vGSetBo.png "My Profile")
+![Alt text](https://i.imgur.com/vF4FRQa.png "My Profile")
+
+_Edit Page_
+
+![Alt text](https://i.imgur.com/4tFtgub.png "Edit Page")
 
 _Settings Page_
 
-![Alt text](https://i.imgur.com/FLjC4nQ.png "Settings")
+![Alt text](https://i.imgur.com/yi1kw8Y.png "Settings")
