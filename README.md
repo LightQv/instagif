@@ -2,14 +2,17 @@
 
 To end the Web Developer Bootcamp at Wild Code School in Lyon, I had to develop a Full-Stack Responsive App using React-Express-MySQL, in 2 days.
 This project also aim to check every prerequisite needed to get the Diploma.
+I then improved it over my free time.
 
 ## Concept
 
 Instagif is a Social Media Application based on GIPHY's API.
 You can create an account and share your mood with other peoples using Gifs. Also, it's possible to share your feelings towards other user's posts.
-The Share Page shows you trending Gifs but you can search for any Gif your want to find one which perfectly match your mood.
-The Profile Page shows you every moods you've already shared, how many posts you've liked and which ones.
-Finally, it's possible to edit your username, email, change the App Theme (Light, Dark or System) and delete your account with every data's associated.
+The Home Page shows you every posts by date in descending order. Once you're logged in, you can choose beetween display every posts or only those of the users you're following.
+The Search Page allows you to search for any other user.
+The Share Page shows you trending Gifs but you can search for any Gif your want to find one which perfectly matches your mood.
+The Profile Page shows you every moods you've already shared, how many posts you've liked, which ones, how many users are following your account and how many account you're following.
+Finally, it's possible to edit your username, email, upload a profile picture, change the App Theme (Light, Dark or System) and delete your account with every data's associated.
 
 ## Setup
 
