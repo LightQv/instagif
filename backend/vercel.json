@@ -5,7 +5,10 @@
     {
       "src": "/api/(.*)",
       "dest": "/",
-    "headers": { "Access-Control-Allow-Origin": "*", "Access-Control-Allow-Credentials": "true" }
+      "headers": {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Credentials": "true"
+      }
     }
   ]
 }
