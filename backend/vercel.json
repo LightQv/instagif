@@ -3,7 +3,7 @@
   "builds": [{ "src": "./index.js", "use": "@vercel/node" }],
   "routes": [
     {
-      "src": "/(.*)",
+      "src": "/api/(.*)",
       "dest": "/",
       "headers": [
         { "key": "Access-Control-Allow-Credentials", "value": "true" },
