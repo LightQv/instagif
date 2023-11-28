@@ -11,7 +11,7 @@ export default function UserCard({ u, setSendFollow }) {
     if (user?.id === u.id) {
       return "/my-profile";
     }
-    return `/${u.username}`;
+    return `/profile/${u.username}`;
   }
 
   return (
