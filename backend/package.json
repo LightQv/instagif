@@ -1,6 +1,7 @@
 {
   "scripts": {
     "dev": "nodemon index.js",
+    "generate": "npx prisma generate",
     "migrate": "npx prisma migrate reset",
     "start": "node index.js",
     "lint": "echo '----- Checking Backend...' && npx prettier --debug-check . && eslint --ext .js . && echo '----- Done!'",
