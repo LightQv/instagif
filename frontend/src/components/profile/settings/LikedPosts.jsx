@@ -53,9 +53,9 @@ export default function LikedPosts({ isShow, setIsShow }) {
           onClick={() => setIsShow({ likedPosts: !isShow.likedPosts })}
           className="h-fit w-full"
         >
-          <h3 className="text-left text-sm font-semibold text-cobble-0 dark:text-dust-0">
+          <h2 className="text-left text-sm font-semibold text-cobble-0 dark:text-dust-0">
             All Liked Posts
-          </h3>
+          </h2>
         </button>
         <button
           type="button"

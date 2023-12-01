@@ -21,9 +21,9 @@ export default function AvatarPreview({ newAvatar, setNewAvatar, setSend }) {
         className="h-40 w-40 rounded-full object-cover lg:h-60 lg:w-60"
       />
       <div className="text-center">
-        <h3 className="text-lg font-semibold text-dust-0 lg:text-xl">
+        <h2 className="text-lg font-semibold text-dust-0 lg:text-xl">
           Change with this avatar ?
-        </h3>
+        </h2>
         <div className="my-4 -mt-1 flex h-full items-center justify-center gap-4 lg:-mt-4">
           <button
             type="button"

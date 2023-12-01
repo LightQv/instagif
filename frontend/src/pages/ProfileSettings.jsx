@@ -30,9 +30,9 @@ export default function ProfileSettings() {
           >
             <BackSvg />
           </button>
-          <h3 className="mr-6 text-center font-spartan text-xl font-semibold dark:text-dust-0">
+          <h1 className="mr-6 text-center font-spartan text-xl font-semibold dark:text-dust-0">
             Settings
-          </h3>
+          </h1>
         </div>
       </header>
       <div className="flex w-full flex-col gap-4 py-4 lg:w-3/5 lg:self-center">

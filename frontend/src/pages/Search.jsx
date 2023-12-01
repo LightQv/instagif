@@ -50,15 +50,15 @@ export default function Search() {
           >
             <BackSvg />
           </button>
-          <h3 className="mr-6 text-center font-spartan text-xl dark:text-dust-0">
+          <h1 className="mr-6 text-center font-spartan text-xl dark:text-dust-0">
             Hey, <span className="font-semibold">{user.username}</span>
-          </h3>
+          </h1>
         </div>
       </header>
       <div className="pb-4 lg:mx-auto lg:w-2/5 lg:py-4">
-        <h3 className="mr-6 hidden text-center font-spartan text-xl dark:text-dust-0 lg:block">
+        <h1 className="mr-6 hidden text-center font-spartan text-xl dark:text-dust-0 lg:block">
           Hey, <span className="font-semibold">{user.username}</span>
-        </h3>
+        </h1>
         <div className="mb-4 mt-2 flex w-full gap-2 px-6">
           <input
             type="search"

@@ -47,9 +47,9 @@ export default function ChangeMail({ isShow, setIsShow }) {
           onClick={() => setIsShow({ changePw: !isShow.changePw })}
           className="h-fit w-full"
         >
-          <h3 className="text-left text-sm font-semibold text-cobble-0 dark:text-dust-0">
+          <h2 className="text-left text-sm font-semibold text-cobble-0 dark:text-dust-0">
             Change Password
-          </h3>
+          </h2>
         </button>
         <button
           type="button"
@@ -74,12 +74,10 @@ export default function ChangeMail({ isShow, setIsShow }) {
               htmlFor="password"
               className="mb-2 flex w-full items-center justify-between text-xs lg:text-sm"
             >
-              <h3>
-                Password{" "}
-                {formik.touched.password && formik.errors.password && (
-                  <span className="text-sm text-red-600">*</span>
-                )}
-              </h3>
+              Password{" "}
+              {formik.touched.password && formik.errors.password && (
+                <span className="text-sm text-red-600">*</span>
+              )}
               <button
                 type="button"
                 className="mr-1"
@@ -113,13 +111,11 @@ export default function ChangeMail({ isShow, setIsShow }) {
               htmlFor="confirmPassword"
               className="mb-2 mt-4 flex w-full items-center justify-between text-xs lg:text-sm"
             >
-              <h3>
-                Confirm Password{" "}
-                {formik.touched.confirmPassword &&
-                  formik.errors.confirmPassword && (
-                    <span className="text-sm text-red-600">*</span>
-                  )}
-              </h3>
+              Confirm Password{" "}
+              {formik.touched.confirmPassword &&
+                formik.errors.confirmPassword && (
+                  <span className="text-sm text-red-600">*</span>
+                )}
               <button
                 type="button"
                 className="mr-1"
