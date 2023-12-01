@@ -146,13 +146,13 @@ export default function PostBox({ post, showEmojis, setShowEmojis }) {
           </Link>
           <div className="mt-1 w-[calc(100%-2.5rem)]">
             <div className="flex items-center justify-between">
-              <h3 className="font-semibold transition-all hover:text-granite-0 dark:text-dust-0 dark:hover:text-granite-0 lg:font-bold">
+              <h1 className="font-semibold transition-all hover:text-granite-0 dark:text-dust-0 dark:hover:text-granite-0 lg:font-bold">
                 <Link to={getProfilLink()}>{post.user?.username}'s </Link>
                 <span className="text-xs font-normal italic">
                   mood{" "}
                   <ReactTimeAgo date={new Date(post.created_at)} locale="fr" />.
                 </span>
-              </h3>
+              </h1>
               <div className="flex items-center gap-1">
                 {likesCount && likesCount.length > 0 && (
                   <p

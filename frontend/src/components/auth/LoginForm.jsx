@@ -54,7 +54,7 @@ export default function LoginForm({ setForm }) {
         onSubmit={formik.handleSubmit}
         className="flex flex-col gap-4 lg:gap-5"
       >
-        <h3 className="font-spartan text-2xl font-semibold">Login</h3>
+        <h1 className="font-spartan text-2xl font-semibold">Login</h1>
         <div className="flex flex-col">
           <label htmlFor="email" className="mb-2 ml-1 text-sm">
             Email{" "}
@@ -84,12 +84,10 @@ export default function LoginForm({ setForm }) {
             htmlFor="password"
             className="mb-2 ml-1 flex w-full items-center justify-between text-sm"
           >
-            <h3>
-              Password{" "}
-              {formik.touched.password && formik.errors.password && (
-                <span className="text-sm text-red-600">*</span>
-              )}
-            </h3>
+            Password{" "}
+            {formik.touched.password && formik.errors.password && (
+              <span className="text-sm text-red-600">*</span>
+            )}
             <button
               type="button"
               className="mr-2"

@@ -63,9 +63,9 @@ export default function ProfileEdition() {
           >
             <BackSvg />
           </button>
-          <h3 className="mr-6 text-center font-spartan text-xl font-semibold">
+          <h1 className="mr-6 text-center font-spartan text-xl font-semibold">
             Edit Profile
-          </h3>
+          </h1>
         </div>
       </header>
       <div className="flex flex-col lg:w-2/5 lg:self-center">

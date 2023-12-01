@@ -61,12 +61,12 @@ export default function Profile() {
           />
           <div className="flex w-[calc(100%-2.5rem)] items-center justify-between dark:text-dust-0">
             <div>
-              <h3 className="text-lg font-semibold">{profile?.username}</h3>
-              <h3 className="text-xs italic">
+              <h1 className="text-lg font-semibold">{profile?.username}</h1>
+              <h2 className="text-xs italic">
                 Shared mood{" "}
                 <span className="font-semibold">{postList?.length}</span> time
                 {postList?.length > 1 && "s"}.
-              </h3>
+              </h2>
             </div>
             {username ? (
               <FollowAction
