@@ -19,9 +19,9 @@ export default function ThemeSwitcher({ isShow, setIsShow }) {
           onClick={() => setIsShow({ appTheme: !isShow.appTheme })}
           className="h-fit w-full"
         >
-          <h3 className="text-left text-sm font-semibold text-cobble-0 dark:text-dust-0">
+          <h2 className="text-left text-sm font-semibold text-cobble-0 dark:text-dust-0">
             Instagif Theme Switcher
-          </h3>
+          </h2>
         </button>
         <button
           type="button"

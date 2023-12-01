@@ -32,13 +32,13 @@ export default function ForgotForm({ setForm }) {
         onSubmit={formik.handleSubmit}
         className="flex flex-col gap-4 lg:gap-5"
       >
-        <h3 className="font-spartan text-2xl font-semibold">
+        <h1 className="font-spartan text-2xl font-semibold">
           Forgot Password ?
-        </h3>
-        <h6 className="-mt-4 w-5/6 text-xs italic lg:-mt-6">
+        </h1>
+        <h2 className="-mt-4 w-5/6 text-xs italic lg:-mt-6">
           Type your email and you'll receive an email with a link to reset your
           password.
-        </h6>
+        </h2>
         <div className="flex flex-col">
           <label htmlFor="email" className="mb-2 ml-1 text-sm">
             Email{" "}

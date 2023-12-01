@@ -24,9 +24,9 @@ export default function DeletePostModal({ post, setIsShow }) {
   return (
     <div className="flex h-screen w-screen flex-col justify-between rounded-lg lg:w-fit">
       <div className="m-auto text-center">
-        <h3 className="text-lg font-semibold text-dust-0 lg:text-xl">
+        <h1 className="text-lg font-semibold text-dust-0 lg:text-xl">
           Are you sure ?
-        </h3>
+        </h1>
         <div className="my-4 -mt-1 flex h-full items-center justify-center gap-4 lg:-mt-4">
           <button
             type="button"

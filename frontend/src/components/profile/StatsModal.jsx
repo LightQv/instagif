@@ -34,9 +34,9 @@ export default function StatsModal({
   return (
     <ul className="m-4 w-full rounded-lg bg-dust-0 lg:w-2/5">
       <div className="flex w-full justify-between px-4 pt-4">
-        <h3 className="font-bold">
+        <h1 className="font-bold">
           {data.charAt(0).toUpperCase() + data.slice(1)}
-        </h3>
+        </h1>
         <button type="button" onClick={() => setIsShow(false)}>
           <ExitSvg />
         </button>
@@ -44,7 +44,7 @@ export default function StatsModal({
       {users &&
         users.map((u) => (
           <li className="flex h-fit w-full items-center justify-between border-b-[1px] border-sand-0 p-4 last:border-none dark:border-granite-0 dark:text-dust-0">
-            <Link to={`/${u.username}`} className="">
+            <Link to={`/profile/${u.username}`} className="">
               <section className="flex items-center gap-2">
                 <img
                   src={u?.avatar}
@@ -55,7 +55,7 @@ export default function StatsModal({
                   }`}
                 />
                 <div className="flex h-full flex-col justify-center">
-                  <h3 className="text-base font-semibold">{u.username}</h3>
+                  <h2 className="text-base font-semibold">{u.username}</h2>
                 </div>
               </section>
             </Link>

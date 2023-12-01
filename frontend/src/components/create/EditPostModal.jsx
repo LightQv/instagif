@@ -52,9 +52,9 @@ export default function EditPostModal({ post, setIsShow }) {
               <LightSvg />
             </div>
             <div className="w-11/12">
-              <h3 className="text-xs font-semibold italic">
+              <h1 className="text-xs font-semibold italic">
                 You can change the Title here.
-              </h3>
+              </h1>
               <p className="text-xs font-semibold italic">
                 To change the GIF, you need to delete this post and create a new
                 one.

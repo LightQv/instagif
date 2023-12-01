@@ -27,14 +27,14 @@ export default function UserCard({ u, setSendFollow }) {
             }`}
           />
           <div className="flex h-full flex-col justify-center">
-            <h3 className="text-base font-semibold">{u.username}</h3>
+            <h2 className="text-base font-semibold">{u.username}</h2>
             <section className="flex gap-3">
               <div className="flex items-center gap-1">
-                <h6 className="text-xs">Follower{u._count.posts > 1 && "s"}</h6>
+                <h3 className="text-xs">Follower{u._count.posts > 1 && "s"}</h3>
                 <p className="text-sm font-semibold">{u._count.followedBy}</p>
               </div>
               <div className="flex items-center gap-1">
-                <h6 className="text-xs">Following</h6>
+                <h3 className="text-xs">Following</h3>
                 <p className="text-sm font-semibold">{u._count.following}</p>
               </div>
             </section>

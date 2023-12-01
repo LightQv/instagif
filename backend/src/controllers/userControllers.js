@@ -23,6 +23,7 @@ const browse = async (req, res) => {
       where: {
         username: {
           startsWith: req.query.username,
+          mode: "insensitive",
         },
       },
     });
