@@ -82,6 +82,7 @@ export default function CreatePostModal({ selectedGif, setIsShow }) {
       )}
       <button
         type="button"
+        aria-label="exit"
         className="mr-2 mt-2 self-end text-dust-0 transition-all hover:scale-110 hover:text-sand-0"
         onClick={() => setIsShow(false)}
       >
