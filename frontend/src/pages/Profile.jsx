@@ -68,7 +68,7 @@ export default function Profile() {
                 {postList?.length > 1 && "s"}.
               </h2>
             </div>
-            {username ? (
+            {username && profile && followerList ? (
               <FollowAction
                 profile={profile}
                 followerList={followerList}
@@ -80,6 +80,7 @@ export default function Profile() {
               <Link to="/my-profile/settings">
                 <button
                   type="button"
+                  aria-label="settings"
                   className="ml-auto transition-all hover:scale-110 hover:text-granite-0"
                 >
                   <SettingsSvg />
@@ -92,6 +93,7 @@ export default function Profile() {
           <Link to="/my-profile/edit">
             <button
               type="button"
+              aria-label="edit"
               className="h-10 w-full rounded-md bg-cobble-0 py-1 text-sm font-semibold text-dust-0 transition-all hover:scale-[1.01] hover:bg-granite-0 dark:bg-granite-0 dark:text-sand-0"
             >
               Edit profile
@@ -99,14 +101,17 @@ export default function Profile() {
           </Link>
         )}
         <div className="flex h-fit w-full justify-evenly">
-          <FollowersCount
-            profile={profile}
-            setFollowerList={setFollowerList}
-            sendFollow={sendFollow}
-            setSendFollow={setSendFollow}
-            setIsShow={setIsShow}
-          />
+          {profile && (
+            <FollowersCount
+              profile={profile}
+              setFollowerList={setFollowerList}
+              sendFollow={sendFollow}
+              setSendFollow={setSendFollow}
+              setIsShow={setIsShow}
+            />
+          )}
           {statsType &&
+            profile &&
             statsType.map((stat) => (
               <StatsCount
                 key={stat.id}

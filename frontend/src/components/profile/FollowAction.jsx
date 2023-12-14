@@ -47,6 +47,7 @@ export default function FollowAction({
   return (
     <button
       type="button"
+      aria-label="follow unfollow"
       className={`flex h-fit ${width} items-center justify-center space-x-1 rounded-md p-2 ${textSize} transition-all
       ${
         !userIsFollowed
@@ -73,7 +74,7 @@ export default function FollowAction({
 
 FollowAction.propTypes = {
   profile: PropTypes.shape().isRequired,
-  followerList: PropTypes.shape().isRequired,
+  followerList: PropTypes.arrayOf(PropTypes.shape()).isRequired,
   setSendFollow: PropTypes.func.isRequired,
   width: PropTypes.string.isRequired,
   textSize: PropTypes.string.isRequired,

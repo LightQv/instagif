@@ -25,6 +25,7 @@ export default function ProfileSettings() {
         <div className="h-fit w-full">
           <button
             type="button"
+            aria-label="back"
             className="float-left transition-all hover:scale-110 hover:text-granite-0"
             onClick={() => navigate("/my-profile")}
           >
@@ -43,6 +44,7 @@ export default function ProfileSettings() {
         <div className="px-6">
           <button
             type="button"
+            aria-label="logout"
             onClick={logout}
             className="h-10 w-full rounded-md bg-cobble-0 py-1 text-sm font-semibold text-dust-0 transition-all hover:scale-[1.01] hover:bg-granite-0 dark:bg-granite-0 dark:text-sand-0"
           >
@@ -52,6 +54,7 @@ export default function ProfileSettings() {
         <div className="px-6">
           <button
             type="button"
+            aria-label="delete account"
             onClick={() => setIsShow({ deleteModal: true })}
             className="h-10 w-full rounded-md bg-red-800 py-1 text-sm font-semibold text-dust-0 transition-all hover:scale-[1.01] hover:bg-red-600"
           >

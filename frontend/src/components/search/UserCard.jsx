@@ -15,7 +15,7 @@ export default function UserCard({ u, setSendFollow }) {
   }
 
   return (
-    <li className="flex h-fit w-full items-center justify-between border-b-[1px] border-sand-0 p-4 dark:border-granite-0 dark:text-dust-0">
+    <li className="flex h-fit w-full items-center justify-between border-b-[1px] border-sand-0 py-4 dark:border-granite-0 dark:text-dust-0">
       <Link to={getProfilLink(u)} className="">
         <section className="flex items-center gap-2">
           <img

@@ -68,6 +68,7 @@ export default function CreatePost() {
         <div className="h-fit w-full">
           <button
             type="button"
+            aria-label="back"
             className="float-left w-6 transition-all hover:scale-110 hover:text-granite-0"
             onClick={() => navigate(-1)}
           >
@@ -95,6 +96,7 @@ export default function CreatePost() {
           />
           <button
             type="button"
+            aria-label="change gif type"
             onClick={() => changeDisplay()}
             className="rounded-md bg-white px-4 py-2 transition-all hover:scale-110 hover:text-granite-0 dark:bg-granite-0 dark:text-sand-0"
           >
@@ -111,6 +113,7 @@ export default function CreatePost() {
                   setLoading={setLoading}
                   setIsShow={setIsShow}
                   setSelectedGif={setSelectedGif}
+                  key={gif.id}
                 />
               ))
             : trending &&
@@ -121,6 +124,7 @@ export default function CreatePost() {
                   setLoading={setLoading}
                   setIsShow={setIsShow}
                   setSelectedGif={setSelectedGif}
+                  key={gif.id}
                 />
               ))}
         </ul>

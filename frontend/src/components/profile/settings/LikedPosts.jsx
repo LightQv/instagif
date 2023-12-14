@@ -50,6 +50,7 @@ export default function LikedPosts({ isShow, setIsShow }) {
       <div className="flex w-full items-center justify-between px-6 py-1 ">
         <button
           type="button"
+          aria-label="liked post"
           onClick={() => setIsShow({ likedPosts: !isShow.likedPosts })}
           className="h-fit w-full"
         >
@@ -59,6 +60,7 @@ export default function LikedPosts({ isShow, setIsShow }) {
         </button>
         <button
           type="button"
+          aria-label="show more"
           onClick={() => setIsShow({ likedPosts: !isShow.likedPosts })}
           className={
             isShow.likedPosts
@@ -74,6 +76,7 @@ export default function LikedPosts({ isShow, setIsShow }) {
           <div className="flex h-fit w-full justify-between gap-2 px-6">
             <button
               type="button"
+              aria-label="filter"
               onClick={() => setFilter("desc")}
               className={`flex h-fit w-2/4 items-center justify-center rounded-md p-2 text-sm font-semibold transition-all
                 ${
@@ -87,6 +90,7 @@ export default function LikedPosts({ isShow, setIsShow }) {
             </button>
             <button
               type="button"
+              aria-label="filter"
               onClick={() => setFilter("asc")}
               className={`flex h-fit w-2/4 items-center justify-center rounded-md p-2 text-sm font-semibold transition-all
                 ${

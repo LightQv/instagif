@@ -165,11 +165,13 @@ export default function PostBox({ post, showEmojis, setShowEmojis }) {
                     {likesCount[0]._count}
                   </p>
                 )}
-                <LikeAction
-                  post={post}
-                  likes={likes}
-                  setSendLike={setSendLike}
-                />
+                {likes && (
+                  <LikeAction
+                    post={post}
+                    likes={likes}
+                    setSendLike={setSendLike}
+                  />
+                )}
               </div>
             </div>
             <p className="-mt-2 text-lg font-bold dark:text-dust-0">
@@ -183,6 +185,7 @@ export default function PostBox({ post, showEmojis, setShowEmojis }) {
               <button
                 key={feeling.emoji}
                 type="button"
+                aria-label="share feelings"
                 onClick={() => handleFeeling(feeling)}
                 className={`flex w-fit items-center gap-2 rounded-md bg-sand-0 p-2 transition-all hover:scale-105 hover:grayscale-0 dark:bg-granite-0 ${
                   feelings?.some(
@@ -206,15 +209,17 @@ export default function PostBox({ post, showEmojis, setShowEmojis }) {
               </button>
             ))}
           <div>
-            <FeelingAction
-              post={post}
-              feelings={feelings}
-              setSendFeeling={setSendFeeling}
-              showEmojis={showEmojis}
-              setShowEmojis={setShowEmojis}
-              gifRef={gifRef}
-              headerRef={headerRef}
-            />
+            {feelings && (
+              <FeelingAction
+                post={post}
+                feelings={feelings}
+                setSendFeeling={setSendFeeling}
+                showEmojis={showEmojis}
+                setShowEmojis={setShowEmojis}
+                gifRef={gifRef}
+                headerRef={headerRef}
+              />
+            )}
           </div>
         </ul>
       </div>

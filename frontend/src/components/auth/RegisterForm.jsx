@@ -110,6 +110,7 @@ export default function RegisterForm({ setForm }) {
             )}
             <button
               type="button"
+              aria-label="show password"
               className="mr-2"
               onClick={() =>
                 setShowPassword({
@@ -150,6 +151,7 @@ export default function RegisterForm({ setForm }) {
               )}
             <button
               type="button"
+              aria-label="show password"
               className="mr-2"
               onClick={() =>
                 setShowPassword({
@@ -180,6 +182,7 @@ export default function RegisterForm({ setForm }) {
         </div>
         <button
           type="submit"
+          aria-label="submit"
           className="mt-2 h-fit w-full rounded-md bg-dust-0 bg-red-800 px-4 py-2 text-base font-semibold text-dust-0 disabled:bg-gray-300 disabled:text-gray-800"
           onSubmit={formik.handleSubmit}
           disabled={!registerSchema.isValidSync(formik.values)}
@@ -190,6 +193,7 @@ export default function RegisterForm({ setForm }) {
       <div className="mt-4 flex w-full items-center justify-between">
         <button
           type="button"
+          aria-label="go login"
           className="font-spartan text-sm underline underline-offset-8"
           onClick={() =>
             setForm({ login: true, register: false, forgotten: false })

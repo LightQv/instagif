@@ -34,6 +34,7 @@ export default function StatsCount({
   return (
     <button
       type="button"
+      aria-label="show stats count"
       className={`flex flex-col items-center justify-center dark:text-dust-0 ${
         data === "followers" || data === "follows"
           ? "cursor-pointer hover:text-granite-0"

@@ -41,7 +41,7 @@ export default function NavBar() {
       inactive: <PostSvg />,
     },
     {
-      id: 3,
+      id: 4,
       label: "Profile",
       link: "/my-profile",
       active: <ActiveProfileSvg />,
@@ -72,7 +72,7 @@ export default function NavBar() {
                     </p>
                   </>
                 ) : (
-                  <div className="transition-all hover:scale-105 hover:text-granite-0 dark:hover:text-sand-0 lg:flex lg:items-center lg:gap-2">
+                  <div className="transition-all hover:text-granite-0 dark:hover:text-sand-0 lg:flex lg:items-center lg:gap-2">
                     {nav.inactive}
                     <p className="hidden lg:block lg:text-base lg:font-normal lg:dark:text-sand-0">
                       {nav.label}
@@ -88,7 +88,7 @@ export default function NavBar() {
         <div className="hidden lg:mt-auto lg:block lg:w-full lg:items-start">
           <NavLink
             to="/my-profile/settings"
-            className="flex gap-2 transition-all hover:scale-105 hover:text-granite-0 dark:text-sand-0 dark:hover:text-sand-0"
+            className="flex gap-2 transition-all hover:text-granite-0 dark:text-sand-0 dark:hover:text-sand-0"
           >
             <SettingsSvg />
             <p className="text-base font-normal">Settings</p>

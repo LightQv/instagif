@@ -162,6 +162,7 @@ export default function ChangeAvatar({
         Click on your avatar to change it or{" "}
         <button
           type="button"
+          aria-label="delete avatar"
           className="font-semibold text-red-800"
           onClick={() => deleteAvatar()}
         >

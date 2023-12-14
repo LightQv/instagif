@@ -44,6 +44,7 @@ export default function ChangeMail({ isShow, setIsShow }) {
       <div className="flex w-full items-center justify-between px-6 py-1 dark:text-dust-0">
         <button
           type="button"
+          aria-label="change password"
           onClick={() => setIsShow({ changePw: !isShow.changePw })}
           className="h-fit w-full"
         >
@@ -53,6 +54,7 @@ export default function ChangeMail({ isShow, setIsShow }) {
         </button>
         <button
           type="button"
+          aria-label="show more"
           onClick={() => setIsShow({ changePw: !isShow.changePw })}
           className={
             isShow.changePw
@@ -80,6 +82,7 @@ export default function ChangeMail({ isShow, setIsShow }) {
               )}
               <button
                 type="button"
+                aria-label="show password"
                 className="mr-1"
                 onClick={() =>
                   setShowPassword({
@@ -118,6 +121,7 @@ export default function ChangeMail({ isShow, setIsShow }) {
                 )}
               <button
                 type="button"
+                aria-label="show password"
                 className="mr-1"
                 onClick={() =>
                   setShowPassword({
@@ -153,6 +157,7 @@ export default function ChangeMail({ isShow, setIsShow }) {
           </div>
           <button
             type="submit"
+            aria-label="submit"
             onSubmit={formik.handleSubmit}
             disabled={!editPwSchema.isValidSync(formik.values)}
             className="h-fit w-full rounded-md bg-dust-0 bg-red-800 px-4 py-2 text-sm font-semibold text-white disabled:bg-gray-300 disabled:text-gray-800"
