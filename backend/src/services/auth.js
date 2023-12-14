@@ -52,6 +52,10 @@ const verifyPassword = (req, res) => {
           .cookie("access_token", token, {
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",
+            domain:
+              process.env.NODE_ENV === "production"
+                ? ".vercel.app"
+                : ".localhost",
             path: "/",
             maxAge: 30 * 24 * 60 * 60 * 1000,
             sameSite: "none",
@@ -86,6 +90,8 @@ const logout = (req, res) => {
     .clearCookie("access_token", req.cookies.access_token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
+      domain:
+        process.env.NODE_ENV === "production" ? ".vercel.app" : ".localhost",
       path: "/",
       sameSite: "none",
     })
