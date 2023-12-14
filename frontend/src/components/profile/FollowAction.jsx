@@ -73,7 +73,7 @@ export default function FollowAction({
 
 FollowAction.propTypes = {
   profile: PropTypes.shape().isRequired,
-  followerList: PropTypes.shape().isRequired,
+  followerList: PropTypes.arrayOf(PropTypes.shape()).isRequired,
   setSendFollow: PropTypes.func.isRequired,
   width: PropTypes.string.isRequired,
   textSize: PropTypes.string.isRequired,

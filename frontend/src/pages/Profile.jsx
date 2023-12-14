@@ -68,7 +68,7 @@ export default function Profile() {
                 {postList?.length > 1 && "s"}.
               </h2>
             </div>
-            {username ? (
+            {username && profile && followerList ? (
               <FollowAction
                 profile={profile}
                 followerList={followerList}
@@ -99,14 +99,17 @@ export default function Profile() {
           </Link>
         )}
         <div className="flex h-fit w-full justify-evenly">
-          <FollowersCount
-            profile={profile}
-            setFollowerList={setFollowerList}
-            sendFollow={sendFollow}
-            setSendFollow={setSendFollow}
-            setIsShow={setIsShow}
-          />
+          {profile && (
+            <FollowersCount
+              profile={profile}
+              setFollowerList={setFollowerList}
+              sendFollow={sendFollow}
+              setSendFollow={setSendFollow}
+              setIsShow={setIsShow}
+            />
+          )}
           {statsType &&
+            profile &&
             statsType.map((stat) => (
               <StatsCount
                 key={stat.id}

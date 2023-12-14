@@ -58,6 +58,6 @@ export default function LikeAction({ post, likes, setSendLike }) {
 
 LikeAction.propTypes = {
   post: PropTypes.shape().isRequired,
-  likes: PropTypes.shape().isRequired,
+  likes: PropTypes.arrayOf(PropTypes.shape()).isRequired,
   setSendLike: PropTypes.func.isRequired,
 };
