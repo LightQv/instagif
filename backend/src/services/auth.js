@@ -54,7 +54,7 @@ const verifyPassword = (req, res) => {
             secure: process.env.NODE_ENV === "production",
             domain:
               process.env.NODE_ENV === "production"
-                ? ".vercel.app"
+                ? process.env.DOMAIN_URL
                 : ".localhost",
             path: "/",
             maxAge: 30 * 24 * 60 * 60 * 1000,
@@ -91,7 +91,9 @@ const logout = (req, res) => {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       domain:
-        process.env.NODE_ENV === "production" ? ".vercel.app" : ".localhost",
+        process.env.NODE_ENV === "production"
+          ? process.env.DOMAIN_URL
+          : ".localhost",
       path: "/",
       sameSite: "none",
     })
