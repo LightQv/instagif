@@ -37,7 +37,11 @@ export default function StatsModal({
         <h1 className="font-bold">
           {data.charAt(0).toUpperCase() + data.slice(1)}
         </h1>
-        <button type="button" onClick={() => setIsShow(false)}>
+        <button
+          type="button"
+          aria-label="exit"
+          onClick={() => setIsShow(false)}
+        >
           <ExitSvg />
         </button>
       </div>

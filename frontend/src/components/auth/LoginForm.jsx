@@ -90,6 +90,7 @@ export default function LoginForm({ setForm }) {
             )}
             <button
               type="button"
+              aria-label="show password"
               className="mr-2"
               onClick={() => setShowPassword(!showPassword)}
             >
@@ -115,6 +116,7 @@ export default function LoginForm({ setForm }) {
         </div>
         <button
           type="submit"
+          aria-label="submit"
           className="mt-2 h-fit w-full rounded-md bg-dust-0 bg-red-800 px-4 py-2 text-base font-semibold text-dust-0 disabled:bg-gray-300 disabled:text-gray-800"
           onSubmit={formik.handleSubmit}
           disabled={!loginSchema.isValidSync(formik.values)}
@@ -125,6 +127,7 @@ export default function LoginForm({ setForm }) {
       <div className="mt-4 flex w-full items-center justify-between">
         <button
           type="button"
+          aria-label="go register"
           className="font-spartan text-sm underline underline-offset-8"
           onClick={() =>
             setForm({ login: false, register: true, forgotten: false })

@@ -58,6 +58,7 @@ export default function ProfileEdition() {
         <div className="h-fit w-full">
           <button
             type="button"
+            aria-label="back"
             className="float-left transition-all hover:scale-110 hover:text-granite-0"
             onClick={() => navigate(-1)}
           >
@@ -116,6 +117,7 @@ export default function ProfileEdition() {
           </div>
           <button
             type="submit"
+            aria-label="submit"
             onSubmit={formik.handleSubmit}
             disabled={
               !editProfileSchema.isValidSync(formik.values) ||

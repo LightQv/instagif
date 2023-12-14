@@ -43,6 +43,7 @@ export default function ChangeMail({ isShow, setIsShow }) {
       <div className="flex w-full items-center justify-between px-6 py-1 dark:text-dust-0">
         <button
           type="button"
+          aria-label="change email"
           onClick={() => setIsShow({ changeMail: !isShow.changeMail })}
           className="h-fit w-full"
         >
@@ -52,6 +53,7 @@ export default function ChangeMail({ isShow, setIsShow }) {
         </button>
         <button
           type="button"
+          aria-label="show more"
           onClick={() => setIsShow({ changeMail: !isShow.changeMail })}
           className={
             isShow.changeMail
@@ -97,6 +99,7 @@ export default function ChangeMail({ isShow, setIsShow }) {
           </div>
           <button
             type="submit"
+            aria-label="submit"
             onSubmit={formik.handleSubmit}
             disabled={
               !editMailSchema.isValidSync(formik.values) ||

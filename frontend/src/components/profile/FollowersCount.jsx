@@ -31,6 +31,7 @@ export default function FollowersCount({
   return (
     <button
       type="button"
+      aria-label="show follow count"
       className="flex flex-col items-center justify-center hover:text-granite-0 dark:text-dust-0"
       onClick={() => setIsShow({ followers: true })}
     >

@@ -39,7 +39,7 @@ export default function GifInsight({
   };
 
   return (
-    <li key={data.id} className="h-full w-full">
+    <li className="h-full w-full">
       <div
         className="flex h-[50dvw] w-full items-center justify-center rounded-md border-[1px] border-sand-0 lg:h-60"
         style={{ display: loading ? "flex" : "none" }}

@@ -37,6 +37,7 @@ export default function DeleteAccountModal({ setIsShow }) {
       <div className="flex h-fit items-center justify-center gap-4 lg:-mt-4">
         <button
           type="button"
+          aria-label="delete"
           className="h-fit w-24 self-center rounded-md border-2 border-red-800 bg-red-800 py-2 text-sm font-semibold text-dust-0 shadow-lg transition-all hover:border-red-300 hover:bg-red-300 lg:mt-8"
           onClick={handleDelete}
         >
@@ -44,6 +45,7 @@ export default function DeleteAccountModal({ setIsShow }) {
         </button>
         <button
           type="button"
+          aria-label="cancel"
           className="h-fit w-24 self-center rounded-md border-2 border-cobble-0 bg-cobble-0 py-2 text-sm font-semibold text-dust-0 shadow-lg transition-all hover:border-slate-300 hover:bg-slate-300 dark:border-granite-0 dark:bg-granite-0 dark:text-sand-0 lg:mt-8"
           onClick={() => setIsShow({ deleteModal: false })}
         >
