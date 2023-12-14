@@ -54,6 +54,7 @@ const verifyPassword = (req, res) => {
             secure: process.env.NODE_ENV === "production",
             path: "/",
             maxAge: 30 * 24 * 60 * 60 * 1000,
+            sameSite: "none",
           })
           .send(req.user);
       } else res.sendStatus(401);
