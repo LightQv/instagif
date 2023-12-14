@@ -27,6 +27,7 @@ export default function AvatarPreview({ newAvatar, setNewAvatar, setSend }) {
         <div className="my-4 -mt-1 flex h-full items-center justify-center gap-4 lg:-mt-4">
           <button
             type="button"
+            aria-label="change"
             className="h-fit w-24 self-center rounded-md border-2 border-red-800 bg-red-800 py-2 text-sm font-semibold text-dust-0 shadow-lg transition-all hover:border-red-300 hover:bg-red-300 lg:mt-8"
             onClick={() => setSend(true)}
           >
@@ -34,6 +35,7 @@ export default function AvatarPreview({ newAvatar, setNewAvatar, setSend }) {
           </button>
           <button
             type="button"
+            aria-label="cancel"
             className="h-fit w-24 self-center rounded-md border-2 border-dust-0 bg-dust-0 py-2 text-sm font-semibold text-cobble-0 shadow-lg transition-all hover:border-slate-300 hover:bg-slate-300 lg:mt-8"
             onClick={() => setNewAvatar(null)}
           >

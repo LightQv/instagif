@@ -48,6 +48,7 @@ export default function LikeAction({ post, likes, setSendLike }) {
   return (
     <button
       type="button"
+      aria-label="like action"
       className="hover:text-granite-0"
       onClick={() => handleLike()}
     >

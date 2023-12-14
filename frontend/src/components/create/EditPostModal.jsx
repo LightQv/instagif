@@ -40,6 +40,7 @@ export default function EditPostModal({ post, setIsShow }) {
     <div className="flex h-screen w-screen flex-col justify-between rounded-lg lg:w-fit">
       <button
         type="button"
+        aria-label="exit"
         className="mr-2 mt-2 self-end text-dust-0"
         onClick={() => setIsShow(false)}
       >
@@ -91,6 +92,7 @@ export default function EditPostModal({ post, setIsShow }) {
         <div className="flex h-fit w-full gap-2 p-4 transition-all">
           <button
             type="button"
+            aria-label="help"
             onClick={() => setShowHelp(!showHelp)}
             className="flex h-10 w-2/12 items-center justify-center rounded-md bg-dust-0 py-2 text-sm font-semibold text-cobble-0"
           >
@@ -98,6 +100,7 @@ export default function EditPostModal({ post, setIsShow }) {
           </button>
           <button
             type="submit"
+            aria-label="edit"
             onSubmit={formik.handleSubmit}
             disabled={
               !addPostSchema.isValidSync(formik.values) ||

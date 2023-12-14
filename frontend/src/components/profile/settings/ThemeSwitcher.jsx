@@ -16,6 +16,7 @@ export default function ThemeSwitcher({ isShow, setIsShow }) {
       <div className="flex w-full items-center justify-between px-6 py-1">
         <button
           type="button"
+          aria-label="theme switch"
           onClick={() => setIsShow({ appTheme: !isShow.appTheme })}
           className="h-fit w-full"
         >
@@ -25,6 +26,7 @@ export default function ThemeSwitcher({ isShow, setIsShow }) {
         </button>
         <button
           type="button"
+          aria-label="show more"
           onClick={() => setIsShow({ appTheme: !isShow.appTheme })}
           className={
             isShow.appTheme
@@ -39,6 +41,7 @@ export default function ThemeSwitcher({ isShow, setIsShow }) {
         <div className="flex h-fit w-full justify-between gap-2 px-6">
           <button
             type="button"
+            aria-label="light theme"
             onClick={() => setTheme("light")}
             className={`flex h-fit items-center justify-center rounded-md p-2 text-sm font-semibold transition-all
             ${
@@ -52,6 +55,7 @@ export default function ThemeSwitcher({ isShow, setIsShow }) {
           </button>
           <button
             type="button"
+            aria-label="dark theme"
             onClick={() => setTheme("dark")}
             className={`flex h-fit items-center justify-center rounded-md p-2 text-sm font-semibold transition-all
             ${
@@ -65,6 +69,7 @@ export default function ThemeSwitcher({ isShow, setIsShow }) {
           </button>
           <button
             type="button"
+            aria-label="system theme"
             onClick={() => setTheme("system")}
             className={`flex h-fit items-center justify-center rounded-md p-2 text-sm font-semibold transition-all
             ${

@@ -185,6 +185,7 @@ export default function PostBox({ post, showEmojis, setShowEmojis }) {
               <button
                 key={feeling.emoji}
                 type="button"
+                aria-label="share feelings"
                 onClick={() => handleFeeling(feeling)}
                 className={`flex w-fit items-center gap-2 rounded-md bg-sand-0 p-2 transition-all hover:scale-105 hover:grayscale-0 dark:bg-granite-0 ${
                   feelings?.some(

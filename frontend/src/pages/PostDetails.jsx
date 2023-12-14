@@ -40,7 +40,7 @@ export default function PostDetails() {
       }`}
     >
       <header className="flex h-12 w-full items-center justify-between bg-dust-0 px-6 dark:bg-cobble-0 lg:hidden">
-        <button type="button" onClick={() => navigate(-1)}>
+        <button type="button" aria-label="back" onClick={() => navigate(-1)}>
           <BackSvg />
         </button>
         <NotificationSvg />
@@ -49,6 +49,7 @@ export default function PostDetails() {
         <div className="my-4 flex gap-2 px-4 lg:w-2/6 lg:self-center">
           <button
             type="button"
+            aria-label="edit"
             className="h-10 w-full rounded-md bg-cobble-0 py-1 text-sm font-semibold text-dust-0 transition-all hover:scale-[1.03] hover:bg-granite-0 dark:bg-granite-0 dark:text-sand-0"
             onClick={() => setIsShow({ editModal: true })}
           >
@@ -56,6 +57,7 @@ export default function PostDetails() {
           </button>
           <button
             type="button"
+            aria-label="delete"
             className="h-10 w-full rounded-md bg-cobble-0 py-1 text-sm font-semibold text-dust-0 transition-all hover:scale-[1.03] hover:bg-granite-0 dark:bg-granite-0 dark:text-sand-0"
             onClick={() => setIsShow({ deleteModal: true })}
           >

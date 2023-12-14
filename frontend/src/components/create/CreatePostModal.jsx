@@ -96,6 +96,7 @@ export default function CreatePostModal({ selectedGif, setIsShow }) {
           <div className="h-fit w-full p-4">
             <button
               type="button"
+              aria-label="next"
               onClick={() => setSteps({ gifView: false, addTitle: true })}
               className="flex h-10 w-full items-center justify-center rounded-md bg-dust-0 py-2 text-sm font-semibold text-cobble-0 transition-all hover:scale-[1.03] hover:bg-sand-0 dark:bg-granite-0 dark:text-sand-0"
             >
@@ -135,6 +136,7 @@ export default function CreatePostModal({ selectedGif, setIsShow }) {
           <div className="flex h-fit w-full gap-2 p-4 transition-all">
             <button
               type="button"
+              aria-label="back"
               className="flex h-10 w-1/5 items-center justify-center rounded-md bg-dust-0 py-2 text-sm font-semibold text-cobble-0 transition-all hover:scale-[1.03] hover:bg-sand-0 dark:bg-granite-0 dark:text-sand-0"
               onClick={() => setSteps({ gifView: true, addTitle: false })}
             >
@@ -142,6 +144,7 @@ export default function CreatePostModal({ selectedGif, setIsShow }) {
             </button>
             <button
               type="submit"
+              aria-label="share"
               onSubmit={formik.handleSubmit}
               disabled={!addPostSchema.isValidSync(formik.values)}
               className="flex h-10 w-4/5 items-center justify-center rounded-md bg-red-800 py-2 text-sm font-semibold text-dust-0 transition-all hover:scale-[1.03] hover:bg-red-600 disabled:bg-gray-300 disabled:text-gray-800 disabled:hover:scale-100 dark:bg-granite-0 dark:text-sand-0"

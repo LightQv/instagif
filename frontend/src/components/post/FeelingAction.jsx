@@ -69,6 +69,7 @@ export default function FeelingAction({
     <>
       <button
         type="button"
+        aria-label="emoji panel"
         className="relative flex h-fit w-fit items-center gap-1 rounded-md bg-sand-0 p-2 outline outline-1 outline-sand-0 hover:text-granite-0 dark:bg-granite-0 dark:text-sand-0"
         onClick={() => handleEmojisPanel()}
       >

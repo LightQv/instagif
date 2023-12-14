@@ -45,6 +45,7 @@ export default function Search() {
         <div className="h-fit w-full">
           <button
             type="button"
+            aria-label="back"
             className="float-left w-6 transition-all hover:scale-110 hover:text-granite-0"
             onClick={() => navigate(-1)}
           >
