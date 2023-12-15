@@ -135,14 +135,23 @@ export default function PostBox({ post, showEmojis, setShowEmojis }) {
       <div className="px-4 pb-8 pt-2 lg:pb-8" ref={headerRef}>
         <div className="flex w-full items-center justify-start gap-2">
           <Link to={getProfilLink()}>
-            <img
-              src={post?.user.avatar}
-              alt={post?.user.username.slice(0, 1).toUpperCase()}
-              className={`flex h-10 w-10 items-center justify-center self-start rounded-full object-cover ${
-                !post?.user.avatar &&
-                "bg-cobble-0 text-lg text-dust-0 dark:bg-sand-0 dark:text-cobble-0"
-              }`}
-            />
+            {post?.user.avatar ? (
+              <img
+                src={post?.user.avatar}
+                alt={post?.user.username.slice(0, 1).toUpperCase()}
+                className={`flex h-10 w-10 items-center justify-center self-start rounded-full object-cover ${
+                  !post?.user.avatar &&
+                  "bg-cobble-0 text-lg text-dust-0 dark:bg-sand-0 dark:text-cobble-0"
+                }`}
+              />
+            ) : (
+              <div
+                className={`flex h-10 w-10 items-center justify-center self-start rounded-full bg-cobble-0 object-cover text-lg text-dust-0 dark:bg-sand-0 dark:text-cobble-0
+                `}
+              >
+                {post?.user.username.slice(0, 1).toUpperCase()}
+              </div>
+            )}
           </Link>
           <div className="mt-1 w-[calc(100%-2.5rem)]">
             <div className="flex items-center justify-between">
