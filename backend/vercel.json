@@ -1,6 +1,10 @@
 {
   "version": 2,
   "builds": [{ "src": "./index.js", "use": "@vercel/node" }],
+  "headers": {
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true"
+  },
   "rewrites": [
     { "source": "/api/", "destination": "https://insta-gif.vercel.com/api" },
     {
