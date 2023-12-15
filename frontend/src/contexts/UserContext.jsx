@@ -1,5 +1,6 @@
 import { createContext, useContext, useMemo, useState } from "react";
 import PropTypes from "prop-types";
+import { useNavigate } from "react-router-dom";
 import APIService from "../services/APIService";
 
 const UserContext = createContext();
@@ -10,6 +11,7 @@ export function UserContextProvider({ children }) {
   const [user, setUser] = useState(
     JSON.parse(localStorage.getItem("user") || "{}")
   );
+  const navigate = useNavigate();
 
   const login = (_user) => {
     setUser(_user);
@@ -18,9 +20,12 @@ export function UserContextProvider({ children }) {
 
   const logout = async () => {
     try {
-      await APIService.get("/logout");
-      setUser({});
-      localStorage.removeItem("user");
+      const isLogout = await APIService.get("/logout");
+      if (isLogout) {
+        setUser({});
+        localStorage.removeItem("user");
+        navigate("/");
+      }
     } catch (error) {
       console.error(error);
     }

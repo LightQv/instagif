@@ -58,7 +58,7 @@ const verifyPassword = (req, res) => {
                 : ".localhost",
             path: "/",
             maxAge: 30 * 24 * 60 * 60 * 1000,
-            sameSite: "none",
+            sameSite: process.env.SAME_SITE,
           })
           .send(req.user);
       } else res.sendStatus(401);
@@ -95,7 +95,7 @@ const logout = (req, res) => {
           ? process.env.DOMAIN_URL
           : ".localhost",
       path: "/",
-      sameSite: "none",
+      sameSite: process.env.SAME_SITE,
     })
     .sendStatus(200);
 };
