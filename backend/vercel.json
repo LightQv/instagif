@@ -10,5 +10,17 @@
         "Access-Control-Allow-Credentials": "true"
       }
     }
+  ],
+  "rewrites": [
+    { "source": "/api/", "destination": "https://insta-gif.vercel.com/api" },
+    {
+      "source": "/api/:match*",
+      "destination": "https://insta-gif.com/api/:match*"
+    },
+    { "source": "/", "destination": "https://insta-gif.vercel.com/" },
+    {
+      "source": "/:match*",
+      "destination": "https://insta-gif.vercel.com/:match*"
+    }
   ]
 }
