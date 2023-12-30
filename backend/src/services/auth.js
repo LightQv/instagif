@@ -52,11 +52,6 @@ const verifyPassword = (req, res) => {
           .cookie("access_token", token, {
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",
-            domain:
-              process.env.NODE_ENV === "production"
-                ? process.env.DOMAIN_URL
-                : ".localhost",
-            path: "/",
             maxAge: 30 * 24 * 60 * 60 * 1000,
             sameSite: process.env.SAME_SITE,
           })
@@ -90,11 +85,6 @@ const logout = (req, res) => {
     .clearCookie("access_token", req.cookies.access_token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
-      domain:
-        process.env.NODE_ENV === "production"
-          ? process.env.DOMAIN_URL
-          : ".localhost",
-      path: "/",
       sameSite: process.env.SAME_SITE,
     })
     .sendStatus(200);
