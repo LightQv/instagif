@@ -16,7 +16,7 @@ import { useUserContext } from "../contexts/UserContext";
 
 export default function NavBar() {
   const { user } = useUserContext();
-  const { theme } = useThemeContext();
+  const { darkTheme } = useThemeContext();
 
   const navData = [
     {
@@ -53,7 +53,7 @@ export default function NavBar() {
     <nav className="fixed bottom-0 z-10 flex h-12 w-full items-center justify-evenly bg-gradient-to-b from-dust-0 via-dust-0 via-30% to-dustparent-0 dark:from-cobble-0 dark:via-cobble-0 dark:to-cobbleparent-0 lg:left-0 lg:h-full lg:w-60 lg:flex-col lg:justify-start lg:border-r-[1px] lg:border-sand-0 lg:bg-none lg:px-8 lg:py-12 lg:dark:border-granite-0 lg:dark:bg-cobble-0 lg:dark:bg-none">
       <div className="hidden lg:-ml-2 lg:mb-24 lg:block lg:h-fit lg:w-3/4 lg:self-start">
         <Link to="/" className="h-full">
-          <img src={theme === "dark" ? logoDark : logo} alt="logo" />
+          <img src={darkTheme ? logoDark : logo} alt="logo" />
         </Link>
         <div className="lg:hidden">
           <NotificationSvg />
